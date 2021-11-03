@@ -31,22 +31,6 @@ const getJabatan = gql`
   }
 `;
 
-const registerUser = gql`
-    mutation registerUser(
-    $id: Int!
-    $username: String!
-    $idJabatan: Int!
-  ) {
-    registerUser(
-      id: $id
-      username: $username
-      idJabatan: $idJabatan
-    ) {
-      username
-      passwordRaw
-    }
-  }
-`;
 const registerKaryawan = gql`
     mutation registerKaryawan(
       $id: Int 
