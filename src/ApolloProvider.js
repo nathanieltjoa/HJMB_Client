@@ -5,7 +5,8 @@ import { createUploadLink } from 'apollo-upload-client';
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql',
 });
-const uploadLink = createUploadLink({ uri: 'http://localhost:4000/graphql' });
+//const uploadLink = createUploadLink({ uri: 'http://localhost:4000/graphql' });
+const uploadLink = createUploadLink({ uri: 'http://151.106.125.203/graphql' });
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem('token');

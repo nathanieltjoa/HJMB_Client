@@ -25,6 +25,11 @@ export const SidebarDataDirektur = [
         title: 'Master Karyawan',
         path: '/direktur/karyawan/master karyawan',
         icon: <FaIcons.FaUserEdit />
+      },
+      {
+        title: 'Register Karyawan',
+        path: '/direktur/karyawan/register karyawan',
+        icon: <FaIcons.FaUserEdit />
       }
     ]
   },

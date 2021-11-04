@@ -67,7 +67,7 @@ const registerKaryawan = gql`
     }
   }
 `;
-export default function Register(props) {
+export default function RegisterKaryawanDirektur(props) {
     const[variables,setVariables] = useState({
         id: 0,
         username:'',

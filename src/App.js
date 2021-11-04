@@ -72,6 +72,7 @@ import DetailCatTegel from './pages/Laporan/Cat Tegel Detail';
 
 //direktur
 import MasterKaryawanDirektur from './pages/Direktur/Karyawan/MasterKaryawan';
+import RegisterKaryawanDirektur from './pages/Direktur/Karyawan/Daftar HRD';
 import DetailKaryawanDirektur from './pages/Direktur/Karyawan/Detail Karyawan';
 import MasterGajiDirektur from './pages/Direktur/Kontrak/MasterGaji';
 import MasterIuranDirektur from './pages/Direktur/Kontrak/MasterIuran';
@@ -175,6 +176,7 @@ function App() {
               <DynamicRoute path='/ubah password' exact component={UbahPassword} authenticated />
 
               
+              <DynamicRoute path='/direktur/karyawan/register karyawan' exact component={RegisterKaryawanDirektur} authenticated />
               <DynamicRoute path='/direktur/karyawan/master karyawan' exact component={MasterKaryawanDirektur} authenticated />
               <DynamicRoute path='/direktur/karyawan/detail karyawan' exact component={DetailKaryawanDirektur} authenticated />
               <DynamicRoute path='/direktur/kontrak/master gaji' exact component={MasterGajiDirektur} authenticated />
