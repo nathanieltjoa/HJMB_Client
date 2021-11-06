@@ -473,7 +473,7 @@ export default function MasterPembayaranGaji(props) {
     const lihatSummary = () => {
         getAbsensiKu({
             variables: {
-                parseInt(idKaryawan)
+                idKaryawan: parseInt(idKaryawan)
             }
         })
         getLemburKu({
