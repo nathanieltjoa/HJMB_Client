@@ -65,7 +65,7 @@ export default function DetailSales(props) {
                                 data.getDLaporanSales.map((laporan,index) =>(
                                     <TableRow key={index}>
                                         <TableCell component="th" scope="row" align="center">
-                                            <CImage src={!laporan.foto ? "/default.png": laporan.foto} alt="" id="img" className="img" width="150" height="150"/>
+                                            <CImage src={!laporan.foto ? "/defaultImage.png": laporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/>
                                         </TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.namaToko}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.jamMasuk}</TableCell>
@@ -86,7 +86,7 @@ export default function DetailSales(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/sales'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">

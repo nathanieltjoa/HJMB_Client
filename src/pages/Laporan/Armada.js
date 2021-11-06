@@ -240,7 +240,10 @@ export default function ProduksiPipa(props) {
     return (
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Laporan Armada</h1></Col>
+                <Col>
+                    <h1 className="text-center">Master Laporan Armada</h1>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Summary</Button>
+                </Col>
             </Row>
             <Row>
                 <Col className="col-md-4">
@@ -283,7 +286,6 @@ export default function ProduksiPipa(props) {
                             showMonthYearPicker
                         />
                     </Form.Group>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)}>Lihat Summary</Button>
                 </Col>
             </Row>
             <Row className="d-flex flex-row-reverse">
@@ -320,7 +322,7 @@ export default function ProduksiPipa(props) {
                         <Table className="tableKu" aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center">Nama Pelapor</TableCell>
+                                    <TableCell align="center">Nama Supir</TableCell>
                                     <TableCell align="center">Jumlah Pengantaran</TableCell>
                                 </TableRow>
                             </TableHead>

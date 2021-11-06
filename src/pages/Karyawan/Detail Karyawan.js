@@ -25,6 +25,8 @@ import CIcon from '@coreui/icons-react'
 
 import * as FaIcons from 'react-icons/fa';
 
+const {URL} = require('../../config/config.json')
+
 const getKaryawanKu = gql`
 query getKaryawanKu(
     $id: Int 
@@ -124,7 +126,8 @@ export default function DetailKaryawan(props) {
                     foto: location.state?.laporan.foto,
                     namaJabatan: jabatan + location.state?.laporan.jabatan.namaJabatan,
                 })
-                setImageURI(location.state?.laporan.foto)
+                const fileImage = location.state?.laporan.foto;
+                setImageURI(fileImage.replace("localhost:4000", URL))
             }else if(location.state?.laporanPermintaan !== null){
                 var laporan = location.state.laporanPermintaan;
                 setDataKu(
@@ -168,7 +171,8 @@ export default function DetailKaryawan(props) {
                 foto: laporan.foto,
                 namaJabatan: jabatan + laporan.jabatan.namaJabatan,
             })
-            setImageURI(laporan.foto)
+            const fileImage = laporan.foto;
+            setImageURI(fileImage.replace("localhost:4000", URL))
         }
     }, [data])
 
@@ -239,7 +243,7 @@ export default function DetailKaryawan(props) {
         <CContainer className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/karyawan/master karyawan'})} className="iconBack"/>
                 </Col>
             </Row>
           <CRow className="justify-content-center">

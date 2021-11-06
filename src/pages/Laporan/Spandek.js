@@ -16,6 +16,8 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { CImage } from '@coreui/react';
 
+const {URL} = require('../../config/config.json')
+
 
 const getLaporanMasterSpandek = gql`
 query getLaporanMasterSpandek(
@@ -251,7 +253,10 @@ export default function Spandek(props) {
     return (
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Laporan Spandek</h1></Col>
+                <Col>
+                    <h1 className="text-center">Master Laporan Spandek</h1>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Summary</Button>
+                </Col>
             </Row>
             <Row>
                 <Col className="col-md-4">
@@ -307,7 +312,6 @@ export default function Spandek(props) {
                             showMonthYearPicker
                         />
                     </Form.Group>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)}>Lihat Summary</Button>
                 </Col>
             </Row>
             <Row className="d-flex flex-row-reverse">
@@ -388,7 +392,7 @@ export default function Spandek(props) {
                             </p>
                         </div>
                         <p className="subJudul">Dokumentasi: </p>
-                        <CImage src={!dataDetail.foto ? "/default.png": dataDetail.foto} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                        <CImage src={!dataDetail.foto ? "/defaultImage.png": dataDetail.foto.replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
                     </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={() => setVisible(false)}>

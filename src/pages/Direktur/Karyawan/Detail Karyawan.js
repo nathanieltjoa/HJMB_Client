@@ -87,7 +87,7 @@ export default function DetailKaryawan(props) {
         <CContainer className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/direktur/karyawan/master karyawan'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="justify-content-center">

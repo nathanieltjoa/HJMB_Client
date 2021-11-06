@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Card, Container} from 'react-bootstrap';
+import { Row, Col, Card, Container, Button, Modal} from 'react-bootstrap';
 import { gql, useQuery} from '@apollo/client';
 import dayjs from 'dayjs'
 import Table from '@material-ui/core/Table';
@@ -11,6 +11,8 @@ import { useLocation } from 'react-router-dom';
 import { CImage } from '@coreui/react';
 import * as BiIcons from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
+
+const {URL} = require('../../config/config.json')
 
 const getDLaporanQualityControlPipa = gql`
 query getDLaporanQualityControlPipa(
@@ -28,6 +30,8 @@ export default function DetailQualityControlPipa(props) {
     let history = useHistory();
     const location = useLocation();
     const [dataLaporan, setDataLaporan] = useState([]);
+    const [visible, setVisible] = useState(false);
+    const [detailLaporan, setDetailLaporan] = useState([]);
     const { loading, data, refetch} = useQuery(getDLaporanQualityControlPipa,{
         variables: {
             HLaporanQualityControlPipaId: dataLaporan.id
@@ -39,6 +43,11 @@ export default function DetailQualityControlPipa(props) {
             setDataLaporan(location.state?.laporan)
         }
     }, [location])
+
+    const openModal = (laporan) => {
+        setDetailLaporan(laporan);
+        setVisible(true);
+    }
 
     let dataDetail= [];
     if(!data || loading){
@@ -58,10 +67,9 @@ export default function DetailQualityControlPipa(props) {
                                 <TableCell align="center">Diameter</TableCell>
                                 <TableCell align="center">Panjang</TableCell>
                                 <TableCell align="center">Berat</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
                                 <TableCell align="center">Status</TableCell>
                                 <TableCell align="center">Banding</TableCell>
-                                <TableCell align="center">Keterangan Banding</TableCell>
+                                <TableCell align="center">Action</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -72,7 +80,6 @@ export default function DetailQualityControlPipa(props) {
                                         <TableCell component="th" scope="row" align="center">{laporan.diameter}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.panjang}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.berat}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
                                         <TableCell component="th" scope="row" align="center">
                                         {
                                             laporan.status === 1? 
@@ -89,7 +96,11 @@ export default function DetailQualityControlPipa(props) {
                                                 <div className="badgeStatusAktif">Aman</div>
                                         }
                                         </TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keteranganBanding}</TableCell>
+                                        <TableCell component="th" scope="row" align="center">
+                                            <Button onClick={() => openModal(laporan)}>
+                                                Detail 
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))
                             }
@@ -105,7 +116,7 @@ export default function DetailQualityControlPipa(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/quality control'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
@@ -153,6 +164,56 @@ export default function DetailQualityControlPipa(props) {
                     {dataDetail}
                 </Col>
             </Row>
+            <Modal show={visible} onHide={() => setVisible(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="judul">Detail Laporan</Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
+                        <div className="parent">
+                            <p className="childLeft">Jam Laporan</p>
+                                <p className="childRight">: {detailLaporan.jamLaporan}</p>
+                            <p className="childLeft">Diameter</p>
+                                <p className="childRight">: {detailLaporan.diameter}</p>
+                            <p className="childLeft">Panjang</p>
+                                <p className="childRight">: {detailLaporan.panjang}</p>
+                            <p className="childLeft">Berat</p>
+                                <p className="childRight">: {detailLaporan.berat}</p>
+                            <p className="childLeft">Keterangan</p>
+                                <p className="childRight">: {detailLaporan.keterangan}</p>
+                            {
+                                detailLaporan.pernahBanding === false? 
+                                    null:
+                                    <>
+                                        <p className="childLeft">Keterangan Banding</p>
+                                            <p className="childRight">: {detailLaporan.keteranganBanding}</p>
+                                    </>
+                            }
+                        </div>
+                        <div className="tagPInRow">
+                            <p className="tagPTextLeft">Status: 
+                                {
+                                    detailLaporan.status === 1? 
+                                    <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
+                                    detailLaporan.status === 2? 
+                                        <div className="badgeStatusAktif">Terverifikasi</div>:
+                                            <div className="badgeStatusNon">Proses Banding</div>
+                                }
+                            </p>
+                            <p className="tagPTextLeft">Status Banding:
+                                {detailLaporan.pernahBanding === true? 
+                                    <div className="badgeStatusNon">Pernah Banding</div>:
+                                        <div className="badgeStatusAktif">Aman</div>}
+                            </p>
+                        </div>
+                        <p className="subJudul">Dokumentasi: </p>
+                        <CImage src={!detailLaporan.foto ? "/defaultImage.png": detailLaporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={() => setVisible(false)}>
+                        Tutup
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 }

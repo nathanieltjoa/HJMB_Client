@@ -12,6 +12,8 @@ import { CImage } from '@coreui/react';
 import * as BiIcons from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 
+const {URL} = require('../../config/config.json')
+
 const getDLaporanKetuaArmada = gql`
   query getDLaporanKetuaArmada(
     $id: String 
@@ -28,6 +30,7 @@ export default function DetailArmada(props) {
     let history = useHistory();
     const location = useLocation();
     const [dataLaporan, setDataLaporan] = useState([]);
+    const [newUri, setNewUri] = useState('');
     const { loading, data, refetch} = useQuery(getDLaporanKetuaArmada,{
         variables: {
             id: dataLaporan.id
@@ -37,6 +40,8 @@ export default function DetailArmada(props) {
     useEffect(() => {
         if(location.state !== undefined){
             setDataLaporan(location.state?.laporan)
+            const fileImage = location.state?.laporan.foto;
+            setNewUri(fileImage.replace("localhost:4000", URL))
         }
     }, [location])
 
@@ -84,7 +89,7 @@ export default function DetailArmada(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/armada'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
@@ -104,16 +109,23 @@ export default function DetailArmada(props) {
                                     <p className="childLeft">Penerima</p>
                                         <p className="childRight">: {dataLaporan.penerima}</p>
                                     <p className="childLeft">Armada</p>
-                                        <p className="childRight">: {dataLaporan.armada?.idArmada}</p>
+                                        <p className="childRight">: {dataLaporan.armada?.nama}</p>
                                     <p className="childLeft">Stokist</p>
-                                        <p className="childRight">: {dataLaporan.stokist?.idStokist}</p>
+                                        <p className="childRight">: {dataLaporan.stokist?.nama}</p>
                                     <p className="childLeft">Supir</p>
-                                        <p className="childRight">: {dataLaporan.supir?.idSupir}</p>
+                                        <p className="childRight">: {dataLaporan.supir?.nama}</p>
                                     <p className="childLeft">Kernet</p>
-                                        <p className="childRight">: {dataLaporan.kernet?.idKernet}</p>
+                                        <p className="childRight">: {dataLaporan.kernet?.nama}</p>
                                     <p className="childLeft">Keterangan</p>
                                         <p className="childRight">: {dataLaporan.keterangan}</p>
                                 </div>
+                                {
+                                    newUri === ""? null:
+                                    <div>
+                                        <p className="childLeft">Dokumentasi</p>
+                                        <CImage src={!newUri ? "/defaultImage.png": newUri} alt="" id="img" className="tinyLogo" width="250" height="200"/>
+                                    </div>
+                                }
                                 <p className="text-center statusKu">Status: 
                                     {
                                         dataLaporan.status === 1? 

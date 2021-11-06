@@ -1,5 +1,5 @@
 import React, {useState, Fragment, useEffect} from 'react'
-import { Row, Col, Form, Button, Alert, Container, Badge} from 'react-bootstrap';
+import { Row, Col, Form, Button, Alert, Container, Badge, Modal} from 'react-bootstrap';
 import { gql, useQuery, useMutation, useLazyQuery} from '@apollo/client';
 import dayjs from 'dayjs'
 import { makeStyles } from '@material-ui/core/styles';
@@ -103,6 +103,7 @@ export default function MasterPembayaranGaji(props) {
     const [status, setStatus] = useState(-1);
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
+    const [visibleSummary, setVisibleSummary] = useState(false);
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState({});
     
@@ -348,145 +349,150 @@ export default function MasterPembayaranGaji(props) {
     }
     
     return (
-        <Fragment>
-            <Container className="containerKu">
-                <Row className="bg-white justify-content-center">
-                    <Col><h1 className="text-center">Master Pembayaran Gaji</h1></Col>
-                </Row>
-                <Row className="bg-white py-5 justify-content-md-center">
-                    <CCard className="col-md-5">
-                        <CCardBody className="text-center">
-                            <Form >
-                                {showError}
-                                {showUser}
-                                <Form.Group as={Col}>
-                                    <Form.Label>Divisi Karyawan</Form.Label>
-                                    <Form.Control 
-                                        as="select" 
-                                        value={divisi} 
-                                        onChange={e => 
-                                            setDivisi(e.target.value)
-                                        }
-                                    >
-                                        <option value=""></option>
-                                        {dataDivisiKu}
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Pilih Karyawan</Form.Label>
-                                    <Form.Control 
-                                        as="select" 
-                                        onChange={e => 
-                                            setIdKaryawan(e.target.value)
-                                        }
-                                    >
-                                        <option value=""></option>
-                                        {dataKaryawanKu}
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Jumlah Lembur</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        name="nama"
-                                        value= {lembur}
-                                        style={{width: '20%'}}
-                                        onChange={e => 
-                                            setLembur(e.target.value)}
-                                    />
-                                </Form.Group>
-                            <div className='text-center'>
-                                <Button variant="primary" onClick={() => registerIndex()}>
-                                    Generate Slip Gaji
-                                </Button>
-                            </div>
-                            </Form>
-                        </CCardBody>
-                    </CCard>
-                </Row>
-                <Row>
-                    <Col className="col-md-4">
-                        <Form.Group as={Col}>
-                            <Form.Label>Divisi Karyawan</Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={divisiKontrak} 
-                                onChange={e => 
-                                    setDivisiKontrak(e.target.value)
-                                }
-                            >
-                                <option value=""></option>
-                                {dataDivisiKu}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Karyawan: </Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={karyawanKontrak} 
-                                onChange={e => 
-                                    setKaryawanKontrak(e.target.value)
-                                }
-                            >
-                                <option value=""></option>
-                                {dataKaryawanKontrakKu}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Status Laporan: </Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={status} 
-                                onChange={e => 
-                                    setStatus(e.target.value)
-                                }
-                            >
-                            <option value="-1">Semuanya</option>
-                            <option value="0">Menunggu Verifikasi HRD</option>
-                            <option value="1">Menunggu Pembayaran Gaji</option>
-                            <option value="2">Selesai</option>
-                            <option value="3">Dibatalkan</option>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Bulan</Form.Label>
-                            <DatePicker
-                                selected={selectedDateAwal}
-                                onChange={date => setSelectedDateAwal(date)}
-                                dateFormat='MM-yyyy'
-                                maxDate={new Date()}
-                                showMonthYearPicker
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row className="d-flex flex-row-reverse">
-                    <Col className="col-md-4">
-                        <Form.Group as={Col}>
-                            <Form.Label>Urutkan Berdasar: </Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={orderBy} 
-                                onChange={e => 
-                                    setOrderBy(e.target.value)
-                                }
-                            >
-                                <option value=""></option>
-                                <option value="Slip Terbaru">Slip Terbaru</option>
-                                <option value="Slip Terlama">Slip Terlama</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        {dataKu}
-                        <div className="pageContainerKu">
-                            {pageKu}
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </Fragment>
+        <Container className="containerKu">
+            <Row className="bg-white justify-content-center">
+                <Col>
+                    <h1 className="text-center">Master Pembayaran Gaji</h1>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Generate Slip Gaji</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="col-md-4">
+                    <Form.Group as={Col}>
+                        <Form.Label>Divisi Karyawan</Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={divisiKontrak} 
+                            onChange={e => 
+                                setDivisiKontrak(e.target.value)
+                            }
+                        >
+                            <option value=""></option>
+                            {dataDivisiKu}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Karyawan: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={karyawanKontrak} 
+                            onChange={e => 
+                                setKaryawanKontrak(e.target.value)
+                            }
+                        >
+                            <option value=""></option>
+                            {dataKaryawanKontrakKu}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Status Laporan: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={status} 
+                            onChange={e => 
+                                setStatus(e.target.value)
+                            }
+                        >
+                        <option value="-1">Semuanya</option>
+                        <option value="0">Menunggu Verifikasi HRD</option>
+                        <option value="1">Menunggu Pembayaran Gaji</option>
+                        <option value="2">Selesai</option>
+                        <option value="3">Dibatalkan</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Bulan</Form.Label>
+                        <DatePicker
+                            selected={selectedDateAwal}
+                            onChange={date => setSelectedDateAwal(date)}
+                            dateFormat='MM-yyyy'
+                            maxDate={new Date()}
+                            showMonthYearPicker
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row className="d-flex flex-row-reverse">
+                <Col className="col-md-4">
+                    <Form.Group as={Col}>
+                        <Form.Label>Urutkan Berdasar: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={orderBy} 
+                            onChange={e => 
+                                setOrderBy(e.target.value)
+                            }
+                        >
+                            <option value=""></option>
+                            <option value="Slip Terbaru">Slip Terbaru</option>
+                            <option value="Slip Terlama">Slip Terlama</option>
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {dataKu}
+                    <div className="pageContainerKu">
+                        {pageKu}
+                    </div>
+                </Col>
+            </Row>
+            <Modal show={visibleSummary} onHide={() => setVisibleSummary(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="judul">Summary</Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
+                    <Form >
+                            {showError}
+                            {showUser}
+                            <Form.Group as={Col}>
+                                <Form.Label>Divisi Karyawan</Form.Label>
+                                <Form.Control 
+                                    as="select" 
+                                    value={divisi} 
+                                    onChange={e => 
+                                        setDivisi(e.target.value)
+                                    }
+                                >
+                                    <option value=""></option>
+                                    {dataDivisiKu}
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>Pilih Karyawan</Form.Label>
+                                <Form.Control 
+                                    as="select" 
+                                    onChange={e => 
+                                        setIdKaryawan(e.target.value)
+                                    }
+                                >
+                                    <option value=""></option>
+                                    {dataKaryawanKu}
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>Jumlah Lembur</Form.Label>
+                                <Form.Control 
+                                    type="text" 
+                                    name="nama"
+                                    value= {lembur}
+                                    style={{width: '20%'}}
+                                    onChange={e => 
+                                        setLembur(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => registerIndex()}>
+                        Generate Slip Gaji
+                    </Button>
+                    <Button variant="danger" onClick={() => setVisibleSummary(false)}>
+                        Tutup
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </Container>
     )
 }

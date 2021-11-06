@@ -60,7 +60,7 @@ export default function DetailPermintaan(props) {
       <Container className="containerKu">
         <Row>
             <Col>
-                <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/permintaan/permintaan izin'})} className="iconBack"/>
             </Col>
         </Row>
         <Row className="justify-content-center">

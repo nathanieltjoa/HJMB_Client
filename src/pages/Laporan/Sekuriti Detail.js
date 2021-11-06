@@ -12,6 +12,8 @@ import { CImage } from '@coreui/react';
 import * as BiIcons from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 
+const {URL} = require('../../config/config.json')
+
 const getDLaporanSekuriti = gql`
 query getDLaporanSekuriti(
   $id: String 
@@ -129,7 +131,7 @@ export default function DetailSekuriti(props) {
                                         <TableCell component="th" scope="row" align="center">{laporan.uraian}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
                                         <TableCell component="th" scope="row" align="center">
-                                            <CImage src={!laporan.foto ? "/default.png": laporan.foto} alt="" id="img" className="img" width="150" height="150"/>
+                                            <CImage src={!laporan.foto ? "/defaultImage.png": laporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -146,7 +148,7 @@ export default function DetailSekuriti(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/sekuriti'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">

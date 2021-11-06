@@ -12,6 +12,8 @@ import { CImage } from '@coreui/react';
 import * as BiIcons from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 
+const {URL} = require('../../config/config.json')
+
 const getULaporanCatTegel = gql`
   query getULaporanCatTegel(
     $id: String 
@@ -28,6 +30,7 @@ export default function DetailCatTegel(props) {
     let history = useHistory();
     const location = useLocation();
     const [dataLaporan, setDataLaporan] = useState([]);
+    const [newUri, setNewUri] = useState('');
     const { loading, data, refetch} = useQuery(getULaporanCatTegel,{
         variables: {
             id: dataLaporan.id
@@ -37,6 +40,8 @@ export default function DetailCatTegel(props) {
     useEffect(() => {
         if(location.state !== undefined){
             setDataLaporan(location.state?.laporan)
+            const fileImage = location.state?.laporan.foto;
+            setNewUri(fileImage.replace("localhost:4000", URL))
         }
     }, [location])
 
@@ -80,7 +85,7 @@ export default function DetailCatTegel(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/cat tegel'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
@@ -108,15 +113,20 @@ export default function DetailCatTegel(props) {
                                     <p className="childLeft">Keterangan</p>
                                         <p className="childRight">: {dataLaporan.keterangan}</p>
                                 </div>
-                                <p className="subJudul">Dokumentasi: </p>
-                                <CImage src={!dataLaporan.foto ? "/default.png": dataLaporan.foto} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                                {
+                                    newUri === ""? null:
+                                    <div>
+                                        <p className="childLeft">Dokumentasi</p>
+                                        <CImage src={!newUri ? "/defaultImage.png": newUri} alt="" id="img" className="tinyLogo" width="250" height="200"/>
+                                    </div>
+                                }
                             </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
             <Row className="justify-content-center">
-                <Col className="col-md-12">
+                <Col className="col-md-6">
                     {dataDetail}
                 </Col>
             </Row>

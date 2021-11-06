@@ -4,6 +4,8 @@ import { gql, useMutation, useQuery} from '@apollo/client';
 import dayjs from 'dayjs';
 import { CImage } from '@coreui/react';
 
+const {URL} = require('../config/config.json');
+
 const getKaryawan = gql`
 query getKaryawan{
   getKaryawan{
@@ -27,11 +29,14 @@ export default function Profil(props) {
         usersMarkUp = <p className="badgeStatusNonText">Tidak Ada Data User</p>
     }else if(data.getKaryawan !== null && !counter){
         var karyawan = data.getKaryawan;
+        console.log(data.getKaryawan)
+        var fileImage = karyawan.foto;
+        fileImage = fileImage.replace("localhost:4000", URL)
         usersMarkUp = 
             <Card style={{ width: '100%' }}>
                 <Card.Body>
                     <Card.Title>
-                        <CImage src={!karyawan.foto ? "/default.png": karyawan.foto} alt="" id="img" className="tinyLogo" width="150" height="150"/>
+                        <CImage src={!fileImage ? "/default.png": fileImage} alt="" id="img" className="tinyLogo" width="150" height="150"/>
                     </Card.Title>
                     <Card.Text>
                         <div className="parent">

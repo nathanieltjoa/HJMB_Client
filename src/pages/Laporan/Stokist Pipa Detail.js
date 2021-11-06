@@ -12,6 +12,8 @@ import { CImage } from '@coreui/react';
 import * as BiIcons from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 
+const {URL} = require('../../config/config.json')
+
 const getDLaporanStokistPipa = gql`
   query getDLaporanStokistPipa(
     $id: String
@@ -39,6 +41,7 @@ export default function DetailStokistPipa(props) {
     useEffect(() => {
         if(location.state !== undefined){
             setDataLaporan(location.state?.laporan)
+            console.log(location.state?.laporan)
         }
     }, [location])
 
@@ -94,7 +97,7 @@ export default function DetailStokistPipa(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/stokist pipa'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
@@ -144,6 +147,8 @@ export default function DetailStokistPipa(props) {
                                                 <div className="badgeStatusAktif">Aman</div>}
                                     </p>
                                 </div>
+                                <p className="subJudul">Dokumentasi: </p>
+                                <CImage src={!dataLaporan.foto ? "/defaultImage.png": dataLaporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
                             </Card.Text>
                         </Card.Body>
                     </Card>

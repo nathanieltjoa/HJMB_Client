@@ -233,7 +233,10 @@ export default function Sales(props) {
     return (
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Laporan Sales</h1></Col>
+                <Col>
+                    <h1 className="text-center">Master Laporan Sales</h1>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Summary</Button>
+                </Col>
             </Row>
             <Row>
                 <Col className="col-md-4">
@@ -288,7 +291,6 @@ export default function Sales(props) {
                             showMonthYearPicker
                         />
                     </Form.Group>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)}>Lihat Summary</Button>
                 </Col>
             </Row>
             <Row className="d-flex flex-row-reverse">

@@ -8,6 +8,8 @@ import * as BiIcons from 'react-icons/bi';
 import { saveAs } from 'file-saver';
 import ClipLoader from "react-spinners/ClipLoader";
 
+const {URL} = require('../../config/config.json')
+
 const updateStatusSurat = gql`
     mutation updateStatusSurat(
       $id: String
@@ -61,13 +63,15 @@ export default function DetailSurat(props) {
       const downloadFile = () => {
         console.log(dataLaporan.file)
         var FileSaver = require('file-saver');
-        FileSaver.saveAs(dataLaporan.file, dataLaporan.id+".pdf");
+        var fileImage = dataLaporan.file;
+        fileImage = fileImage.replace("localhost:4000", URL);
+        FileSaver.saveAs(fileImage, dataLaporan.id+".pdf");
       }
     return (
       <Container className="containerKu">
         <Row>
             <Col>
-                <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/surat/daftar surat keterangan'})} className="iconBack"/>
             </Col>
         </Row>
         <Row className="justify-content-center">

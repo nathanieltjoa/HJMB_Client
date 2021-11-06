@@ -53,7 +53,7 @@ const SidebarWrap = styled.div`
 
 const SideMenuBtn = styled.nav`
   position: absolute;
-  left: ${({ sidebar }) => (sidebar ? '+15%' : '2%')};
+  left: ${({ sidebar }) => (sidebar ? '+18%' : '2%')};
   transition: 350ms;
   z-index: 10;
 `;

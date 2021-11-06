@@ -266,14 +266,6 @@ export default function DetailKuisioner(props) {
         })
     }
 
-    const TambahPertanyaan = e =>{
-        e.preventDefault();
-        history.push({
-            pathname: '/kuisioner/tambah pertanyaan baru',
-            state: { id: location.state.laporan.id }
-        });
-    }
-
     const [registerPertanyaanKu] = useMutation(registerPertanyaan,{
         update(_,res){
             console.log(res)
@@ -323,7 +315,7 @@ export default function DetailKuisioner(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/kuisioner/master kuisioner'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white py-5 justify-content-md-center">

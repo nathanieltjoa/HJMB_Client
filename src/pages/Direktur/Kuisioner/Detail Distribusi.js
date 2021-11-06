@@ -100,7 +100,7 @@ export default function DetailDistribusi(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/direktur/kuisioner/master kuisioner'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">

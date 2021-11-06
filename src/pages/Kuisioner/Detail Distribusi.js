@@ -70,15 +70,22 @@ export default function DetailDistribusi(props) {
     const location = useLocation();
     const [jabatan, setJabatan] = useState("");
     const [nilai, setNilai] = useState(0);
+    const [dataLaporan, setDataLaporan] = useState([]);
     const {
         loading: loadingPertanyaan,
         data: dataPertanyaan,
         refetch
     } = useQuery(getDistribusi,{
         variables: {
-            KuisionerId: location.state?.laporan.id
+            KuisionerId: dataLaporan.id
         }
     });
+
+    useEffect(() => {
+        if(location.state !== undefined){
+            setDataLaporan(location.state?.laporan)
+        }
+    }, [location])
 
     const { loading, data } = useQuery(getListJabatan);
 
@@ -186,7 +193,7 @@ export default function DetailDistribusi(props) {
         console.log(jabatan)
         registerDistribusiKu({
             variables: {
-                ListKuisionerId: location.state?.laporan.id,
+                ListKuisionerId: dataLaporan.id,
                 TingkatJabatan: parseInt(jabatan),
                 persentaseNilai: parseInt(nilai),
             }
@@ -205,11 +212,11 @@ export default function DetailDistribusi(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.goBack()} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/kuisioner/master kuisioner'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Distribusi Kuisioner {location.state?.laporan.namaKuisioner}</h1></Col>
+                <Col><h1 className="text-center">Distribusi Kuisioner {dataLaporan.namaKuisioner}</h1></Col>
             </Row>
             <Row className="bg-white py-5 justify-content-md-center">
                 <Col className="col-md-4">
