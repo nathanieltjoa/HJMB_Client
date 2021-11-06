@@ -72,6 +72,12 @@ export const SidebarData = [
         icon: <FaIcons.FaFileSignature />,
         cName: 'sub-nav'
       },
+      {
+        title: 'Generate Slip Gaji',
+        path: '/kontrak/generate slip gaji',
+        icon: <FaIcons.FaFileSignature />,
+        cName: 'sub-nav'
+      },
     ]
   },
   {

@@ -52,6 +52,7 @@ import TambahKontrak from './pages/Kontrak/Tambah Kontrak';
 import DetailKontrak from './pages/Kontrak/Detail Kontrak';
 import MasterPembayaranGaji from './pages/Kontrak/Master Pembayaran Gaji';
 import DetailPembayaranGaji from './pages/Kontrak/Detail Pembayaran Gaji';
+import GenerateSlipGaji from './pages/Kontrak/Generate Slip Gaji';
 import ProduksiPipa from './pages/Laporan/Produksi Pipa';
 import MixerPipa from './pages/Laporan/Mixer Pipa';
 import QualityControl from './pages/Laporan/Quality Control';
@@ -151,6 +152,7 @@ function App() {
               <DynamicRoute path='/kontrak/detail kontrak' exact component={DetailKontrak} authenticated />
               <DynamicRoute path='/kontrak/master pembayaran gaji' exact component={MasterPembayaranGaji} authenticated />
               <DynamicRoute path='/kontrak/detail pembayaran gaji' exact component={DetailPembayaranGaji} authenticated />
+              <DynamicRoute path='/kontrak/generate slip gaji' exact component={GenerateSlipGaji} authenticated />
               <DynamicRoute path='/permintaan/permintaan izin' exact component={Permintaan} authenticated />
               <DynamicRoute path='/permintaan/detail permintaan' exact component={DetailPermintaan} authenticated />
               <DynamicRoute path='/permintaan/permintaan pinjaman' exact component={PermintaanPinjaman} authenticated />

@@ -90,32 +90,6 @@ query getListKaryawanKontrak(
 }
 `;
 
-const getListAbsensiPribadiMaster = gql`
-    query getListAbsensiPribadiMaster(
-        $idKaryawan: Int 
-    ){
-        getListAbsensiPribadiMaster(
-            idKaryawan: $idKaryawan 
-        ){
-            tanggal scanMasuk scanPulang terlambat jamBolos absen lembur jamKerja{
-                namaShift jamMasuk jamKeluar
-            } karyawan{nama}
-        }
-    }
-`;
-
-const getListLemburPribadiMaster = gql`
-query getListAbsensiPribadiMaster(
-    $idKaryawan: Int 
-){
-    getListAbsensiPribadiMaster(
-        idKaryawan: $idKaryawan 
-    ){
-        tanggalMulai keterangan status alasan
-    }
-}
-`;
-
 export default function MasterPembayaranGaji(props) {
     let history = useHistory();
     const [id, setId] = useState(-1);
@@ -130,14 +104,12 @@ export default function MasterPembayaranGaji(props) {
     const [status, setStatus] = useState(-1);
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
-    const [visibleSummary, setVisibleSummary] = useState(false);
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState({});
     
     let showError
     let showUser
     if(success){
-        console.log(success);
         showUser = 
             Object.keys(success).map(i => (
                 <Alert variant='success'>
@@ -179,8 +151,6 @@ export default function MasterPembayaranGaji(props) {
     }
 
     const goToDetail = (laporan) => {
-        console.log("asd");
-        console.log(laporan)
         history.push({
             pathname: '/kontrak/detail pembayaran gaji',
             state: { laporan: laporan }
@@ -205,9 +175,6 @@ export default function MasterPembayaranGaji(props) {
     let dataKu= [];
     let pageKu = [];
     let counter = false;
-    if(data){
-        console.log(data);
-    }
     if(data === undefined || loading){
 
     }else if(data.getPembayaranGaji.count){
@@ -235,10 +202,8 @@ export default function MasterPembayaranGaji(props) {
     if(!data || loading){
         dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
     }else if(data.getPembayaranGaji.rows.length === 0){
-        console.log(data.getPembayaranGaji.rows.length)
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Slip Pembayaran Gaji</p>)
     }else if(data.getPembayaranGaji.rows.length > 0 && !counter){
-        console.log(data.getPembayaranGaji.rows.length)
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
@@ -345,7 +310,6 @@ export default function MasterPembayaranGaji(props) {
     }else if(dataKaryawan.getListKaryawanPembayaranGaji.length === 0){
         
     }else if(dataKaryawan.getListKaryawanPembayaranGaji.length > 0 && !counterKaryawan){
-        console.log(dataKaryawan.getListKaryawanPembayaranGaji);
         dataKaryawanKu.push(dataKaryawan.getListKaryawanPembayaranGaji.map((karyawan,index) =>(
             <option key={index} value={karyawan.id}>
                 {karyawan.nama}
@@ -374,126 +338,12 @@ export default function MasterPembayaranGaji(props) {
             <option key={index} value={element.id} >{element.nama} ({element.jabatan.jabatanKu})</option>
         )))
     }
-
-    const [getAbsensiKu,{ 
-        loading: loadingAbsensi,
-        data: dataAbsensi 
-    }] = useLazyQuery(getListAbsensiPribadiMaster);
-
-    let dataAbsensiKu = [];
-    if(!dataAbsensi || loadingAbsensi){
-
-    }else if(dataAbsensi.getListAbsensiPribadiMaster.length === 0){
-        
-    }else if(dataAbsensi.getListAbsensiPribadiMaster.length > 0){
-        console.log(dataAbsensi.getListAbsensiPribadiMaster);
-        dataAbsensiKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nama Karyawan</TableCell>
-                            <TableCell align="right">Tanggal</TableCell>
-                            <TableCell align="right">Shift</TableCell>
-                            <TableCell align="right">Jam Masuk</TableCell>
-                            <TableCell align="right">Jam Keluar</TableCell>
-                            <TableCell align="right">Scan Masuk</TableCell>
-                            <TableCell align="right">Scan Pulang</TableCell>
-                            <TableCell align="right">Absen</TableCell>
-                            <TableCell align="right">Lembur</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            dataAbsensi.getListAbsensiPribadiMaster.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row">
-                                        {laporan.namaKaryawan}
-                                    </TableCell>
-                                    <TableCell align="right">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="right">{laporan.jamKerja.namaShift}</TableCell>
-                                    <TableCell align="right">{laporan.jamKerja.jamMasuk}</TableCell>
-                                    <TableCell align="right">{laporan.jamKerja.jamKeluar}</TableCell>
-                                    <TableCell align="right">{laporan.scanMasuk}</TableCell>
-                                    <TableCell align="right">{laporan.scanPulang}</TableCell>
-                                    <TableCell align="right">{laporan.absen === true? <div className="badgeStatusNon">Bolos</div>: ""}</TableCell>
-                                    <TableCell align="right">{laporan.lembur}</TableCell>
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        )
-    }
-
-    const [getLemburKu,{ 
-        loading: loadingLembur,
-        data: dataLembur
-    }] = useLazyQuery(getListLemburPribadiMaster);
-
-    let dataLemburKu = [];
-    if(!dataLembur || loadingLembur){
-
-    }else if(dataLembur.getListLemburPribadiMaster.length === 0){
-        
-    }else if(dataLembur.getListLemburPribadiMaster.length > 0){
-        console.log(dataLembur.getListLemburPribadiMaster);
-        dataLemburKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="right">Tanggal</TableCell>
-                            <TableCell align="right">Keterangan</TableCell>
-                            <TableCell align="right">Alasan</TableCell>
-                            <TableCell align="right">Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            dataLembur.getListLemburPribadiMaster.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="right">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="right">{laporan.keterangan}</TableCell>
-                                    <TableCell align="right">{
-                                        laporan.status === 3? <div className="badgeStatusAktif">Di Terima</div>:
-                                        <div className="badgeStatusNon">Di Tolak</div>
-                                    }</TableCell>
-                                    <TableCell align="right">{laporan.alasan}</TableCell>
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        )
-    }
-
-    const lihatSummary = () => {
-        getAbsensiKu({
-            variables: {
-                idKaryawan: parseInt(idKaryawan)
-            }
-        })
-        getLemburKu({
-            variables: {
-                idKaryawan: parseInt(idKaryawan)
-            }
-        })
-    }
-
-    useEffect(() => {
-        dataAbsensiKu = [];
-        dataLemburKu = [];
-    }, [idKaryawan])
     
     return (
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
                 <Col>
                     <h1 className="text-center">Master Pembayaran Gaji</h1>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Generate Slip Gaji</Button>
                 </Col>
             </Row>
             <Row>
@@ -578,66 +428,6 @@ export default function MasterPembayaranGaji(props) {
                     </div>
                 </Col>
             </Row>
-            <Modal show={visibleSummary} onHide={() => setVisibleSummary(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title className="judul">Summary</Modal.Title>
-                </Modal.Header>
-                    <Modal.Body>
-                        <Form >
-                            {showError}
-                            {showUser}
-                            <Form.Group as={Col}>
-                                <Form.Label>Divisi Karyawan</Form.Label>
-                                <Form.Control 
-                                    as="select" 
-                                    value={divisi} 
-                                    onChange={e => 
-                                        setDivisi(e.target.value)
-                                    }
-                                >
-                                    <option value=""></option>
-                                    {dataDivisiKu}
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Pilih Karyawan</Form.Label>
-                                <Form.Control 
-                                    as="select" 
-                                    onChange={e => 
-                                        setIdKaryawan(e.target.value)
-                                    }
-                                >
-                                    <option value=""></option>
-                                    {dataKaryawanKu}
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Jumlah Lembur</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    name="nama"
-                                    value= {lembur}
-                                    style={{width: '20%'}}
-                                    onChange={e => 
-                                        setLembur(e.target.value)}
-                                />
-                            </Form.Group>
-                            <Button variant="primary" onClick={() => lihatSummary()}>
-                                Absensi Karyawan
-                            </Button>
-                            {dataLemburKu}
-                            {dataAbsensiKu}
-                        </Form>
-                    </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={() => registerIndex()}>
-                        Generate Slip Gaji
-                    </Button>
-                    <Button variant="danger" onClick={() => setVisibleSummary(false)}>
-                        Tutup
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </Container>
     )
 }
