@@ -172,9 +172,13 @@ export default function MasterKontrak(props) {
                                             <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'red'}}>
                                                 {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
                                             </TableCell>:
-                                            <TableCell component="th" scope="row" align="center">
-                                                {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
-                                            </TableCell>
+                                            dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 0? 
+                                                <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'grey'}}>
+                                                    {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
+                                                </TableCell>:
+                                                    <TableCell component="th" scope="row" align="center">
+                                                        {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
+                                                    </TableCell>
                                     }
                                     <TableCell component="th" scope="row" align="center">
                                         {
