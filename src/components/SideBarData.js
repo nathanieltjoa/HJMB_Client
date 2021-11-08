@@ -9,9 +9,42 @@ import * as GoIcons from 'react-icons/go';
 
 export const SidebarData = [
   {
-    title: 'Dashboard',
-    path: '/Dashboard',
-    icon: <AiIcons.AiFillHome />,
+    title: 'Absensi',
+    path: '#',
+    icon: <FaIcons.FaUserCheck />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'Tambah Absensi',
+        path: '/absensi/tambah',
+        icon: <FaIcons.FaUserCheck />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Daftar Absensi',
+        path: '/absensi/daftar',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+    ]
+  },
+  {
+    title: 'Izin',
+    path: '#',
+    icon: <FaIcons.FaCheck />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'Master Izin',
+        path: '/izin/master izin',
+        icon: <FaIcons.FaCheck />,
+        cName: 'sub-nav'
+      },
+    ]
   },
   {
     title: 'Karyawan',
@@ -69,177 +102,13 @@ export const SidebarData = [
       {
         title: 'Master Pembayaran Gaji',
         path: '/kontrak/master pembayaran gaji',
-        icon: <FaIcons.FaFileSignature />,
+        icon: <FaIcons.FaFileInvoiceDollar />,
         cName: 'sub-nav'
       },
       {
         title: 'Generate Slip Gaji',
         path: '/kontrak/generate slip gaji',
-        icon: <FaIcons.FaFileSignature />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
-    title: 'Permintaan',
-    path: '#',
-    icon: <FaIcons.FaWarehouse />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'Daftar Izin',
-        path: '/permintaan/permintaan izin',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Daftar Pinjaman',
-        path: '/permintaan/permintaan pinjaman',
-        icon: <FaIcons.FaWarehouse />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
-    title: 'Penambahan',
-    path: '#',
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'Tambah Gudang',
-        path: '/penambahan/tambah gudang',
-        icon: <FaIcons.FaWarehouse />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Tambah Group Divisi',
-        path: '/penambahan/tambah group',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
-    title: 'Surat',
-    path: '#',
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'Tambah Surat Perintah',
-        path: '/surat/tambah surat',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Daftar Surat Keterangan',
-        path: '/surat/daftar surat keterangan',
-        icon: <FaIcons.FaWarehouse />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Daftar Surat Perintah',
-        path: '/surat/daftar surat perintah',
-        icon: <FaIcons.FaWarehouse />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
-    title: 'Absensi',
-    path: '#',
-    icon: <FaIcons.FaUserCheck />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'Tambah Absensi',
-        path: '/absensi/tambah',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Daftar Absensi',
-        path: '/absensi/daftar',
-        icon: <FaIcons.FaFileAlt />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
-    title: 'Laporan',
-    path: '#',
-    icon: <FaIcons.FaUserCheck />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'Produksi Pipa',
-        path: '/laporan/produksi pipa',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Mixer Pipa',
-        path: '/laporan/mixer pipa',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Quality Control',
-        path: '/laporan/quality control',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Stokist Pipa',
-        path: '/laporan/stokist pipa',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Armada',
-        path: '/laporan/armada',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Cat Tegel',
-        path: '/laporan/cat tegel',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Spandek',
-        path: '/laporan/spandek',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Hollow',
-        path: '/laporan/hollow',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Sekuriti',
-        path: '/laporan/sekuriti',
-        icon: <FaIcons.FaUserCheck />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Sales',
-        path: '/laporan/sales',
-        icon: <FaIcons.FaUserCheck />,
+        icon: <FaIcons.FaFileInvoiceDollar />,
         cName: 'sub-nav'
       },
     ]
@@ -285,6 +154,120 @@ export const SidebarData = [
     ]
   },
   {
+    title: 'Laporan',
+    path: '#',
+    icon: <FaIcons.FaFileAlt />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'Produksi Pipa',
+        path: '/laporan/produksi pipa',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Mixer Pipa',
+        path: '/laporan/mixer pipa',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Quality Control',
+        path: '/laporan/quality control',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Stokist Pipa',
+        path: '/laporan/stokist pipa',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Armada',
+        path: '/laporan/armada',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Cat Tegel',
+        path: '/laporan/cat tegel',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Spandek',
+        path: '/laporan/spandek',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Hollow',
+        path: '/laporan/hollow',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Sekuriti',
+        path: '/laporan/sekuriti',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Sales',
+        path: '/laporan/sales',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+    ]
+  },
+  {
+    title: 'Permintaan',
+    path: '#',
+    icon: <FaIcons.FaRegListAlt />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'Daftar Izin',
+        path: '/permintaan/permintaan izin',
+        icon: <FaIcons.FaRegListAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Daftar Pinjaman',
+        path: '/permintaan/permintaan pinjaman',
+        icon: <FaIcons.FaRegListAlt />,
+        cName: 'sub-nav'
+      },
+    ]
+  },
+  {
+    title: 'Penambahan',
+    path: '#',
+    icon: <FaIcons.FaPlusSquare />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'Tambah Gudang',
+        path: '/penambahan/tambah gudang',
+        icon: <FaIcons.FaWarehouse />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Tambah Group Divisi',
+        path: '/penambahan/tambah group',
+        icon: <FaIcons.FaUsers />,
+        cName: 'sub-nav'
+      },
+    ]
+  },
+  {
     title: 'Penilaian',
     path: '#',
     icon: <GoIcons.GoChecklist />,
@@ -319,25 +302,37 @@ export const SidebarData = [
     ]
   },
   {
-    title: 'Izin',
+    title: 'Profil',
+    path: '/profil',
+    icon: <FaIcons.FaUserCircle />,
+  },
+  {
+    title: 'Surat',
     path: '#',
-    icon: <FaIcons.FaCheck />,
+    icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
 
     subNav: [
       {
-        title: 'Master Izin',
-        path: '/izin/master izin',
-        icon: <FaIcons.FaCheck />,
+        title: 'Tambah Surat Perintah',
+        path: '/surat/tambah surat',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Daftar Surat Keterangan',
+        path: '/surat/daftar surat keterangan',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Daftar Surat Perintah',
+        path: '/surat/daftar surat perintah',
+        icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
     ]
-  },
-  {
-    title: 'Profil',
-    path: '/profil',
-    icon: <FaIcons.FaUserCircle />,
   },
   {
     title: 'Logout',

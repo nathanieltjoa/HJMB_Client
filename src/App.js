@@ -93,6 +93,10 @@ import MasterIndexDirektur from './pages/Direktur/Penilaian/Master Index';
 import DaftarPenilaianDirektur from './pages/Direktur/Penilaian/Daftar Penilaian';
 import MasterIzinDirektur from './pages/Direktur/Izin/Master Izin';
 import DaftarPermintaanPromosi from './pages/Direktur/Promosi/Daftar Permintaan';
+import DaftarSuratPerintahDirektur from './pages/Direktur/Surat/Daftar Surat Perintah';
+import DetailSuratPerintahDirektur from './pages/Direktur/Surat/Detail Surat Perintah';
+import PermintaanSuratDirektur from './pages/Direktur/Surat/Permintaan Surat';
+import DetailSuratDirektur from './pages/Direktur/Surat/Detail Surat';
 
 import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
 import Team from './pages/Team';
@@ -199,6 +203,10 @@ function App() {
               <DynamicRoute path='/direktur/penilaian/master nilai' exact component={MasterNilaiDirektur} authenticated />
               <DynamicRoute path='/direktur/izin/master izin' exact component={MasterIzinDirektur} authenticated />
               <DynamicRoute path='/direktur/promosi/daftar permintaan promosi' exact component={DaftarPermintaanPromosi} authenticated />
+              <DynamicRoute path='/direktur/surat/daftar surat keterangan' exact component={DaftarSuratPerintahDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/detail surat' exact component={DetailSuratPerintahDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/daftar surat perintah' exact component={PermintaanSuratDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/detail surat perintah' exact component={DetailSuratDirektur} authenticated />
               <DynamicRoute path='/logout' exact logout />
             </Switch>
           </Container>

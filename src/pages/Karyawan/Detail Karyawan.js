@@ -99,7 +99,7 @@ export default function DetailKaryawan(props) {
     const [success, setSuccess] = useState({})
     const [dataKu, setDataKu] = useState([]);
     const [dataLaporan, setDataLaporan] = useState([]);
-
+    const [idPermintaan, setIdPermintaan] = useState(0);
 
 
     
@@ -141,6 +141,7 @@ export default function DetailKaryawan(props) {
                         id: laporan.idKaryawan
                     }
                 })
+                setIdPermintaan(location.state.laporanPermintaan.id)
             }
         }
     }, [location]);
@@ -208,7 +209,6 @@ export default function DetailKaryawan(props) {
     })
     const register = () =>{
         console.log(location.state.laporanPermintaan)
-        var idPermintaan = location.state.laporanPermintaan === null? -1: location.state.laporanPermintaan.id;
         updateKaryawanKu({variables:{
             id: variables.id,
             idPermintaan: idPermintaan,
@@ -358,7 +358,7 @@ export default function DetailKaryawan(props) {
                             aria-label="Large select example"
                             value={variables.agama}
                             onChange={e => 
-                                setVariables({...variables, agama: parseInt(e.target.value)})
+                                setVariables({...variables, agama: e.target.value})
                             }>
                             <option value="Islam">Islam</option>
                             <option value="Kristen">Kristen</option>
@@ -376,7 +376,7 @@ export default function DetailKaryawan(props) {
                             aria-label="Large select example"
                             value={variables.pendidikan}
                             onChange={e => 
-                                setVariables({...variables, pendidikan: parseInt(e.target.value)})
+                                setVariables({...variables, pendidikan: e.target.value})
                             }>
                             <option value="SMP">SMP</option>
                             <option value="SMA">SMA</option>
