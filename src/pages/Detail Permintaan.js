@@ -8,7 +8,7 @@ import * as BiIcons from 'react-icons/bi';
 
 const updateStatusPermintaan = gql`
     mutation updateStatusPermintaan(
-      $id: Int
+      $id: String
       $status: Int
       $alasan: String
   ) {
