@@ -9,7 +9,7 @@ export default function DynamicRoute(props){
     if(props.authenticated && !user){
         return <Redirect to="/"/>
     }else if(props.guest && user){
-        return <Redirect to="/menu"/>
+        return <Redirect to="/profil"/>
     }else if(props.logout && user){
         dispatch({type: 'LOGOUT'})
         return <Redirect to="/"/>
