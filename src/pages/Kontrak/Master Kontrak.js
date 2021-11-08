@@ -168,12 +168,12 @@ export default function MasterKontrak(props) {
                                     {console.log(dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day'))}
                                     <TableCell component="th" scope="row" align="center">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
                                     {
-                                        dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 9? 
-                                            <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'red'}}>
+                                        dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 0? 
+                                            <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'grey'}}>
                                                 {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
                                             </TableCell>:
-                                            dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 0? 
-                                                <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'grey'}}>
+                                            dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 9? 
+                                                <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'red'}}>
                                                     {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
                                                 </TableCell>:
                                                     <TableCell component="th" scope="row" align="center">
@@ -243,6 +243,14 @@ export default function MasterKontrak(props) {
             <option key={index} value={element.id} >{element.nama} ({element.jabatan.jabatanKu})</option>
         )))
     }
+
+    useEffect(() => {
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                refetch()
+            }
+        }
+    }, [])
     
     return (
         <Container className="containerKu">
