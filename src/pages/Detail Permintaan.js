@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import * as BiIcons from 'react-icons/bi';
 
+import {URL} from '../config/config.json';
+
 const updateStatusPermintaan = gql`
     mutation updateStatusPermintaan(
       $id: String
@@ -43,7 +45,7 @@ export default function DetailPermintaan(props) {
         },
         onCompleted(data){
             console.log(data);
-            props.history.push('/permintaan/permintaan izin');
+            history.push('/permintaan/permintaan izin');
         }
       })
 
@@ -101,7 +103,7 @@ export default function DetailPermintaan(props) {
                                 <div className="badgeStatusAktif">Di Terima</div>:
                                 <div className="badgeStatusNon">Di Tolak</div>}
                     </p>
-                    {dataLaporan.upload === "-" ? null : <img src={dataLaporan.upload} alt="" id="img" className="img" width="200" height="150"/> }
+                    {dataLaporan?.upload === undefined ? null : <img src={dataLaporan?.upload.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/> }
                     {
                       dataLaporan.status !== 2? null:
                       <div>

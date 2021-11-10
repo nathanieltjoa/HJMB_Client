@@ -75,7 +75,10 @@ export default function Permintaan(props) {
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
     const [orderBy, setOrderBy] = useState("");
-    const { loading, data, refetch } = useQuery(getPermintaansMaster,{
+    const { 
+        loading: loadingPermintaan, 
+        data: dataPermintaan, 
+        refetch: refetchPermintaan } = useQuery(getPermintaansMaster,{
         variables: {
             page: parseInt(page),
             limit: parseInt(limit),
@@ -87,7 +90,7 @@ export default function Permintaan(props) {
     });
 
     useEffect(() => {
-        refetch() 
+        refetchPermintaan() 
     }, [orderBy])
 
     const changePage = ({ selected }) => {
@@ -95,19 +98,17 @@ export default function Permintaan(props) {
     }
 
     const goToDetail = (laporan) => {
+        console.log(laporan.upload)
         history.push({
             pathname: '/permintaan/detail permintaan',
             state: { laporan: laporan }
         });
     }
     let pageKu = [];
-    if(data){
-        console.log(data);
-    }
-    if(data === undefined || loading){
+    if(dataPermintaan === undefined || loadingPermintaan){
         pageKu.push(<p key={0}>Loading...</p>)
-    }else if(data.getPermintaansMaster.count){
-      var jml = Math.ceil(data.getPermintaansMaster.count / limit);
+    }else if(dataPermintaan.getPermintaansMaster.count){
+      var jml = Math.ceil(dataPermintaan.getPermintaansMaster.count / limit);
       pageKu.push(
         <ReactPaginate
           key={1}
@@ -130,11 +131,11 @@ export default function Permintaan(props) {
     }
     let dataKu = [];
     let counter = false;
-    if(!data || loading){
+    if(!dataPermintaan || loadingPermintaan){
         dataKu.push(<p className="badgeStatusWaitingText">Loading...</p>)
-    }else if(data.getPermintaansMaster.rows.length === 0){
+    }else if(dataPermintaan.getPermintaansMaster.rows.length === 0){
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Dari Karyawan</p>)
-    }else if(data.getPermintaansMaster.rows.length > 0 && !counter){
+    }else if(dataPermintaan.getPermintaansMaster.rows.length > 0 && !counter){
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
@@ -151,7 +152,7 @@ export default function Permintaan(props) {
                     </TableHead>
                     <TableBody>
                         {
-                            data.getPermintaansMaster.rows.map((laporan,index) =>(
+                            dataPermintaan.getPermintaansMaster.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
                                     <TableCell align="center">{laporan.peminta?.nama}</TableCell>
                                     <TableCell align="center">{laporan.izin?.namaIzin}</TableCell>
@@ -224,8 +225,13 @@ export default function Permintaan(props) {
     }
 
     useEffect(() => {
-        refetch();
-    }, [])
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                refetchPermintaan()
+                console.log('Refreshed!');
+            }
+        }
+    }, []) 
     return (
         <Container className="containerKu">
             <Row className="bg-white py-5 justify-content-center">
