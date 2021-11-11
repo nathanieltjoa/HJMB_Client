@@ -72,7 +72,10 @@ export default function PermintaanSurat(props) {
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
     const [orderBy, setOrderBy] = useState("");
-    const { loading, data, refetch } = useQuery(getListSuratMaster,{
+    const { 
+        loading: loadingSurat, 
+        data: dataSurat, 
+        refetch: refetchSurat } = useQuery(getListSuratMaster,{
         variables: {
             page: parseInt(page),
             limit: parseInt(limit),
@@ -84,7 +87,7 @@ export default function PermintaanSurat(props) {
     });
 
     useEffect(() => {
-        refetch() 
+        refetchSurat() 
     }, [orderBy])
 
     const changePage = ({ selected }) => {
@@ -98,13 +101,10 @@ export default function PermintaanSurat(props) {
         });
     }
     let pageKu = [];
-    if(data){
-        console.log(data);
-    }
-    if(data === undefined || loading){
+    if(dataSurat === undefined || loadingSurat){
         pageKu.push(<p key={0}>Loading...</p>)
-    }else if(data.getListSuratMaster.count){
-      var jml = Math.ceil(data.getListSuratMaster.count / limit);
+    }else if(dataSurat.getListSuratMaster.count){
+      var jml = Math.ceil(dataSurat.getListSuratMaster.count / limit);
       pageKu.push(
         <ReactPaginate
           key={1}
@@ -127,11 +127,11 @@ export default function PermintaanSurat(props) {
     }
     let dataKu = [];
     let counter = false;
-    if(!data || loading){
+    if(!dataSurat || loadingSurat){
         dataKu.push(<p className="badgeStatusWaitingText">Loading...</p>)
-    }else if(data.getListSuratMaster.rows.length === 0){
+    }else if(dataSurat.getListSuratMaster.rows.length === 0){
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Surat Dari Karyawan</p>)
-    }else if(data.getListSuratMaster.rows.length > 0 && !counter){
+    }else if(dataSurat.getListSuratMaster.rows.length > 0 && !counter){
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
@@ -147,7 +147,7 @@ export default function PermintaanSurat(props) {
                     </TableHead>
                     <TableBody>
                         {
-                            data.getListSuratMaster.rows.map((laporan,index) =>(
+                            dataSurat.getListSuratMaster.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
                                     <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
                                     <TableCell align="center">{dayjs(laporan.tanggalKerja).format('DD-MM-YYYY')}</TableCell>
@@ -217,8 +217,13 @@ export default function PermintaanSurat(props) {
     }
 
     useEffect(() => {
-        refetch();
-    }, [])
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                refetchSurat();
+                console.log('Refreshed!');
+            }
+        }
+    }, []) 
     return (
         <Container className="containerKu">
             <Row className="bg-white py-5 justify-content-center">

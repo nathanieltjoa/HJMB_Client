@@ -183,12 +183,20 @@ export default function TambahKontrak(props) {
     const { 
         loading: loadingGaji,
         data: dataGaji 
-    } = useQuery(getIndexGaji);
+    } = useQuery(getIndexGaji,{
+        variables: {
+            status: true
+        }
+    });
 
     const { 
         loading: loadingIuran,
         data: dataIuran 
-    } = useQuery(getIndexIuran);
+    } = useQuery(getIndexIuran,{
+        variables: {
+            status: true
+        }
+    });
 
     useEffect(() => {
         if(!dataGaji || loadingGaji){

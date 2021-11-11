@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "",
   "dependencies": {
     "@apollo/client": "^3.3.15",
     "@coreui/icons": "^2.0.1",

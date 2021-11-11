@@ -47,7 +47,7 @@ export default function DetailSurat(props) {
         },
         onCompleted(data){
             console.log(data);
-            props.history.push('/surat/daftar surat keterangan');
+            history.push('/surat/daftar surat keterangan');
         }
       })
 
