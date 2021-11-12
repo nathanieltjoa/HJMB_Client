@@ -35,7 +35,7 @@ query getPermintaansMaster(
     status: $status
   ){
     count rows{
-        id peminta{nama} status tanggalMulai tanggalBerakhir totalHari keterangan upload ketua{nama} 
+        id peminta{nama} status tanggalMulai tanggalBerakhir totalHari keterangan upload alasan ketua{nama} 
         hrd{nama} izin{
             namaIzin totalIzin
         }

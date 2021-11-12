@@ -45,6 +45,9 @@ import DaftarPenilaian from './pages/Penilaian/Daftar Penilaian';
 import MasterNilai from './pages/Penilaian/Master Nilai';
 import MasterIndex from './pages/Penilaian/Master Index';
 import MasterIzin from './pages/Izin/Master Izin';
+import TambahIzin from './pages/Izin/Tambah Izin';
+import DaftarIzinPribadi from './pages/Izin/Daftar Izin Pribadi';
+import DetailIzinPribadi from './pages/Izin/Detail Izin Pribadi';
 import MasterGaji from './pages/Kontrak/MasterGaji';
 import MasterIuran from './pages/Kontrak/MasterIuran';
 import MasterKontrak from './pages/Kontrak/Master Kontrak';
@@ -83,6 +86,8 @@ import MasterPembayaranGajiDirektur from './pages/Direktur/Kontrak/Master Pembay
 import DetailPembayaranGajiDirektur from './pages/Direktur/Kontrak/Detail Pembayaran Gaji';
 import PermintaanPinjamanDirektur from './pages/Direktur/Permintaan/Permintaan Utang';
 import DetailPinjamanDirektur from './pages/Direktur/Permintaan/Detail Utang';
+import PermintaanDirektur from './pages/Direktur/Permintaan/Permintaan';
+import DetailPermintaanDirektur from './pages/Direktur/Permintaan/Detail Permintaan';
 import DaftarAbsensiDirektur from './pages/Direktur/Absensi/Daftar Absensi';
 import MasterKuisionerDirektur from './pages/Direktur/Kuisioner/Master Kuisioner';
 import DaftarTanggapanDirektur from './pages/Direktur/Kuisioner/DaftarTanggapan';
@@ -149,6 +154,9 @@ function App() {
               <DynamicRoute path='/penilaian/daftar penilaian' exact component={DaftarPenilaian} authenticated />
               <DynamicRoute path='/penilaian/master nilai' exact component={MasterNilai} authenticated />
               <DynamicRoute path='/izin/master izin' exact component={MasterIzin} authenticated />
+              <DynamicRoute path='/izin/tambah izin' exact component={TambahIzin} authenticated />
+              <DynamicRoute path='/izin/daftar izin pribadi' exact component={DaftarIzinPribadi} authenticated />
+              <DynamicRoute path='/izin/detail izin pribadi' exact component={DetailIzinPribadi} authenticated />
               <DynamicRoute path='/kontrak/master gaji' exact component={MasterGaji} authenticated />
               <DynamicRoute path='/kontrak/master iuran' exact component={MasterIuran} authenticated />
               <DynamicRoute path='/kontrak/master kontrak' exact component={MasterKontrak} authenticated />
@@ -193,6 +201,8 @@ function App() {
               <DynamicRoute path='/direktur/kontrak/detail pembayaran gaji' exact component={DetailPembayaranGajiDirektur} authenticated />
               <DynamicRoute path='/direktur/permintaan/permintaan pinjaman' exact component={PermintaanPinjamanDirektur} authenticated />
               <DynamicRoute path='/direktur/permintaan/detail pinjaman' exact component={DetailPinjamanDirektur} authenticated />
+              <DynamicRoute path='/direktur/permintaan/daftar permintaan izin' exact component={PermintaanDirektur} authenticated />
+              <DynamicRoute path='/direktur/permintaan/detail permintaan izin' exact component={DetailPermintaanDirektur} authenticated />
               <DynamicRoute path='/direktur/absensi/daftar' exact component={DaftarAbsensiDirektur} authenticated />
               <DynamicRoute path='/direktur/kuisioner/daftar tanggapan' exact component={DaftarTanggapanDirektur} authenticated />
               <DynamicRoute path='/direktur/kuisioner/master kuisioner' exact component={MasterKuisionerDirektur} authenticated />

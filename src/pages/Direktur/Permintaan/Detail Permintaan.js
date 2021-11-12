@@ -7,9 +7,26 @@ import dayjs from 'dayjs';
 import * as BiIcons from 'react-icons/bi';
 
 
-export default function DetailPermintaan(props) {
+const updateStatusPermintaan = gql`
+    mutation updateStatusPermintaan(
+      $id: String
+      $status: Int
+      $alasan: String
+  ) {
+    updateStatusPermintaan(
+      id: $id
+      status: $status
+      alasan: $alasan
+    ){
+      id
+    }
+  }
+  `;
+
+export default function DetailPermintaanDirektur(props) {
     let history = useHistory();
     const location = useLocation();
+    const [alasan, setAlasan] = useState("");
     const [dataLaporan, setDataLaporan] = useState([]);
 
     useEffect(() => {
@@ -17,6 +34,29 @@ export default function DetailPermintaan(props) {
             setDataLaporan(location.state?.laporan)
         }
     }, [location])
+    
+    const [updateStatusPermintaanKu] = useMutation(updateStatusPermintaan,{
+        update(_,res){
+            console.log(res)
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        onCompleted(data){
+            console.log(data);
+            history.push('/permintaan/permintaan izin');
+        }
+      })
+
+    const actionPermintaan = (status) => {
+        console.log(alasan);
+        updateStatusPermintaanKu({variables:{
+          id: dataLaporan.id,
+          status: status,
+          alasan: alasan,
+        }
+        });
+      }
     return (
       <Container className="containerKu">
         <Row>
@@ -67,9 +107,34 @@ export default function DetailPermintaan(props) {
                             <div className="badgeStatusWaiting">Menunggu Verifikasi HRD</div>:
                               dataLaporan.status === 3?
                                 <div className="badgeStatusAktif">Di Terima</div>:
-                                <div className="badgeStatusNon">Di Tolak</div>}
+                                  dataLaporan.status === 4?
+                                    <div className="badgeStatusWaiting">Menunggu Verifikasi Direktur</div>:
+                                    <div className="badgeStatusNon">Di Tolak</div>}
                     </p>
                     {dataLaporan.upload === "-" ? null : <img src={dataLaporan.upload} alt="" id="img" className="img" width="200" height="150"/> }
+                    {
+                      dataLaporan.status !== 4? null:
+                      <div>
+                        <br></br>
+                        <Form.Label className="childLeft">Alasan Tolak: </Form.Label>
+                        <Form.Control 
+                            as="textarea" 
+                            value={alasan} 
+                            onChange={e => 
+                                setAlasan(e.target.value)
+                            }
+                        />
+                        <br></br>
+                        <div className="buttonsSideBySide">
+                            <Button className="buttonSideBySide" variant="primary" onClick={() => actionPermintaan(3)}>
+                              Terima
+                            </Button>
+                            <Button className="buttonSideBySide" variant="danger" onClick={() => actionPermintaan(0)}>
+                              Tolak
+                            </Button>
+                        </div>
+                      </div>
+                    }
                   </Card.Text>
                 </Card.Body>
             </Card>

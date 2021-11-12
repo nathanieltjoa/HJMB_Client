@@ -224,7 +224,7 @@ export const SidebarDataDirektur = [
     subNav: [
       {
         title: 'Daftar Izin',
-        path: '/permintaan/permintaan izin',
+        path: '/direktur/permintaan/daftar permintaan izin',
         icon: <FaIcons.FaRegListAlt />,
         cName: 'sub-nav'
       },

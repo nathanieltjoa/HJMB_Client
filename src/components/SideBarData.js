@@ -44,6 +44,18 @@ export const SidebarData = [
         icon: <FaIcons.FaCheck />,
         cName: 'sub-nav'
       },
+      {
+        title: 'Ajukan Permintaan Izin',
+        path: '/izin/tambah izin',
+        icon: <FaIcons.FaCheck />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Daftar Izin Pribadi',
+        path: '/izin/daftar izin pribadi',
+        icon: <FaIcons.FaCheck />,
+        cName: 'sub-nav'
+      },
     ]
   },
   {

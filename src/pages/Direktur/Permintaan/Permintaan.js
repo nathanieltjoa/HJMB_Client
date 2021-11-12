@@ -66,7 +66,7 @@ query getListKaryawanKontrak(
 }
 `;
 
-export default function Permintaan(props) {
+export default function PermintaanDirektur(props) {
     let history = useHistory();
     const [page, setPage] = useState(0);
     const [limit, setLimit] = useState(5);
@@ -164,7 +164,9 @@ export default function Permintaan(props) {
                                             <div className="badgeStatusWaiting">Menunggu Verifikasi HRD</div>:
                                                 laporan.status === 3?
                                                 <div className="badgeStatusAktif">Di Terima</div>:
-                                                <div className="badgeStatusNon">Di Tolak</div>}
+                                                    laporan.status === 4?
+                                                    <div className="badgeStatusWaiting">Menunggu Verifikasi Direktur</div>:
+                                                    <div className="badgeStatusNon">Di Tolak</div>}
                                     </TableCell>
                                     <TableCell align="center" style={{width: '20%'}}>
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
