@@ -78,7 +78,7 @@ export default function Sekuriti(props) {
             limit: limit,
             orderBy: orderBy,
             gudang: parseInt(gudang),
-            bulan: selectedDateAwal,
+            bulan: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
             status: parseInt(status),
             banding: parseInt(banding),
         }

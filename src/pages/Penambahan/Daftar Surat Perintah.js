@@ -79,7 +79,7 @@ export default function DaftarSuratPerintah(props) {
             limit: parseInt(limit),
             orderBy: orderBy,
             karyawan: parseInt(karyawanKontrak),
-            bulan: selectedDateAwal,
+            bulan: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
             status: parseInt(status),
         }
     });

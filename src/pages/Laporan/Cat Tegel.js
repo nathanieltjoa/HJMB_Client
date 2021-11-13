@@ -83,7 +83,7 @@ export default function CatTegel(props) {
             limit: limit,
             orderBy: orderBy,
             merk: merk,
-            bulan: selectedDateAwal,
+            bulan: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
             status: parseInt(status),
             banding: parseInt(banding),
         }

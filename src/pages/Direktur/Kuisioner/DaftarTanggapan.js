@@ -174,7 +174,7 @@ export default function DaftarAbsensi(props) {
             variables: {
                 KuisionerId: parseInt(kuisioner),
                 idKaryawan: parseInt(karyawan),
-                tanggal: selectedDateAwal,
+                tanggal: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
             }
         });
     }

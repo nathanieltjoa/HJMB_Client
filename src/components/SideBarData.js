@@ -47,13 +47,13 @@ export const SidebarData = [
       {
         title: 'Ajukan Permintaan Izin',
         path: '/izin/tambah izin',
-        icon: <FaIcons.FaCheck />,
+        icon: <FaIcons.FaPlusSquare />,
         cName: 'sub-nav'
       },
       {
         title: 'Daftar Izin Pribadi',
         path: '/izin/daftar izin pribadi',
-        icon: <FaIcons.FaCheck />,
+        icon: <FaIcons.FaFileAlt />,
         cName: 'sub-nav'
       },
     ]

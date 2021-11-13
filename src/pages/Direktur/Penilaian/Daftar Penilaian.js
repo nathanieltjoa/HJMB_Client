@@ -68,7 +68,7 @@ query getListKaryawanKontrak(
 
 export default function DaftarPenilaian(props) {
     const [pageNumber, setPageNumber] = useState(0);
-    const [limit, setLimit] = useState(5);
+    const [limit, setLimit] = useState(10);
     const [selectedDateAwal, setSelectedDateAwal] = useState(new Date());
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
@@ -79,7 +79,7 @@ export default function DaftarPenilaian(props) {
             limit: parseInt(limit),
             orderBy: orderBy,
             karyawan: parseInt(karyawanKontrak),
-            bulan: selectedDateAwal,
+            bulan: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
             divisi: divisiKontrak,
         }
     });
@@ -129,6 +129,7 @@ export default function DaftarPenilaian(props) {
     }else if(data.getNilaiKaryawan.rows.length === 0){
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Penilaian Yang Tersedia</p>)
     }else if(data.getNilaiKaryawan.rows.length > 0 && !counter){
+        console.log("asd");
         console.log(data.getNilaiKaryawan.rows)
         dataKu.push(
             <TableContainer component={Paper} key={0}>
@@ -155,9 +156,10 @@ export default function DaftarPenilaian(props) {
                                             laporan.jabatan.tingkatJabatan === 4? "Ketua ": "Anggota "}
                                             {laporan.jabatan.namaJabatan}
                                     </TableCell>
-                                    <TableCell align="right">{laporan.hPenilaianHRD === null? "Belum Ada Penilaian": laporan.hPenilaianHRD[0].totalNilai}</TableCell>
-                                    <TableCell align="right">{laporan.hPenilaianKuisioner === null? "Belum Ada Penilaian": laporan.hPenilaianKuisioner[0].totalNilai}</TableCell>
-                                    <TableCell align="right">{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai)}</TableCell>
+                                    <TableCell align="right">{laporan.hPenilaianHRD.length <= 0? "0": laporan.hPenilaianHRD[0].totalNilai}</TableCell>
+                                    <TableCell align="right">{laporan.hPenilaianKuisioner.length <= 0? "0": laporan.hPenilaianKuisioner[0].totalNilai}</TableCell>
+                                    {console.log((laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai).toString())}
+                                    <TableCell align="right">{((laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai)).toString() === "NaN"? "0": (laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai)}</TableCell>
                                 </TableRow>
                             ))
                         }

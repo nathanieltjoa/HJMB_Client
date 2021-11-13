@@ -96,7 +96,7 @@ export default function PermintaanDirektur(props) {
 
     const goToDetail = (laporan) => {
         history.push({
-            pathname: '/permintaan/detail permintaan',
+            pathname: '/direktur/permintaan/detail permintaan izin',
             state: { laporan: laporan }
         });
     }

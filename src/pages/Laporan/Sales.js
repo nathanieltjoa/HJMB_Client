@@ -104,7 +104,7 @@ export default function Sales(props) {
             limit: limit,
             orderBy: orderBy,
             karyawan: parseInt(karyawan),
-            bulan: selectedDateAwal,
+            bulan: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
             status: parseInt(status),
             banding: parseInt(banding),
         }
