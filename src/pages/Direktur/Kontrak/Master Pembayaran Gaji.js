@@ -165,9 +165,11 @@ export default function MasterPembayaranGaji(props) {
                                     </TableCell>
                                     <TableCell component="th" scope="row" align="center">
                                         {
-                                            laporan.tanggalPembayaran.toString() === "Invalid Date"? 
-                                                "-": 
-                                                dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY")
+                                            laporan.status === 4 ? 
+                                            dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"): 
+                                                laporan.status === 2?
+                                                dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"):
+                                                "-"
                                         }
                                     </TableCell>
                                     <TableCell component="th" scope="row" align="center">

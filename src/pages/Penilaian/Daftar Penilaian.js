@@ -36,9 +36,7 @@ const getNilaiKaryawan = gql`
                     namaJabatan tingkatJabatan
                 } hPenilaianHRD{
                     totalNilai
-                } hPenilaianKuisioner{
-                    totalNilai
-                }
+                } totalNilaiKuisioner
             }
         }
     }
@@ -130,6 +128,7 @@ export default function DaftarPenilaian(props) {
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Penilaian Yang Tersedia</p>)
     }else if(data.getNilaiKaryawan.rows.length > 0 && !counter){
         console.log(data.getNilaiKaryawan.rows)
+        var counterNilai = 0;
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
@@ -156,8 +155,8 @@ export default function DaftarPenilaian(props) {
                                             {laporan.jabatan.namaJabatan}
                                     </TableCell>
                                     <TableCell align="right">{laporan.hPenilaianHRD === null? "Belum Ada Penilaian": laporan.hPenilaianHRD[0].totalNilai}</TableCell>
-                                    <TableCell align="right">{laporan.hPenilaianKuisioner === null? "Belum Ada Penilaian": laporan.hPenilaianKuisioner[0].totalNilai}</TableCell>
-                                    <TableCell align="right">{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai)}</TableCell>
+                                    <TableCell align="right">{laporan.totalNilaiKuisioner}</TableCell>
+                                    <TableCell align="right">{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.totalNilaiKuisioner)}</TableCell>
                                 </TableRow>
                             ))
                         }

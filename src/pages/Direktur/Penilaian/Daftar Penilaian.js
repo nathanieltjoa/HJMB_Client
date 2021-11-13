@@ -36,9 +36,7 @@ const getNilaiKaryawan = gql`
                     namaJabatan tingkatJabatan
                 } hPenilaianHRD{
                     totalNilai
-                } hPenilaianKuisioner{
-                    totalNilai
-                }
+                } totalNilaiKuisioner
             }
         }
     }
@@ -147,7 +145,6 @@ export default function DaftarPenilaian(props) {
                         {
                             data.getNilaiKaryawan.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
-                                    {console.log(laporan.jabatan)}
                                     <TableCell component="th" scope="row">
                                         {laporan.nama}
                                     </TableCell>
@@ -157,9 +154,8 @@ export default function DaftarPenilaian(props) {
                                             {laporan.jabatan.namaJabatan}
                                     </TableCell>
                                     <TableCell align="right">{laporan.hPenilaianHRD.length <= 0? "0": laporan.hPenilaianHRD[0].totalNilai}</TableCell>
-                                    <TableCell align="right">{laporan.hPenilaianKuisioner.length <= 0? "0": laporan.hPenilaianKuisioner[0].totalNilai}</TableCell>
-                                    {console.log((laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai).toString())}
-                                    <TableCell align="right">{((laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai)).toString() === "NaN"? "0": (laporan.hPenilaianHRD[0]?.totalNilai + laporan.hPenilaianKuisioner[0]?.totalNilai)}</TableCell>
+                                    <TableCell align="right">{laporan.totalNilaiKuisioner}</TableCell>
+                                    <TableCell align="right">{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.totalNilaiKuisioner)}</TableCell>
                                 </TableRow>
                             ))
                         }

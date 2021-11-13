@@ -122,10 +122,12 @@ export default function DetailKontrak(props) {
                                         <p className="childRight">: <CurrencyFormat displayType={'text'} value={dataLaporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} /></p>
                                     <p className="childLeft">Tanggal Pembayaran</p>
                                         <p className="childRight">: {
-                                                dataLaporan.tanggalPembayaran?.toString() === "Invalid Date"? 
-                                                    "-": 
-                                                    dayjs(dataLaporan.tanggalPembayaran).format("DD-MM-YYYY")
-                                            }
+                                            dataLaporan.status === 4 ? 
+                                            dayjs(dataLaporan.tanggalPembayaran).format("DD-MM-YYYY"): 
+                                                dataLaporan.status === 2?
+                                                dayjs(dataLaporan.tanggalPembayaran).format("DD-MM-YYYY"):
+                                                "-"
+                                        }
                                         </p>
                                     <p className="childLeft">HRD</p>
                                         <p className="childRight">: {dataLaporan.hrd?.nama}</p>
