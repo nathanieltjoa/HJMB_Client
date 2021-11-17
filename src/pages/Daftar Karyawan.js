@@ -78,8 +78,8 @@ export default function Register(props) {
         tempatLahir: '',
         tanggalLahir: '',
         alamat: '',
-        agama: '',
-        pendidikan: '',
+        agama: 'Islam',
+        pendidikan: 'SMP',
         foto: '',
     })
     const [file, setFile] = useState();
@@ -307,6 +307,7 @@ export default function Register(props) {
                             <option value="SMP">SMP</option>
                             <option value="SMA">SMA</option>
                             <option value="Sarjana">Sarjana</option>
+                            <option value="Lainnya">Lainnya</option>
                         </Form.Control>
                     </CInputGroup>
                     <CRow>
