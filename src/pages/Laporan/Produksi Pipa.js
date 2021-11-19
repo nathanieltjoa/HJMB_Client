@@ -37,7 +37,7 @@ query getLaporanMasterProduksiPipa(
         banding: $banding
     ){
         count rows{
-            id shift tipeMesin warna ukuran dis pin hasilProduksi jumlahBahan BS totalBahan createdAt
+            id jenisPipa shift tipeMesin warna ukuran dis pin hasilProduksi jumlahBahan BS totalBahan createdAt
             karyawan{
                 nama
             }ketua{
@@ -180,6 +180,7 @@ export default function ProduksiPipa(props) {
                             <TableCell align="center">Nama Karyawan</TableCell>
                             <TableCell align="center">Tanggal Laporan</TableCell>
                             <TableCell align="center">Shift</TableCell>
+                            <TableCell align="center">Jenis Pipa</TableCell>
                             <TableCell align="center">Tipe Mesin</TableCell>
                             <TableCell align="center">Ukuran</TableCell>
                             <TableCell align="center">Dis</TableCell>
@@ -196,6 +197,7 @@ export default function ProduksiPipa(props) {
                                     <TableCell align="center">{laporan.karyawan.nama}</TableCell>
                                     <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
                                     <TableCell align="center">{laporan.shift}</TableCell>
+                                    <TableCell align="center">{laporan.jenisPipa}</TableCell>
                                     <TableCell align="center">{laporan.tipeMesin}</TableCell>
                                     <TableCell align="center">{laporan.ukuran}</TableCell>
                                     <TableCell align="center">{laporan.dis}</TableCell>

@@ -36,8 +36,7 @@ query getLaporanMasterArmada(
         banding: $banding
     ){
         count rows{
-            id idNota keterangan penerima foto status pengantaran kembali createdAt
-            armada{nama} stokist{nama} supir{nama} kernet{nama}
+            id kendaraan status pengantaran kembali createdAt armada{nama} stokist{nama} supir{nama} kernet{nama}
         }
   }
 }
@@ -172,12 +171,11 @@ export default function ProduksiPipa(props) {
                 <Table className="tableKu" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Nota</TableCell>
                             <TableCell align="center">Tanggal Laporan</TableCell>
+                            <TableCell align="center">Kendaraan</TableCell>
                             <TableCell align="center">Nama Armada</TableCell>
                             <TableCell align="center">Nama Stokist</TableCell>
                             <TableCell align="center">Nama Supir</TableCell>
-                            <TableCell align="center">Penerima</TableCell>
                             <TableCell align="center">Status</TableCell>
                             <TableCell align="center">Action</TableCell>
                         </TableRow>
@@ -186,12 +184,11 @@ export default function ProduksiPipa(props) {
                         {
                             dataLaporan.getLaporanMasterArmada.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
-                                    <TableCell align="center">{laporan.idNota}</TableCell>
-                                    <TableCell align="center">{laporan.createdAt}</TableCell>
-                                    <TableCell align="center">{laporan.armada.nama}</TableCell>
+                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
+                                    <TableCell align="center">{laporan.kendaraan}</TableCell>
+                                    <TableCell align="center">{laporan.armada?.nama}</TableCell>
                                     <TableCell align="center">{laporan.stokist?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.supir.nama}</TableCell>
-                                    <TableCell align="center">{laporan.penerima}</TableCell>
+                                    <TableCell align="center">{laporan.supir?.nama}</TableCell>
                                     <TableCell align="center">{laporan.status === 1? 
                                         <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
                                             laporan.status === 2? 

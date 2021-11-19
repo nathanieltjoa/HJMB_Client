@@ -39,9 +39,9 @@ query getLaporanMasterHollow(
         banding: $banding
     ){
         count rows{
-            id ukuran ketebalan berat noCoil jumlah BS keterangan foto status pernahBanding keteranganBanding createdAt
+            id ukuran ketebalan berat panjang noCoil jumlah BS keterangan foto status pernahBanding keteranganBanding createdAt
             hLaporanHollow{
-                idPelapor idKetua totalBerat totalJumlah totalBS karyawan{nama} ketua{nama}
+                shift idPelapor idKetua totalBerat totalJumlah totalBS karyawan{nama} ketua{nama}
             }
         }
   }
@@ -178,6 +178,7 @@ export default function Hollow(props) {
                         <TableRow>
                             <TableCell align="center">Nama Karyawan</TableCell>
                             <TableCell align="center">Tanggal Laporan</TableCell>
+                            <TableCell align="center">Shift</TableCell>
                             <TableCell align="center">Ukuran</TableCell>
                             <TableCell align="center">Ketebalan</TableCell>
                             <TableCell align="center">Jumlah</TableCell>
@@ -192,7 +193,8 @@ export default function Hollow(props) {
                             dataLaporan.getLaporanMasterHollow.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
                                     <TableCell align="center">{laporan.hLaporanHollow.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.createdAt}</TableCell>
+                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
+                                    <TableCell align="center">{laporan.hLaporanHollow.shift}</TableCell>
                                     <TableCell align="center">{laporan.ukuran}</TableCell>
                                     <TableCell align="center">{laporan.ketebalan}</TableCell>
                                     <TableCell align="center">{laporan.jumlah}</TableCell>
@@ -346,12 +348,16 @@ export default function Hollow(props) {
                                 <p className="childRight">: {dataDetail.hLaporanHollow?.ketua.nama}</p>
                             <p className="childLeft">Tanggal Laporan</p>
                                 <p className="childRight">: {dayjs(dataDetail.createdAt).format('DD-MM-YYYY HH:mm:ss')}</p>
+                            <p className="childLeft">Shift</p>
+                                <p className="childRight">: {dataDetail.hLaporanHollow?.shift}</p>
                             <p className="childLeft">Ukuran</p>
                                 <p className="childRight">: {dataDetail.ukuran}</p>
                             <p className="childLeft">Ketebalan</p>
                                 <p className="childRight">: {dataDetail.ketebalan}</p>
                             <p className="childLeft">Berat</p>
                                 <p className="childRight">: {dataDetail.berat}</p>
+                            <p className="childLeft">Panjang</p>
+                                <p className="childRight">: {dataDetail.panjang}</p>
                             <p className="childLeft">Nomor Coil</p>
                                 <p className="childRight">: {dataDetail.noCoil}</p>
                             <p className="childLeft">Jumlah</p>

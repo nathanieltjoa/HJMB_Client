@@ -329,6 +329,7 @@ export default function QualityControl(props) {
                                 {
                                     dataSummary?.getSummaryQualityControlPipa.map((laporan,index) =>(
                                         <TableRow key={index}>
+                                            {console.log("Masuk")}
                                             {console.log(laporan)}
                                             <TableCell align="center">{laporan.karyawan.nama}</TableCell>
                                             <TableCell align="center">{laporan.jumlahProduksi}</TableCell>

@@ -21,7 +21,9 @@ query getDLaporanQualityControlPipa(
   getDLaporanQualityControlPipa(
     HLaporanQualityControlPipaId: $HLaporanQualityControlPipaId
   ){
-    diameter panjang berat foto status pernahBanding keteranganBanding jamLaporan keterangan
+    diameter panjang berat foto status pernahBanding keteranganBanding jamLaporan keterangan uLaporan{
+        namaBagian nilai
+    }
   }
 }
 `;
@@ -205,6 +207,25 @@ export default function DetailQualityControlPipa(props) {
                                         <div className="badgeStatusAktif">Aman</div>}
                             </p>
                         </div>
+                        <p className="subJudul">Bahan Baku:</p>
+                        <Table className="tableKu" aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center">Nama Bahan</TableCell>
+                                    <TableCell align="center">Total Pemakaian</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    detailLaporan?.uLaporan?.map((laporan,index) =>(
+                                        <TableRow key={index}>
+                                            <TableCell component="th" scope="row" align="center">{laporan.namaBagian}</TableCell>
+                                            <TableCell component="th" scope="row" align="center">{laporan.nilai}</TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
                         <p className="subJudul">Dokumentasi: </p>
                         <CImage src={!detailLaporan.foto ? "/defaultImage.png": detailLaporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
                     </Modal.Body>

@@ -39,12 +39,7 @@ query getLaporanMasterMixerPipa(
         banding: $banding
     ){
         count rows{
-            id tipeMesin totalHasil targetMixer status pernahBanding createdAt foto bahanDigunakan foto keterangan keteranganBanding
-            karyawan{
-                nama
-            }ketua{
-                nama
-            }
+            id jenisMixer tipeMesin karyawan{nama} ketua{nama} totalMix jumlahBanding
         }
   }
 }
@@ -132,8 +127,11 @@ export default function MixerPipa(props) {
     }
 
     const goToDetail = (laporan) => {
-        setDataDetail(laporan);
-        setVisible(true);
+        console.log("asd");
+        history.push({
+            pathname: '/laporan/detail mixer pipa',
+            state: { laporan: laporan }
+        });
     }
 
     let dataKu= [];
@@ -178,12 +176,11 @@ export default function MixerPipa(props) {
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Tipe Mesin</TableCell>
                             <TableCell align="center">Tanggal Laporan</TableCell>
+                            <TableCell align="center">Jenis Mixer</TableCell>
+                            <TableCell align="center">Tipe Mesin</TableCell>
                             <TableCell align="center">Total Hasil</TableCell>
-                            <TableCell align="center">Target</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Banding</TableCell>
+                            <TableCell align="center">Jumlah Banding</TableCell>
                             <TableCell align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -191,21 +188,12 @@ export default function MixerPipa(props) {
                         {
                             dataLaporan.getLaporanMasterMixerPipa.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.tipeMesin}</TableCell>
+                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
                                     <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.totalHasil}</TableCell>
-                                    <TableCell align="center">{laporan.targetMixer}</TableCell>
-                                    <TableCell align="center">{laporan.status === 1? 
-                                        <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                            laporan.status === 2? 
-                                            <div className="badgeStatusAktif">Terverifikasi</div>:
-                                            <div className="badgeStatusNon">Proses Banding</div>}
-                                    </TableCell>
-                                    <TableCell align="center">{laporan.pernahBanding === true? 
-                                        <div className="badgeStatusNon">Pernah Banding</div>:
-                                            <div className="badgeStatusAktif">Aman</div>}
-                                    </TableCell>
+                                    <TableCell align="center">{laporan.jenisMixer}</TableCell>
+                                    <TableCell align="center">{laporan.tipeMesin}</TableCell>
+                                    <TableCell align="center">{laporan.totalMix}</TableCell>
+                                    <TableCell align="center">{laporan.jumlahBanding}</TableCell>
                                     <TableCell align="center" style={{width: '20%'}}>
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Card, Container, Modal, Button} from 'react-bootstrap';
+import { Row, Col, Card, Container, Button, Modal} from 'react-bootstrap';
 import { gql, useQuery} from '@apollo/client';
 import dayjs from 'dayjs'
 import Table from '@material-ui/core/Table';
@@ -14,30 +14,31 @@ import { useHistory } from 'react-router-dom';
 
 const {URL} = require('../../config/config.json')
 
-const getDLaporanProduksiPipa = gql`
-query getDLaporanProduksiPipa(
-  $HLaporanProduksiPipaId: String 
+const getListDetailMixerPipa = gql`
+query getListDetailMixerPipa(
+  $id: String 
 ){
-    getDLaporanProduksiPipa(
-    HLaporanProduksiPipaId: $HLaporanProduksiPipaId
+    getListDetailMixerPipa(
+    id: $id
   ){
-    totalProduksi targetProduksi foto status pernahBanding keteranganBanding jamLaporan keterangan createdAt uLaporan{
-        namaUraian nilaiUraian
+    totalHasil targetKerja keterangan status pernahBanding keteranganBanding uLaporan{
+        id namaBahan totalBahan 
+    }fLaporan{
+        foto
     }
   }
 }
 `;
 
-export default function DetailProduksiPipa(props) {
+export default function DetailMixerPipa(props) {
     let history = useHistory();
     const location = useLocation();
     const [dataLaporan, setDataLaporan] = useState([]);
-    const [dataUraian, setDataUraian] = useState([]);
-    const [newUri, setNewUri] = useState("");
     const [visible, setVisible] = useState(false);
-    const { loading, data, refetch} = useQuery(getDLaporanProduksiPipa,{
+    const [detailLaporan, setDetailLaporan] = useState([]);
+    const { loading, data, refetch} = useQuery(getListDetailMixerPipa,{
         variables: {
-            HLaporanProduksiPipaId: dataLaporan.id
+            id: dataLaporan.id
         }
     });
 
@@ -47,19 +48,18 @@ export default function DetailProduksiPipa(props) {
         }
     }, [location])
 
-    const goToDetail = (laporan, dokumentasi) => {
-        const fileImage = dokumentasi;
-        setNewUri(fileImage.replace("localhost:4000", URL))
-        setDataUraian(laporan);
+    const openModal = (laporan) => {
+        console.log(laporan);
+        setDetailLaporan(laporan);
         setVisible(true);
     }
 
     let dataDetail= [];
     if(!data || loading){
         dataDetail.push(<p key={0}>Loading....</p>)
-    }else if(data.getDLaporanProduksiPipa === null){
+    }else if(data.getListDetailMixerPipa === null){
         dataDetail.push(<p key={0}>Tidak ada Detail Laporan</p>)
-    }else if(data.getDLaporanProduksiPipa !== null){
+    }else if(data.getListDetailMixerPipa !== null){
         dataDetail.push(
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-12">
@@ -67,9 +67,8 @@ export default function DetailProduksiPipa(props) {
                     <Table className="tableKu" aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">Jam Laporan</TableCell>
-                                <TableCell align="center">Target Produksi</TableCell>
-                                <TableCell align="center">Total Produksi</TableCell>
+                                <TableCell align="center">Total Hasil</TableCell>
+                                <TableCell align="center">Target Kerja</TableCell>
                                 <TableCell align="center">Status</TableCell>
                                 <TableCell align="center">Banding</TableCell>
                                 <TableCell align="center">Action</TableCell>
@@ -77,17 +76,15 @@ export default function DetailProduksiPipa(props) {
                         </TableHead>
                         <TableBody>
                             {
-                                data.getDLaporanProduksiPipa.map((laporan,index) =>(
+                                data.getListDetailMixerPipa.map((laporan,index) =>(
                                     <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jamLaporan}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.targetProduksi}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.totalProduksi}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
+                                        <TableCell component="th" scope="row" align="center">{laporan.totalHasil}</TableCell>
+                                        <TableCell component="th" scope="row" align="center">{laporan.targetKerja}</TableCell>
                                         <TableCell component="th" scope="row" align="center">
                                         {
                                             laporan.status === 1? 
                                             <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                                laporan.status === 2? 
+                                            laporan.status === 2? 
                                                 <div className="badgeStatusAktif">Terverifikasi</div>:
                                                     <div className="badgeStatusNon">Proses Banding</div>
                                         }
@@ -99,10 +96,9 @@ export default function DetailProduksiPipa(props) {
                                                 <div className="badgeStatusAktif">Aman</div>
                                         }
                                         </TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keteranganBanding}</TableCell>
-                                        <TableCell align="center" style={{width: '20%'}}>
-                                            <Button variant="info" onClick={() => goToDetail(laporan, laporan.foto)}>
-                                                Detail
+                                        <TableCell component="th" scope="row" align="center">
+                                            <Button onClick={() => openModal(laporan)}>
+                                                Detail 
                                             </Button>
                                         </TableCell>
                                     </TableRow>
@@ -120,11 +116,11 @@ export default function DetailProduksiPipa(props) {
         <Container className="containerKu">
             <Row>
                 <Col>
-                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/produksi pipa'})} className="iconBack"/>
+                    <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/laporan/mixer pipa'})} className="iconBack"/>
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Laporan Produksi Pipa</h1></Col>
+                <Col><h1 className="text-center">Master Laporan Mixer Pipa</h1></Col>
             </Row>
             <Row className="bg-white py-5 justify-content-md-center">
                 <Col className="col-md-6">
@@ -139,28 +135,12 @@ export default function DetailProduksiPipa(props) {
                                         <p className="childRight">: {dataLaporan.ketua?.nama}</p>
                                     <p className="childLeft">Tanggal Laporan</p>
                                         <p className="childRight">: {dayjs(dataLaporan.createdAt).format('DD-MM-YYYY')}</p>
-                                    <p className="childLeft">Shift</p>
-                                        <p className="childRight">: {dataLaporan.shift}</p>
-                                    <p className="childLeft">Jenis Pipa</p>
-                                        <p className="childRight">: {dataLaporan.jenisPipa}</p>
+                                    <p className="childLeft">Jenis Mixer</p>
+                                        <p className="childRight">: {dataLaporan.jenisMixer}</p>
                                     <p className="childLeft">Tipe Mesin</p>
                                         <p className="childRight">: {dataLaporan.tipeMesin}</p>
-                                    <p className="childLeft">Warna</p>
-                                        <p className="childRight">: {dataLaporan.warna}</p>
-                                    <p className="childLeft">Ukuran</p>
-                                        <p className="childRight">: {dataLaporan.ukuran}</p>
-                                    <p className="childLeft">Dis</p>
-                                        <p className="childRight">: {dataLaporan.dis}</p>
-                                    <p className="childLeft">Pin</p>
-                                        <p className="childRight">: {dataLaporan.pin}</p>
-                                    <p className="childLeft">Hasil Produksi</p>
-                                        <p className="childRight">: {dataLaporan.hasilProduksi}</p>
-                                    <p className="childLeft">BS</p>
-                                        <p className="childRight">: {dataLaporan.BS}</p>
-                                    <p className="childLeft">Jumlah Bahan</p>
-                                        <p className="childRight">: {dataLaporan.jumlahBahan}</p>
-                                    <p className="childLeft">Total Bahan</p>
-                                        <p className="childRight">: {dataLaporan.totalBahan}</p>
+                                    <p className="childLeft">Total Produksi</p>
+                                        <p className="childRight">: {dataLaporan.totalMix}</p>
                                 </div>
                             </Card.Text>
                         </Card.Body>
@@ -172,66 +152,68 @@ export default function DetailProduksiPipa(props) {
                     {dataDetail}
                 </Col>
             </Row>
-            
             <Modal show={visible} onHide={() => setVisible(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="judul">Detail Uraian Laporan</Modal.Title>
+                    <Modal.Title className="judul">Detail Laporan</Modal.Title>
                 </Modal.Header>
                     <Modal.Body>
                         <div className="parent">
-                            <p className="childLeft">Jam Laporan</p>
-                                <p className="childRight">: {dataUraian.jamLaporan}</p>
-                            <p className="childLeft">Target Produksi</p>
-                                <p className="childRight">: {dataUraian.targetProduksi}</p>
-                            <p className="childLeft">Total Produksi</p>
-                                <p className="childRight">: {dataUraian.totalProduksi}</p>
+                            <p className="childLeft">Total Hasil</p>
+                                <p className="childRight">: {detailLaporan.totalHasil}</p>
+                            <p className="childLeft">Target Kerja</p>
+                                <p className="childRight">: {detailLaporan.targetKerja}</p>
                             <p className="childLeft">Keterangan</p>
-                                <p className="childRight">: {dataUraian.keterangan}</p>
+                                <p className="childRight">: {detailLaporan.keterangan}</p>
                             {
-                                dataUraian.pernahBanding === false? 
+                                detailLaporan.pernahBanding === false? 
                                     null:
                                     <>
                                         <p className="childLeft">Keterangan Banding</p>
-                                            <p className="childRight">: {dataUraian.keteranganBanding}</p>
+                                            <p className="childRight">: {detailLaporan.keteranganBanding}</p>
                                     </>
                             }
                         </div>
                         <div className="tagPInRow">
                             <p className="tagPTextLeft">Status: 
                                 {
-                                    dataUraian.status === 1? 
+                                    detailLaporan.status === 1? 
                                     <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                    dataUraian.status === 2? 
+                                    detailLaporan.status === 2? 
                                         <div className="badgeStatusAktif">Terverifikasi</div>:
                                             <div className="badgeStatusNon">Proses Banding</div>
                                 }
                             </p>
                             <p className="tagPTextLeft">Status Banding:
-                                {dataUraian.pernahBanding === true? 
+                                {detailLaporan.pernahBanding === true? 
                                     <div className="badgeStatusNon">Pernah Banding</div>:
                                         <div className="badgeStatusAktif">Aman</div>}
                             </p>
                         </div>
-                        <p className="subJudul">Dokumentasi: </p>
-                        <CImage src={!newUri ? "/defaultImage.png": newUri} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                        <p className="subJudul">Bahan Baku:</p>
                         <Table className="tableKu" aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center">Nama Uraian</TableCell>
-                                    <TableCell align="center">Nilai Uraian</TableCell>
+                                    <TableCell align="center">Nama Bahan</TableCell>
+                                    <TableCell align="center">Total Pemakaian</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {
-                                    dataUraian.uLaporan?.map((laporan,index) =>(
+                                    detailLaporan?.uLaporan?.map((laporan,index) =>(
                                         <TableRow key={index}>
-                                            <TableCell component="th" scope="row" align="center">{laporan.namaUraian}</TableCell>
-                                            <TableCell component="th" scope="row" align="center">{laporan.nilaiUraian}</TableCell>
+                                            <TableCell component="th" scope="row" align="center">{laporan.namaBahan}</TableCell>
+                                            <TableCell component="th" scope="row" align="center">{laporan.totalBahan}</TableCell>
                                         </TableRow>
                                     ))
                                 }
                             </TableBody>
                         </Table>
+                        <p className="subJudul">Dokumentasi: </p>
+                        {
+                            detailLaporan?.fLaporan?.map((element,index) => {
+                                <CImage key={index} src={element.foto.replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                            })
+                        }
                     </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={() => setVisible(false)}>

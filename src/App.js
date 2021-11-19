@@ -73,6 +73,7 @@ import DetailStokistPipa from './pages/Laporan/Stokist Pipa Detail';
 import DetailQualityControlPipa from './pages/Laporan/Quality Control Detail';
 import DetailProduksiPipa from './pages/Laporan/Produksi Pipa Detail';
 import DetailCatTegel from './pages/Laporan/Cat Tegel Detail';
+import DetailMixerPipa from './pages/Laporan/Mixer Pipa Detail';
 
 //direktur
 import MasterKaryawanDirektur from './pages/Direktur/Karyawan/MasterKaryawan';
@@ -186,6 +187,7 @@ function App() {
               <DynamicRoute path='/laporan/detail quality control pipa' exact component={DetailQualityControlPipa} authenticated />
               <DynamicRoute path='/laporan/detail produksi pipa' exact component={DetailProduksiPipa} authenticated />
               <DynamicRoute path='/laporan/detail cat tegel' exact component={DetailCatTegel} authenticated />
+              <DynamicRoute path='/laporan/detail mixer pipa' exact component={DetailMixerPipa} authenticated />
               <DynamicRoute path='/profil' exact component={Profil} authenticated />
               <DynamicRoute path='/ubah password' exact component={UbahPassword} authenticated />
 

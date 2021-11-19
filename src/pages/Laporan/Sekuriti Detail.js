@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Card, Container} from 'react-bootstrap';
+import { Row, Col, Card, Container, Button, Modal} from 'react-bootstrap';
 import { gql, useQuery} from '@apollo/client';
 import dayjs from 'dayjs'
 import Table from '@material-ui/core/Table';
@@ -36,6 +36,8 @@ export default function DetailSekuriti(props) {
     let history = useHistory();
     const location = useLocation();
     const [dataLaporan, setDataLaporan] = useState([]);
+    const [newUri, setNewUri] = useState("");
+    const [visible, setVisible] = useState(false);
     const { loading, data, refetch} = useQuery(getDLaporanSekuriti,{
         variables: {
             id: dataLaporan.id
@@ -47,6 +49,13 @@ export default function DetailSekuriti(props) {
             setDataLaporan(location.state?.laporan)
         }
     }, [location])
+
+    const goToDetail = (dokumentasi) => {
+        const fileImage = dokumentasi;
+        setNewUri(fileImage.replace("localhost:4000", URL))
+        //setNewUri(fileImage)
+        setVisible(true);
+    }
 
     let dataDetail= [];
     if(!data || loading){
@@ -119,7 +128,7 @@ export default function DetailSekuriti(props) {
                                 <TableCell align="center">Nama Pelapor</TableCell>
                                 <TableCell align="center">Uraian</TableCell>
                                 <TableCell align="center">Keterangan</TableCell>
-                                <TableCell align="center">Foto</TableCell>
+                                <TableCell align="center">Action</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -130,8 +139,10 @@ export default function DetailSekuriti(props) {
                                         <TableCell component="th" scope="row" align="center">{laporan.namaPelapor}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.uraian}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">
-                                            <CImage src={!laporan.foto ? "/defaultImage.png": laporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/>
+                                        <TableCell align="center" style={{width: '20%'}}>
+                                            <Button variant="info" onClick={() => goToDetail(laporan.foto)}>
+                                                Detail
+                                            </Button>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -182,6 +193,27 @@ export default function DetailSekuriti(props) {
                     {dataDetail}
                 </Col>
             </Row>
+            <Modal show={visible} onHide={() => setVisible(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="judul">Dokumentasi</Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
+                    {console.log(newUri.toString().substr(newUri.toString().lastIndexOf('.'), newUri.toString().length))}
+                    {
+                        newUri.toString().substr(newUri.toString().lastIndexOf('.'), newUri.toString().length) === ".mp4"?
+                        <video style={{width: '100%', height: 500}} controls>
+                            <source src={newUri} type="video/mp4"/>
+                        </video>
+                        :
+                        <CImage src={newUri} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                    }
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={() => setVisible(false)}>
+                        Tutup
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 }

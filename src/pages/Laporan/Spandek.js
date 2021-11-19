@@ -39,9 +39,9 @@ query getLaporanMasterSpandek(
         banding: $banding
     ){
         count rows{
-            id namaPemesan warna ukuran berat panjang BS noCoil keterangan foto status pernahBanding keteranganBanding createdAt 
+            id namaPemesan warna ukuran berat gelombang panjang BS noCoil keterangan foto status pernahBanding keteranganBanding createdAt 
             hLaporanSpandek{
-                jenisProduk totalPanjang totalBS totalBerat karyawan{nama} ketua{nama}
+                shift jenisProduk totalPanjang totalBS totalBerat karyawan{nama} ketua{nama}
             }
         }
   }
@@ -183,6 +183,7 @@ export default function Spandek(props) {
                             <TableCell align="center">Nama Karyawan</TableCell>
                             <TableCell align="center">Jenis Produk</TableCell>
                             <TableCell align="center">Tanggal Laporan</TableCell>
+                            <TableCell align="center">Shift</TableCell>
                             <TableCell align="center">Pemesan</TableCell>
                             <TableCell align="center">Ukuran</TableCell>
                             <TableCell align="center">Panjang</TableCell>
@@ -198,7 +199,8 @@ export default function Spandek(props) {
                                 <TableRow key={index}>
                                     <TableCell align="center">{laporan.hLaporanSpandek.karyawan.nama}</TableCell>
                                     <TableCell align="center">{laporan.hLaporanSpandek.jenisProduk}</TableCell>
-                                    <TableCell align="center">{laporan.createdAt}</TableCell>
+                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
+                                    <TableCell align="center">{laporan.hLaporanSpandek.shift}</TableCell>
                                     <TableCell align="center">{laporan.namaPemesan}</TableCell>
                                     <TableCell align="center">{laporan.ukuran}</TableCell>
                                     <TableCell align="center">{laporan.panjang}</TableCell>
@@ -352,12 +354,16 @@ export default function Spandek(props) {
                                 <p className="childRight">: {dataDetail.hLaporanSpandek?.ketua.nama}</p>
                             <p className="childLeft">Tanggal Laporan</p>
                                 <p className="childRight">: {dayjs(dataDetail.createdAt).format('DD-MM-YYYY HH:mm:ss')}</p>
+                            <p className="childLeft">Shift</p>
+                                <p className="childRight">: {dataDetail.hLaporanSpandek?.shift}</p>
                             <p className="childLeft">Pemesan</p>
                                 <p className="childRight">: {dataDetail.namaPemesan}</p>
                             <p className="childLeft">Ukuran</p>
                                 <p className="childRight">: {dataDetail.ukuran}</p>
                             <p className="childLeft">Berat</p>
                                 <p className="childRight">: {dataDetail.berat}</p>
+                            <p className="childLeft">Gelombang</p>
+                                <p className="childRight">: {dataDetail.gelombang} Gelombang</p>
                             <p className="childLeft">Nomor Coil</p>
                                 <p className="childRight">: {dataDetail.noCoil}</p>
                             <p className="childLeft">Panjang</p>
