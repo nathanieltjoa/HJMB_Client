@@ -74,6 +74,18 @@ const updateKaryawan = gql`
     }
   }
 `;
+
+const resetPassword = gql`
+    mutation resetPassword(
+      $id: Int 
+  ) {
+    updateKaryawan(
+      id: $id
+    ) {
+        passwordRaw
+    }
+  }
+`;
 export default function DetailKaryawan(props) {
     let history = useHistory();
     const location = useLocation();
@@ -239,6 +251,29 @@ export default function DetailKaryawan(props) {
         }
         reader.readAsDataURL(e.target.files[0])
     }
+
+    const [resetPasswordKu] = useMutation(resetPassword,{
+        update(_,res){
+            console.log(res)
+        },
+        onError: (err) => {
+            console.log(err)
+            setErrors(err.graphQLErrors[0].extensions.errors)
+            setSuccess({});
+        },
+        onCompleted(data){
+            setErrors({});
+            setSuccess({
+                password: `Password Baru: ${data.resetPassword.passwordRaw}`
+            })
+        }
+    })
+    const actionReset = () => {
+        resetPasswordKu({variables:{
+            id: variables.id,
+        }
+        });
+    }
     return (
         <CContainer className="containerKu">
             <Row>
@@ -387,6 +422,11 @@ export default function DetailKaryawan(props) {
                         <CCol xs={6}>
                             <CButton color="primary" className="px-4" onClick={() => register()}>
                                 Perbarui
+                            </CButton>
+                        </CCol>
+                        <CCol xs={6}>
+                            <CButton color="danger" className="px-6" onClick={() => actionReset()}>
+                                Reset Password
                             </CButton>
                         </CCol>
                     </CRow>

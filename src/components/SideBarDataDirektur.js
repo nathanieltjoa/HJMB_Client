@@ -242,22 +242,6 @@ export const SidebarDataDirektur = [
     icon: <FaIcons.FaUserCircle />,
   },
   {
-    title: 'Promosi',
-    path: '#',
-    icon: <FaIcons.FaCheck />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'Daftar Permintaan Promosi',
-        path: '/direktur/promosi/daftar permintaan promosi',
-        icon: <FaIcons.FaCheck />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
     title: 'Surat',
     path: '#',
     icon: <IoIcons.IoIosPaper />,

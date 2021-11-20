@@ -21,7 +21,7 @@ query getDLaporanQualityControlPipa(
   getDLaporanQualityControlPipa(
     HLaporanQualityControlPipaId: $HLaporanQualityControlPipaId
   ){
-    diameter panjang berat foto status pernahBanding keteranganBanding jamLaporan keterangan uLaporan{
+    diameter panjang berat ketebalan foto status pernahBanding keteranganBanding jamLaporan keterangan uLaporan{
         namaBagian nilai
     }
   }
@@ -69,6 +69,7 @@ export default function DetailQualityControlPipa(props) {
                                 <TableCell align="center">Diameter</TableCell>
                                 <TableCell align="center">Panjang</TableCell>
                                 <TableCell align="center">Berat</TableCell>
+                                <TableCell align="center">Ketebalan</TableCell>
                                 <TableCell align="center">Status</TableCell>
                                 <TableCell align="center">Banding</TableCell>
                                 <TableCell align="center">Action</TableCell>
@@ -82,6 +83,7 @@ export default function DetailQualityControlPipa(props) {
                                         <TableCell component="th" scope="row" align="center">{laporan.diameter}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.panjang}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.berat}</TableCell>
+                                        <TableCell component="th" scope="row" align="center">{laporan.ketebalan}</TableCell>
                                         <TableCell component="th" scope="row" align="center">
                                         {
                                             laporan.status === 1? 
@@ -139,10 +141,8 @@ export default function DetailQualityControlPipa(props) {
                                         <p className="childRight">: {dayjs(dataLaporan.createdAt).format('DD-MM-YYYY')}</p>
                                     <p className="childLeft">Shift</p>
                                         <p className="childRight">: {dataLaporan.shift}</p>
-                                    <p className="childLeft">Tipe Mesin</p>
-                                        <p className="childRight">: {dataLaporan.tipeMesin}</p>
-                                    <p className="childLeft">Merk</p>
-                                        <p className="childRight">: {dataLaporan.merk}</p>
+                                    <p className="childLeft">Pipa</p>
+                                        <p className="childRight">: {dataLaporan.merkPipa} {dataLaporan.ukuranPipa}</p>
                                     <p className="childLeft">Panjang</p>
                                         <p className="childRight">: {dataLaporan.panjang}</p>
                                     <p className="childLeft">Ketebalan</p>
@@ -180,6 +180,8 @@ export default function DetailQualityControlPipa(props) {
                                 <p className="childRight">: {detailLaporan.panjang}</p>
                             <p className="childLeft">Berat</p>
                                 <p className="childRight">: {detailLaporan.berat}</p>
+                            <p className="childLeft">Ketebalan</p>
+                                <p className="childRight">: {detailLaporan.ketebalan}</p>
                             <p className="childLeft">Keterangan</p>
                                 <p className="childRight">: {detailLaporan.keterangan}</p>
                             {

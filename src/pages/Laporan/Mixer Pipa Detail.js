@@ -21,7 +21,7 @@ query getListDetailMixerPipa(
     getListDetailMixerPipa(
     id: $id
   ){
-    totalHasil targetKerja keterangan status pernahBanding keteranganBanding uLaporan{
+    totalHasil targetKerja formulaA formulaB formulaC crusher keterangan status pernahBanding keteranganBanding uLaporan{
         id namaBahan totalBahan 
     }fLaporan{
         foto
@@ -141,6 +141,19 @@ export default function DetailMixerPipa(props) {
                                         <p className="childRight">: {dataLaporan.tipeMesin}</p>
                                     <p className="childLeft">Total Produksi</p>
                                         <p className="childRight">: {dataLaporan.totalMix}</p>
+                                    {
+                                        dataLaporan.jenisMixer === "Additive"? null:
+                                        <>
+                                            <p className="childLeft">Formula A</p>
+                                                <p className="childRight">: {dataLaporan.formulaA}</p>
+                                            <p className="childLeft">Formula B</p>
+                                                <p className="childRight">: {dataLaporan.formulaB}</p>
+                                            <p className="childLeft">Formula C</p>
+                                                <p className="childRight">: {dataLaporan.formulaC}</p>
+                                            <p className="childLeft">Crusher</p>
+                                                <p className="childRight">: {dataLaporan.crusher}</p>
+                                        </>
+                                    }
                                 </div>
                             </Card.Text>
                         </Card.Body>
@@ -162,6 +175,19 @@ export default function DetailMixerPipa(props) {
                                 <p className="childRight">: {detailLaporan.totalHasil}</p>
                             <p className="childLeft">Target Kerja</p>
                                 <p className="childRight">: {detailLaporan.targetKerja}</p>
+                            {
+                                dataLaporan.jenisMixer === "Additive"? null:
+                                <>
+                                    <p className="childLeft">Formula A</p>
+                                        <p className="childRight">: {detailLaporan.formulaA}</p>
+                                    <p className="childLeft">Formula B</p>
+                                        <p className="childRight">: {detailLaporan.formulaB}</p>
+                                    <p className="childLeft">Formula C</p>
+                                        <p className="childRight">: {detailLaporan.formulaC}</p>
+                                    <p className="childLeft">Crusher</p>
+                                        <p className="childRight">: {detailLaporan.crusher}</p>
+                                </>
+                            }
                             <p className="childLeft">Keterangan</p>
                                 <p className="childRight">: {detailLaporan.keterangan}</p>
                             {
