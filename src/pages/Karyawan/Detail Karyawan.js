@@ -79,7 +79,7 @@ const resetPassword = gql`
     mutation resetPassword(
       $id: Int 
   ) {
-    updateKaryawan(
+    resetPassword(
       id: $id
     ) {
         passwordRaw
