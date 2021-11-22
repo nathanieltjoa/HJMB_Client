@@ -21,7 +21,7 @@ query getDLaporanQualityControlPipa(
   getDLaporanQualityControlPipa(
     HLaporanQualityControlPipaId: $HLaporanQualityControlPipaId
   ){
-    diameter panjang berat ketebalan foto status pernahBanding keteranganBanding jamLaporan keterangan uLaporan{
+    diameterLuar diameterDalam panjang berat ketebalan foto status pernahBanding keteranganBanding jamLaporan keterangan uLaporan{
         namaBagian nilai
     }
   }
@@ -66,7 +66,8 @@ export default function DetailQualityControlPipa(props) {
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center">Jam Laporan</TableCell>
-                                <TableCell align="center">Diameter</TableCell>
+                                <TableCell align="center">Diameter Luar</TableCell>
+                                <TableCell align="center">Diameter Dalam</TableCell>
                                 <TableCell align="center">Panjang</TableCell>
                                 <TableCell align="center">Berat</TableCell>
                                 <TableCell align="center">Ketebalan</TableCell>
@@ -80,7 +81,8 @@ export default function DetailQualityControlPipa(props) {
                                 data.getDLaporanQualityControlPipa.map((laporan,index) =>(
                                     <TableRow key={index}>
                                         <TableCell component="th" scope="row" align="center">{laporan.jamLaporan}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.diameter}</TableCell>
+                                        <TableCell component="th" scope="row" align="center">{laporan.diameterLuar}</TableCell>
+                                        <TableCell component="th" scope="row" align="center">{laporan.diameterDalam}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.panjang}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.berat}</TableCell>
                                         <TableCell component="th" scope="row" align="center">{laporan.ketebalan}</TableCell>
@@ -142,9 +144,13 @@ export default function DetailQualityControlPipa(props) {
                                     <p className="childLeft">Shift</p>
                                         <p className="childRight">: {dataLaporan.shift}</p>
                                     <p className="childLeft">Pipa</p>
-                                        <p className="childRight">: {dataLaporan.merkPipa} {dataLaporan.ukuranPipa}</p>
-                                    <p className="childLeft">Panjang</p>
-                                        <p className="childRight">: {dataLaporan.panjang}</p>
+                                        <p className="childRight">: {dataLaporan.merkPipa} {dataLaporan.tipePipa} {dataLaporan.ukuranPipa}</p>
+                                    <p className="childLeft">Kebulatan</p>
+                                        <p className="childRight">: {dataLaporan.kebulatan}</p>
+                                    <p className="childLeft">Kerataan Warna</p>
+                                        <p className="childRight">: {dataLaporan.kerataanWarna}</p>
+                                    <p className="childLeft">Cacat</p>
+                                        <p className="childRight">: {dataLaporan.cacat}</p>
                                     <p className="childLeft">Ketebalan</p>
                                         <p className="childRight">: {dataLaporan.ketebalan}</p>
                                     <p className="childLeft">Diameter Luar</p>
@@ -174,8 +180,10 @@ export default function DetailQualityControlPipa(props) {
                         <div className="parent">
                             <p className="childLeft">Jam Laporan</p>
                                 <p className="childRight">: {detailLaporan.jamLaporan}</p>
-                            <p className="childLeft">Diameter</p>
-                                <p className="childRight">: {detailLaporan.diameter}</p>
+                            <p className="childLeft">Diameter Luar</p>
+                                <p className="childRight">: {detailLaporan.diameterLuar}</p>
+                            <p className="childLeft">Diameter Dalam</p>
+                                <p className="childRight">: {detailLaporan.diameterDalam}</p>
                             <p className="childLeft">Panjang</p>
                                 <p className="childRight">: {detailLaporan.panjang}</p>
                             <p className="childLeft">Berat</p>

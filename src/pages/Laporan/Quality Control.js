@@ -36,7 +36,7 @@ query getLaporanMasterQualityControl(
         banding: $banding
     ){
         count rows{
-            id shift merkPipa ukuranPipa panjang ketebalan diameterDalam diameterLuar
+            id shift merkPipa tipePipa ukuranPipa kebulatan kerataanWarna cacat ketebalan diameterDalam diameterLuar
             totalReject totalProduksi jumlahBanding createdAt 
             karyawan{
                 nama 
@@ -194,7 +194,7 @@ export default function QualityControl(props) {
                                     <TableCell align="center">{laporan.karyawan.nama}</TableCell>
                                     <TableCell align="center">{laporan.shift}</TableCell>
                                     <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.merkPipa} {laporan.ukuranPipa}</TableCell>
+                                    <TableCell align="center">{laporan.merkPipa} {laporan.tipePipa} {laporan.ukuranPipa}</TableCell>
                                     <TableCell align="center">{laporan.totalReject}</TableCell>
                                     <TableCell align="center">{laporan.totalProduksi}</TableCell>
                                     <TableCell align="center">{laporan.jumlahBanding}</TableCell>
