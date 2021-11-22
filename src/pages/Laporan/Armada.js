@@ -327,8 +327,7 @@ export default function ProduksiPipa(props) {
                                 {
                                     dataSummary?.getSummaryArmada.map((laporan,index) =>(
                                         <TableRow key={index}>
-                                            {console.log(laporan)}
-                                            <TableCell align="center">{laporan.supir.nama}</TableCell>
+                                            <TableCell align="center">{laporan.supir?.nama}</TableCell>
                                             <TableCell align="center">{laporan.jumlahPengantaran}</TableCell>
                                         </TableRow>
                                     ))
