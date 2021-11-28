@@ -132,7 +132,6 @@ export default function ProduksiPipa(props) {
     let dataKu= [];
     let pageKu = [];
     if(dataLaporan){
-        console.log("asd")
         console.log(dataLaporan);
     }
     if(!dataLaporan || loadingLaporan){
@@ -226,10 +225,10 @@ export default function ProduksiPipa(props) {
     useEffect(() => {
         if (window.performance) {
             if (performance.navigation.type == 1) {
+                console.log('Refreshed!');
                 refetchKaryawan()
                 refetchLaporan()
                 refetchSummary()
-                console.log('Refreshed!');
             }
         }
     }, []) 

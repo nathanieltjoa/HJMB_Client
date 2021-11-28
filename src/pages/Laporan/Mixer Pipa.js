@@ -39,7 +39,7 @@ query getLaporanMasterMixerPipa(
         banding: $banding
     ){
         count rows{
-            id jenisMixer tipeMesin karyawan{nama} ketua{nama} totalMix formulaA formulaB formulaC crusher jumlahBanding
+            id jenisMixer tipeMesin karyawan{nama} ketua{nama} totalMix formulaA formulaB formulaC crusher jumlahBanding createdAt
         }
   }
 }
