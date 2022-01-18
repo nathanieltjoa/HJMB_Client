@@ -32,9 +32,9 @@ export default function MasterIzin(props) {
         console.log(data);
     }
     if(!data || loading){
-        dataCuti.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataCuti.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getIzin.length === 0){
-        dataCuti.push(<p key={1} className="badgeStatusNonText">Tidak Ada List Izin</p>)
+        dataCuti.push(<p key={1} className="badgeStatusNonText">Tidak Ada Daftar Izin</p>)
     }else if(data.getIzin.length > 0 && !counterCuti){
         dataCuti.push(
             <TableContainer component={Paper} key={0}>
@@ -65,7 +65,7 @@ export default function MasterIzin(props) {
                                         <div className="badgeContainer">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Non-Aktif</div>
+                                            <div className="badgeStatusNon">Tidak Aktif</div>
                                     }</div></TableCell>
                                 </TableRow>
                             ))

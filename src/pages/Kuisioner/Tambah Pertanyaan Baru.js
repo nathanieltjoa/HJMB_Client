@@ -91,7 +91,7 @@ export default function TambahPertanyaanBaru(props) {
                 <Col className="col-md-4">
                     <Form onSubmit={updatePertanyaanFunction}>
                         <Form.Group as={Col}>
-                            <Form.Label>Tesk Pertanyaan</Form.Label>
+                            <Form.Label>Teks Pertanyaan</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nama"
@@ -134,7 +134,7 @@ export default function TambahPertanyaanBaru(props) {
                             ):
                             (
                                 <Form.Group as={Col}>
-                                <Form.Label>{jenisPertanyaan === "Pilih Opsi"? "Tesk Opsi": "Jawaban"}</Form.Label>
+                                <Form.Label>{jenisPertanyaan === "Pilih Opsi"? "Teks Opsi": "Jawaban"}</Form.Label>
                                     <Form.Control 
                                         type="text" 
                                         value={jawaban}
@@ -156,7 +156,7 @@ export default function TambahPertanyaanBaru(props) {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>Opsi Pilihan</TableCell>
-                                                    <TableCell align="right">Action</TableCell>
+                                                    <TableCell align="right">Tindakan</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>

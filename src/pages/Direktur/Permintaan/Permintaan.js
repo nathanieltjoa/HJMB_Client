@@ -105,7 +105,7 @@ export default function PermintaanDirektur(props) {
         console.log(data);
     }
     if(data === undefined || loading){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(data.getPermintaansMaster.count){
       var jml = Math.ceil(data.getPermintaansMaster.count / limit);
       pageKu.push(
@@ -131,7 +131,7 @@ export default function PermintaanDirektur(props) {
     let dataKu = [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p className="badgeStatusWaitingText">Memuat...</p>)
     }else if(data.getPermintaansMaster.rows.length === 0){
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Dari Karyawan</p>)
     }else if(data.getPermintaansMaster.rows.length > 0 && !counter){
@@ -146,7 +146,7 @@ export default function PermintaanDirektur(props) {
                             <TableCell align="center">Tanggal Berakhir</TableCell>
                             <TableCell align="center">Total</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

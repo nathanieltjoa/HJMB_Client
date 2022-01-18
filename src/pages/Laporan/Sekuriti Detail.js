@@ -59,7 +59,7 @@ export default function DetailSekuriti(props) {
 
     let dataDetail= [];
     if(!data || loading){
-        dataDetail.push(<p key={0}>Loading....</p>)
+        dataDetail.push(<p key={0}>Memuat....</p>)
     }else if(data.getDLaporanSekuriti === null){
         dataDetail.push(<p key={0}>Tidak ada Detail Laporan</p>)
     }else if(data.getDLaporanSekuriti !== null){
@@ -128,7 +128,7 @@ export default function DetailSekuriti(props) {
                                 <TableCell align="center">Nama Pelapor</TableCell>
                                 <TableCell align="center">Uraian</TableCell>
                                 <TableCell align="center">Keterangan</TableCell>
-                                <TableCell align="center">Action</TableCell>
+                                <TableCell align="center">Tindakan</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

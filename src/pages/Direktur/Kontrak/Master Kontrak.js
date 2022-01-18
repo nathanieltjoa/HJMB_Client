@@ -111,7 +111,7 @@ export default function MasterKontrak(props) {
         console.log(data);
     }
     if(data === undefined || loading){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(data.getKontrakKaryawan.count){
       var jml = Math.ceil(data.getKontrakKaryawan.count / limit);
       pageKu.push(
@@ -135,7 +135,7 @@ export default function MasterKontrak(props) {
       )
     }
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getKontrakKaryawan.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Kontrak Karyawan</p>)
     }else if(data.getKontrakKaryawan.rows.length > 0){
@@ -152,7 +152,7 @@ export default function MasterKontrak(props) {
                             <TableCell align="center">Tanggal Mulai</TableCell>
                             <TableCell align="center">Tanggal Berakhir</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="right">Action</TableCell>
+                            <TableCell align="right">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -112,11 +112,11 @@ export default function DetailSuratPerintah(props) {
                     {
                       dataLaporan.status !== 0? 
                         <Button variant="primary" onClick={() => downloadFile()}>
-                          Download File
+                          Unduh File
                         </Button>:
                         <div className="buttonsSideBySide">
                             <Button className="buttonSideBySide" variant="primary" onClick={() => downloadFile()}>
-                              Download File
+                              Unduh File
                             </Button>
                             <Button className="buttonSideBySide" variant="danger" onClick={() => actionPermintaan(3)}>
                               Batalkan

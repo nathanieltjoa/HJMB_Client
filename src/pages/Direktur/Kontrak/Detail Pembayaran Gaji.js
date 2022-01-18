@@ -53,7 +53,7 @@ export default function DetailKontrak(props) {
         console.log(data);
     }
     if(!data || loading){
-        dataDetailKontrak.push(<p key={0}>Loading....</p>)
+        dataDetailKontrak.push(<p key={0}>Memuat....</p>)
     }else if(data.getDetailPembayaranGaji.length === 0){
         dataDetailKontrak.push(<p key={0}>Tidak ada Slip Gaji Karyawan</p>)
     }else if(data.getDetailPembayaranGaji.length > 0 ){

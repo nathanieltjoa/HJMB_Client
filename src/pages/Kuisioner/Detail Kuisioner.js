@@ -173,7 +173,7 @@ export default function DetailKuisioner(props) {
     let dataPertanyaanKu = []
     let counterPertanyaan = false;
     if(!dataPertanyaan || loadingPertanyaan){
-        dataPertanyaanKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataPertanyaanKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(dataPertanyaan.getPertanyaan.length === 0){
         dataPertanyaanKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Pertanyaan</p>)
     }else if(dataPertanyaan.getPertanyaan.length > 0 && !counterPertanyaan){
@@ -182,11 +182,11 @@ export default function DetailKuisioner(props) {
                 <Table className="tableKu" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Tesk Pertanyaan</TableCell>
+                            <TableCell align="center">Teks Pertanyaan</TableCell>
                             <TableCell align="center">Jenis Pertanyaan</TableCell>
                             <TableCell align="center">Jawaban</TableCell>
-                            <TableCell align="center">status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Status</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -216,13 +216,13 @@ export default function DetailKuisioner(props) {
                                         <div className="badgeContainer">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Non-Aktif</div>
+                                            <div className="badgeStatusNon">Tidak Aktif</div>
                                     }</div></TableCell>
                                     <TableCell align="center">
                                         {
                                             laporan.status === true?
                                             <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                Non Aktifkan
+                                                Menonaktifkan
                                             </Button>:
                                             <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
                                                 Aktifkan

@@ -135,9 +135,9 @@ export default function MasterIzin(props) {
         console.log(data);
     }
     if(!data || loading){
-        dataCuti.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataCuti.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getIzin.length === 0){
-        dataCuti.push(<p key={1} className="badgeStatusNonText">Tidak Ada List Izin</p>)
+        dataCuti.push(<p key={1} className="badgeStatusNonText">Tidak Ada Daftar Izin</p>)
     }else if(data.getIzin.length > 0 && !counterCuti){
         dataCuti.push(
             <TableContainer component={Paper} key={0}>
@@ -149,7 +149,7 @@ export default function MasterIzin(props) {
                             <TableCell align="center">Keterangan</TableCell>
                             <TableCell align="center">Batasan Hari</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -169,7 +169,7 @@ export default function MasterIzin(props) {
                                         <div className="badgeContainer">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Non-Aktif</div>
+                                            <div className="badgeStatusNon">Tidak Aktif</div>
                                     }</div></TableCell>
                                     <TableCell component="th" scope="row" width="250" align="center">
                                         <div className="buttonsSideBySide">
@@ -179,7 +179,7 @@ export default function MasterIzin(props) {
                                             {
                                                 laporan.status === true?
                                                 <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                    Non Aktifkan
+                                                    Menonaktifkan
                                                 </Button>:
                                                 <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
                                                     Aktifkan

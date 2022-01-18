@@ -183,19 +183,19 @@ export default function MasterGaji(props) {
     let dataKu= [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getIndexGaji.length === 0){
-        dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Index Gaji</p>)
+        dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Indeks Gaji</p>)
     }else if(data.getIndexGaji.length > 0 && !counter){
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Nama Index</TableCell>
-                            <TableCell align="center">Keterangan Index</TableCell>
+                            <TableCell align="center">Nama Indeks</TableCell>
+                            <TableCell align="center">Keterangan Indeks</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -208,7 +208,7 @@ export default function MasterGaji(props) {
                                         <div className="badgeContainer">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Non-Aktif</div>
+                                            <div className="badgeStatusNon">Tidak Aktif</div>
                                     }</div></TableCell>
                                     <TableCell component="th" scope="row" align="center">
                                         <div className="buttonsSideBySide">
@@ -218,7 +218,7 @@ export default function MasterGaji(props) {
                                             {
                                                 laporan.status === true?
                                                 <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                    Non Aktifkan
+                                                    Menonaktifkan
                                                 </Button>:
                                                 <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
                                                     Aktifkan
@@ -240,7 +240,7 @@ export default function MasterGaji(props) {
         <Fragment>
             <Container className="containerKu">
                 <Row className="bg-white justify-content-center">
-                    <Col><h1 className="text-center">Master Index Gaji</h1></Col>
+                    <Col><h1 className="text-center">Master Indeks Gaji</h1></Col>
                 </Row>
                 <Row className="bg-white py-5 justify-content-md-center">
                     <CCard className="col-md-5">
@@ -272,11 +272,11 @@ export default function MasterGaji(props) {
                                 {
                                     id === -1?
                                         <Button variant="primary" onClick={() => registerIndex()}>
-                                            Tambah Index
+                                            Tambah Indeks
                                         </Button>:
                                         <div className="buttonsSideBySide">
                                             <Button className="buttonSideBySide" variant="primary" onClick={() => updateIndex(true)}>
-                                                Update Index
+                                                Perbarui Indeks
                                             </Button>
                                             <Button className="buttonSideBySide" variant="danger" onClick={() => updateIndex(false)}>
                                                 Batal

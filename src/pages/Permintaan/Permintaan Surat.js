@@ -128,7 +128,7 @@ export default function PermintaanSurat(props) {
     let dataKu = [];
     let counter = false;
     if(!dataSurat || loadingSurat){
-        dataKu.push(<p className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p className="badgeStatusWaitingText">Memuat...</p>)
     }else if(dataSurat.getListSuratMaster.rows.length === 0){
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Surat Dari Karyawan</p>)
     }else if(dataSurat.getListSuratMaster.rows.length > 0 && !counter){
@@ -142,7 +142,7 @@ export default function PermintaanSurat(props) {
                             <TableCell align="center">Tanggal Laporan</TableCell>
                             <TableCell align="center">Keterangan</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

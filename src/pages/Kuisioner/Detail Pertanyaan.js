@@ -117,7 +117,7 @@ export default function DetailPertanyaan(props) {
                 <Col>
                     <Form onSubmit={updatePertanyaanFunction}>
                         <Form.Group as={Col}>
-                            <Form.Label>Tesk Pertanyaan</Form.Label>
+                            <Form.Label>Teks Pertanyaan</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nama"
@@ -205,7 +205,7 @@ export default function DetailPertanyaan(props) {
                         }
                     <div className='text-center'>
                         <Button variant="success" type="submit">
-                            Update Jawaban
+                            Perbarui Jawaban
                         </Button>
                     </div>
                     </Form>

@@ -108,7 +108,7 @@ export default function PermintaanPinjaman(props) {
         console.log(dataPinjaman);
     }
     if(dataPinjaman === undefined || loadingPinjaman){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(dataPinjaman.getListPinjaman.count && !counterPage){
       var jml = Math.ceil(dataPinjaman.getListPinjaman.count / limit);
       pageKu.push(
@@ -133,7 +133,7 @@ export default function PermintaanPinjaman(props) {
       counterPage = true;
     }
     if(dataPinjaman === undefined || loadingPinjaman){
-        dataUtangKu.push(<p key={0}>Loading...</p>)
+        dataUtangKu.push(<p key={0}>Memuat...</p>)
     }else if(dataPinjaman.getListPinjaman.rows.length === 0){
         dataUtangKu.push(<p key={1}>Tidak Ada Data Absensi</p>)
     }else if(dataPinjaman.getListPinjaman.rows.length > 0 && !counterUtangKu){
@@ -148,7 +148,7 @@ export default function PermintaanPinjaman(props) {
                             <TableCell align="center">Lunas</TableCell>
                             <TableCell align="center">Cicilan</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

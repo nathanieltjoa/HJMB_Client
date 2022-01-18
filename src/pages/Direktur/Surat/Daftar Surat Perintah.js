@@ -103,7 +103,7 @@ export default function DaftarSuratPerintahDirektur(props) {
         console.log(data);
     }
     if(data === undefined || loading){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(data.getListSuratPerintahMaster.count){
       var jml = Math.ceil(data.getListSuratPerintahMaster.count / limit);
       pageKu.push(
@@ -129,9 +129,9 @@ export default function DaftarSuratPerintahDirektur(props) {
     let dataKu = [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p className="badgeStatusWaitingText">Memuat...</p>)
     }else if(data.getListSuratPerintahMaster.rows.length === 0){
-        dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Surat Dari Karyawan</p>)
+        dataKu.push(<p className="badgeStatusNonText">Tidak Ada Surat Perintah</p>)
     }else if(data.getListSuratPerintahMaster.rows.length > 0 && !counter){
         dataKu.push(
             <TableContainer component={Paper} key={0}>
@@ -144,7 +144,7 @@ export default function DaftarSuratPerintahDirektur(props) {
                             <TableCell align="center">Tanggal Akhir</TableCell>
                             <TableCell align="center">Keterangan</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

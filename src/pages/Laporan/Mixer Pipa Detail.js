@@ -56,7 +56,7 @@ export default function DetailMixerPipa(props) {
 
     let dataDetail= [];
     if(!data || loading){
-        dataDetail.push(<p key={0}>Loading....</p>)
+        dataDetail.push(<p key={0}>Memuat....</p>)
     }else if(data.getListDetailMixerPipa === null){
         dataDetail.push(<p key={0}>Tidak ada Detail Laporan</p>)
     }else if(data.getListDetailMixerPipa !== null){
@@ -71,7 +71,7 @@ export default function DetailMixerPipa(props) {
                                 <TableCell align="center">Target Kerja</TableCell>
                                 <TableCell align="center">Status</TableCell>
                                 <TableCell align="center">Banding</TableCell>
-                                <TableCell align="center">Action</TableCell>
+                                <TableCell align="center">Tindakan</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

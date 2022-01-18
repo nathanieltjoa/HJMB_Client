@@ -116,7 +116,7 @@ export default function DetailSurat(props) {
                     {
                       dataLaporan.status !== 1? null:
                         <Button variant="primary" onClick={() => downloadFile()}>
-                          Download File
+                          Unduh File
                         </Button>
                     }
                     {

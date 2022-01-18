@@ -47,7 +47,7 @@ export default function DetailStokistPipa(props) {
 
     let dataDetail= [];
     if(!data || loading){
-        dataDetail.push(<p key={0}>Loading....</p>)
+        dataDetail.push(<p key={0}>Memuat....</p>)
     }else if(data.getDLaporanStokistPipa === null){
         dataDetail.push(<p key={0}>Tidak ada Detail Laporan</p>)
     }else if(data.getDLaporanStokistPipa !== null){

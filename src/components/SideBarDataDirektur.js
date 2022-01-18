@@ -250,6 +250,12 @@ export const SidebarDataDirektur = [
 
     subNav: [
       {
+        title: 'Tambah Surat Peringatan',
+        path: '/surat/tambah surat peringatan',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
         title: 'Daftar Surat Keterangan',
         path: '/direktur/surat/daftar surat keterangan',
         icon: <IoIcons.IoIosPaper />,

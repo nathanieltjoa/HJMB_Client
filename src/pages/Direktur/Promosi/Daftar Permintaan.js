@@ -120,7 +120,7 @@ export default function DaftarPermintaanPromosi(props) {
         console.log(dataPermintaan);
     }
     if(dataPermintaan === undefined || loadingPermintaan){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(dataPermintaan.getListPermintaanPromosiMaster.count && !counterPage){
       var jml = Math.ceil(dataPermintaan.getListPermintaanPromosiMaster.count / limit);
       pageKu.push(
@@ -145,9 +145,9 @@ export default function DaftarPermintaanPromosi(props) {
       counterPage = true;
     }
     if(dataPermintaan === undefined || loadingPermintaan){
-        dataUtangKu.push(<p key={0}>Loading...</p>)
+        dataUtangKu.push(<p key={0}>Memuat...</p>)
     }else if(dataPermintaan.getListPermintaanPromosiMaster.rows.length === 0){
-        dataUtangKu.push(<p key={1}>Tidak Ada Data Absensi</p>)
+        dataUtangKu.push(<p key={1}>Tidak Ada Data Promosi</p>)
     }else if(dataPermintaan.getListPermintaanPromosiMaster.rows.length > 0 && !counterUtangKu){
         dataUtangKu.push(
             <TableContainer component={Paper} key={0}>
@@ -160,7 +160,7 @@ export default function DaftarPermintaanPromosi(props) {
                             <TableCell align="center">Promosi</TableCell>
                             <TableCell align="center">Status</TableCell>
                             <TableCell align="center">Tanggal</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

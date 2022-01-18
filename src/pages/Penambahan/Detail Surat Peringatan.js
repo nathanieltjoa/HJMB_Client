@@ -8,12 +8,23 @@ import * as BiIcons from 'react-icons/bi';
 import { saveAs } from 'file-saver';
 import ClipLoader from "react-spinners/ClipLoader";
 
-const {URL} = require('../../../config/config.json')
+const {URL} = require('../../config/config.json')
 
-export default function DetailSuratPerintahDirektur(props) {
+const updateBatalkanSuratPeringatanMaster = gql`
+    mutation updateBatalkanSuratPeringatanMaster(
+      $id: String
+  ) {
+    updateBatalkanSuratPeringatanMaster(
+      id: $id
+    ){
+      id
+    }
+  }
+  `;
+
+export default function DetailSuratPeringatan(props) {
     let history = useHistory();
     const location = useLocation();
-    const [keterangan, setKeterangan] = useState("");
     const [dataLaporan, setDataLaporan] = useState([]);
 
     useEffect(() => {
@@ -21,6 +32,26 @@ export default function DetailSuratPerintahDirektur(props) {
             setDataLaporan(location.state?.laporan)
         }
     }, [location])
+    
+    const [updateStatusPermintaanKu] = useMutation(updateBatalkanSuratPeringatanMaster,{
+        update(_,res){
+            console.log(res)
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        onCompleted(data){
+            console.log(data);
+            props.history.push('/surat/daftar surat peringatan');
+        }
+      })
+
+    const actionPermintaan = (status) => {
+        updateStatusPermintaanKu({variables:{
+          id: dataLaporan.id,
+        }
+        });
+      }
 
       const downloadFile = () => {
         console.log()
@@ -33,12 +64,12 @@ export default function DetailSuratPerintahDirektur(props) {
       <Container className="containerKu">
         <Row>
             <Col>
-                <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/surat/daftar surat perintah'})} className="iconBack"/>
+                <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/surat/daftar surat peringatan'})} className="iconBack"/>
             </Col>
         </Row>
         <Row className="justify-content-center">
           <Col className="col-md-6">
-            <h1 className="text-center">Detail Permintaan</h1>
+            <h1 className="text-center">Detail SP</h1>
             <Card style={{ width: '100%' }}>
                 <Card.Body>
                   <Card.Text>
@@ -47,38 +78,33 @@ export default function DetailSuratPerintahDirektur(props) {
                         <p className="childRight">: {dataLaporan.karyawan?.nama}</p>
                       <p className="childLeft">Nama HRD</p>
                         <p className="childRight">: {dataLaporan.hrd?.nama}</p>
-                      <p className="childLeft">Dinas</p>
-                        <p className="childRight">: {dataLaporan.dinas}</p>
-                      <p className="childLeft">Tanggal Mulai</p>
-                        <p className="childRight">: {dayjs(dataLaporan.tanggalMulai).format('DD-MM-YYYY')}</p>
-                      <p className="childLeft">Tanggal Akhir</p>
-                        <p className="childRight">: {dayjs(dataLaporan.tanggalAkhir).format('DD-MM-YYYY')}</p>
-                      <p className="childLeft">Tanggal Laporan</p>
+                      <p className="childLeft">Peringatan Ke</p>
+                        <p className="childRight">: {dataLaporan.peringatanKe}</p>
+                      <p className="childLeft">Tanggal SP</p>
+                        <p className="childRight">: {dayjs(dataLaporan.createdAt).format('DD-MM-YYYY HH:mm:ss')}</p>
+                      <p className="childLeft">Keterangan</p>
                         <p className="childRight">: {dayjs(dataLaporan.tanggalLaporan).format('DD-MM-YYYY')}</p>
                       <p className="childLeft">Keterangan</p>
                         <p className="childRight">: {dataLaporan.keterangan}</p>
-                      {
-                        dataLaporan.keteranganKaryawan === ""? null:
-                        <>
-                          <p className="childLeft">Keterangan Karyawan</p>
-                            <p className="childRight">: {dataLaporan.keteranganKaryawan}</p>
-                        </>
-                      }
                     </div>
                     <p className="text-center statusKu">Status:
-                      {dataLaporan.status === 0? 
-                        <div className="badgeStatusWaiting">Menunggu Persetujuan</div>:
-                          dataLaporan.status === 1? 
-                            <div className="badgeStatusAktif">Di Terima</div>:
-                                dataLaporan.status === 2? 
-                                <div className="badgeStatusNon">Di Tolak</div>:
+                      {dataLaporan.diBatalkan === false? 
+                        <div className="badgeStatusAktif">Tidak Di Batalkan</div>:
                                 <div className="badgeStatusNon">Di Batalkan</div>}
                     </p>
                     {
                       dataLaporan.status !== 0? 
                         <Button variant="primary" onClick={() => downloadFile()}>
-                          Unduh File
-                        </Button>: null                    
+                          Unduh Berkas
+                        </Button>:
+                        <div className="buttonsSideBySide">
+                            <Button className="buttonSideBySide" variant="primary" onClick={() => downloadFile()}>
+                              Unduh Berkas
+                            </Button>
+                            <Button className="buttonSideBySide" variant="danger" onClick={() => actionPermintaan(3)}>
+                              Batalkan
+                            </Button>
+                        </div>
                     }
                   </Card.Text>
                 </Card.Body>

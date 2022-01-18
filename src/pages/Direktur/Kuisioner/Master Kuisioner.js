@@ -45,7 +45,7 @@ export default function MasterKuisioner(props) {
     let dataKu= [];
     let counter = false;
     if(data === undefined || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat...</p>)
     }else if(data.getKuisioner.length === 0){
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Kuisioner Tersedia</p>)
     }else if(data.getKuisioner.length > 0 && !counter){
@@ -59,7 +59,7 @@ export default function MasterKuisioner(props) {
                             <TableCell align="center">Deskripsi Kuisioner</TableCell>
                             <TableCell align="center">Jenis Kuisioner</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -72,7 +72,7 @@ export default function MasterKuisioner(props) {
                                     <TableCell align="center">{laporan.jenisKuisioner}</TableCell>
                                     <TableCell align="center">{laporan.status === true? 
                                         <div className="badgeStatusAktif">Aktif</div>:
-                                        <div className="badgeStatusNon">Non-Aktif</div>}
+                                        <div className="badgeStatusNon">Tidak Aktif</div>}
                                     </TableCell>
                                     <TableCell align="center" style={{width: '20%'}}>
                                         <div className="buttonsSideBySide">

@@ -142,7 +142,7 @@ export default function ProduksiPipa(props) {
         console.log(dataLaporan);
     }
     if(!dataLaporan || loadingLaporan){
-        pageKu.push(<p key={0} className="badgeStatusWaiting">Loading...</p>)
+        pageKu.push(<p key={0} className="badgeStatusWaiting">Memuat...</p>)
         {console.log(loadingLaporan)}
     }else if(dataLaporan.getLaporanMasterProduksiPipa.count){
       var jml = Math.ceil(dataLaporan.getLaporanMasterProduksiPipa.count / limit);
@@ -167,7 +167,7 @@ export default function ProduksiPipa(props) {
       )
     }
     if(!dataLaporan || loadingLaporan){
-        dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(dataLaporan.getLaporanMasterProduksiPipa.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterProduksiPipa.rows.length > 0){
@@ -187,7 +187,7 @@ export default function ProduksiPipa(props) {
                             <TableCell align="center">Pin</TableCell>
                             <TableCell align="center">Hasil Produksi</TableCell>
                             <TableCell align="center">BS</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -246,7 +246,7 @@ export default function ProduksiPipa(props) {
             <Row className="bg-white justify-content-center">
                 <Col>
                     <h1 className="text-center">Master Laporan Produksi Pipa</h1>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Summary</Button>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Ringkasan</Button>
                 </Col>
             </Row>
             <Row>
@@ -333,7 +333,7 @@ export default function ProduksiPipa(props) {
             </Row>
             <Modal show={visibleSummary} onHide={() => setVisibleSummary(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="judul">Summary</Modal.Title>
+                    <Modal.Title className="judul">Ringkasan</Modal.Title>
                 </Modal.Header>
                     <Modal.Body>
                         <Table className="tableKu" aria-label="simple table">

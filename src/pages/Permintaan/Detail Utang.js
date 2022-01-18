@@ -63,9 +63,9 @@ export default function DetailPinjaman(props) {
 
     let dataKu= [];
     if(!data || loading){
-        dataKu.push(<p key={0}>Loading....</p>)
+        dataKu.push(<p key={0}>Memuat....</p>)
     }else if(data.getDetailPinjaman === null){
-        dataKu.push(<p key={0}>Tidak ada Kontrak Karyawan</p>)
+        dataKu.push(<p key={0}>Tidak ada Detail Utang Karyawan</p>)
     }else if(data.getDetailPinjaman !== null){
         dataKu.push(
             <Row key={0} className="justify-content-center">

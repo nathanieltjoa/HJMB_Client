@@ -98,7 +98,7 @@ export default function TambahGroup(props) {
                         <TableRow>
                             <TableCell align="center">Nama Divisi</TableCell>
                             <TableCell align="right">Jumlah Group</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

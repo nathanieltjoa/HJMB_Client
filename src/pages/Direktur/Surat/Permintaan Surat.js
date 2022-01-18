@@ -102,7 +102,7 @@ export default function PermintaanSuratDirektur(props) {
         console.log(data);
     }
     if(data === undefined || loading){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(data.getListSuratMaster.count){
       var jml = Math.ceil(data.getListSuratMaster.count / limit);
       pageKu.push(
@@ -128,7 +128,7 @@ export default function PermintaanSuratDirektur(props) {
     let dataKu = [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p className="badgeStatusWaitingText">Memuat...</p>)
     }else if(data.getListSuratMaster.rows.length === 0){
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Surat Dari Karyawan</p>)
     }else if(data.getListSuratMaster.rows.length > 0 && !counter){
@@ -142,7 +142,7 @@ export default function PermintaanSuratDirektur(props) {
                             <TableCell align="center">Tanggal Laporan</TableCell>
                             <TableCell align="center">Keterangan</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

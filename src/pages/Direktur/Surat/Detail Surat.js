@@ -73,7 +73,7 @@ export default function DetailSuratDirektur(props) {
                     {
                       dataLaporan.status !== 1? null:
                         <Button variant="primary" onClick={() => downloadFile()}>
-                          Download File
+                          Unduh File
                         </Button>
                     }
                   </Card.Text>

@@ -24,7 +24,7 @@ export default function Profil(props) {
         console.log(data);
     }
     if(!data || loading){
-        usersMarkUp = <p className="badgeStatusWaitingText">Loading...</p>
+        usersMarkUp = <p className="badgeStatusWaitingText">Memuat...</p>
     }else if(data.getKaryawan === null){
         usersMarkUp = <p className="badgeStatusNonText">Tidak Ada Data User</p>
     }else if(data.getKaryawan !== null && !counter){
@@ -63,7 +63,7 @@ export default function Profil(props) {
                         </div>
                         <Button variant="success" onClick={() => {
                             props.history.push('/ubah password')}
-                        }>Change Password</Button>
+                        }>Ganti Password</Button>
                     </Card.Text>
                 </Card.Body>
             </Card>

@@ -31,17 +31,17 @@ export default function MasterGaji(props) {
     let dataKu= [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getIndexGaji.length === 0){
-        dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Index Gaji</p>)
+        dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Indeks Gaji</p>)
     }else if(data.getIndexGaji.length > 0 && !counter){
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Nama Index</TableCell>
-                            <TableCell align="center">Keterangan Index</TableCell>
+                            <TableCell align="center">Nama Indeks</TableCell>
+                            <TableCell align="center">Keterangan Indeks</TableCell>
                             <TableCell align="center">Status</TableCell>
                         </TableRow>
                     </TableHead>
@@ -55,7 +55,7 @@ export default function MasterGaji(props) {
                                         <div className="badgeContainer">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Non-Aktif</div>
+                                            <div className="badgeStatusNon">Tidak Aktif</div>
                                     }</div></TableCell>
                                 </TableRow>
                             ))
@@ -71,7 +71,7 @@ export default function MasterGaji(props) {
         <Fragment>
             <Container className="containerKu">
                 <Row className="bg-white justify-content-center">
-                    <Col><h1 className="text-center">Master Index Gaji</h1></Col>
+                    <Col><h1 className="text-center">Master Indeks Gaji</h1></Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col className="col-md-8">

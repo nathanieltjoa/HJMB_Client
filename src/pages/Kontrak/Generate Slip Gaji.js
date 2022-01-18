@@ -245,7 +245,7 @@ export default function GenerateSlipGaji(props) {
                                 <TableCell align="center">Tanggal</TableCell>
                                 <TableCell align="center">Keterangan</TableCell>
                                 <TableCell align="center">Alasan</TableCell>
-                                <TableCell align="center">Status</TableCell>
+                                <TableCell align="center">Tindakan</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -287,7 +287,7 @@ export default function GenerateSlipGaji(props) {
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
                 <Col>
-                    <h1 className="text-center">Generate Slip Gaji</h1>
+                    <h1 className="text-center">Hasilkan Slip Gaji</h1>
                 </Col>
             </Row>
             <Row className="justify-content-center">
@@ -336,7 +336,7 @@ export default function GenerateSlipGaji(props) {
                                 Absensi Karyawan
                             </Button>
                             <Button className="buttonSideBySide" variant="primary" onClick={() => registerIndex()}>
-                                Generate Slip Gaji
+                                Hasilkan Slip Gaji
                             </Button>
                         </div>
                     </Form>

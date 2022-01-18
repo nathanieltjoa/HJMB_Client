@@ -378,7 +378,7 @@ export default function IsiKuisioner(props) {
                         {dataPertanyaanKu}
                     <div className='text-center'>
                         <Button variant="success" type="submit">
-                            Submit
+                            Masukkan
                         </Button>
                     </div>
                     </Form>

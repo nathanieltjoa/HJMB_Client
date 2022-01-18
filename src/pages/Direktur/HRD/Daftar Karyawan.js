@@ -109,7 +109,7 @@ export default function Register(props) {
     let usersMarkUp
     let counter = false;
     if(!data || loading){
-        usersMarkUp = <p>Loading...</p>
+        usersMarkUp = <p>Memuat...</p>
     }else if(data.getJabatan.length === 0){
         usersMarkUp = <p>Tidak Ada Daftar Jabatan</p>
     }else if(data.getJabatan.length > 0 && !counter){

@@ -136,7 +136,7 @@ export default function Register(props) {
     let dataKu= [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getListGudang.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Daftar Gudang</p>)
     }else if(data.getListGudang.length > 0 && !counter){
@@ -148,7 +148,7 @@ export default function Register(props) {
                             <TableCell align="center">Nama Gudang</TableCell>
                             <TableCell align="center">Alamat</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -161,7 +161,7 @@ export default function Register(props) {
                                         <div className="badgeContainer">{
                                         laporan.status === 1? 
                                             <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Non-Aktif</div>
+                                            <div className="badgeStatusNon">Tidak Aktif</div>
                                     }</div></TableCell>
                                     <TableCell component="th" scope="row" align="center">
                                         <div className="buttonsSideBySide">
@@ -171,7 +171,7 @@ export default function Register(props) {
                                             {
                                                 laporan.status === 1?
                                                 <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                    Non Aktifkan
+                                                    Menonaktifkan
                                                 </Button>:
                                                 <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
                                                     Aktifkan
@@ -269,7 +269,7 @@ export default function Register(props) {
                                 </Button>:
                                 <div className="buttonsSideBySide">
                                     <Button className="buttonSideBySide" variant="primary" onClick={() => updateIndex(true)}>
-                                        Update Gudang
+                                        Perbarui Gudang
                                     </Button>
                                     <Button className="buttonSideBySide" variant="danger" onClick={() => updateIndex(false)}>
                                         Batal

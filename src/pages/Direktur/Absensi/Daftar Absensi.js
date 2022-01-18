@@ -55,7 +55,7 @@ export default function DaftarAbsensi(props) {
         console.log(data);
     }
     if(data === undefined || loading){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(data.getAbsensi.count && !counterPage){
       var jml = Math.ceil(data.getAbsensi.count / limit);
       pageKu.push(
@@ -80,7 +80,7 @@ export default function DaftarAbsensi(props) {
       counterPage = true;
     }
     if(data === undefined || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat...</p>)
     }else if(data.getAbsensi.rows.length === 0){
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Data Absensi</p>)
     }else if(data.getAbsensi.rows.length > 0 && !counter){

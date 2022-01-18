@@ -67,7 +67,7 @@ export const SidebarData = [
 
     subNav: [
       {
-        title: 'Register',
+        title: 'Daftar Karyawan',
         path: '/karyawan/register',
         icon: <FIcons.FiUserPlus />,
         cName: 'sub-nav'
@@ -118,7 +118,7 @@ export const SidebarData = [
         cName: 'sub-nav'
       },
       {
-        title: 'Generate Slip Gaji',
+        title: 'Hasilkan Slip Gaji',
         path: '/kontrak/generate slip gaji',
         icon: <FaIcons.FaFileInvoiceDollar />,
         cName: 'sub-nav'
@@ -342,6 +342,12 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
 
     subNav: [
+      {
+        title: 'Tambah Surat Peringatan',
+        path: '/surat/tambah surat peringatan',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
       {
         title: 'Tambah Surat Perintah',
         path: '/surat/tambah surat',

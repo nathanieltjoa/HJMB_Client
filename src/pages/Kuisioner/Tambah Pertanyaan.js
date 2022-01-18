@@ -143,7 +143,7 @@ export default function TambahPertanyaan(props) {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className={errors.teskPertanyaan && 'text-danger'}>{errors.teskPertanyaan ?? 'Tesk Pertanyaan'}</Form.Label>
+                            <Form.Label className={errors.teskPertanyaan && 'text-danger'}>{errors.teskPertanyaan ?? 'Teks Pertanyaan'}</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nama"
@@ -190,7 +190,7 @@ export default function TambahPertanyaan(props) {
                             ):
                             (
                                 <Form.Group as={Col}>
-                                <Form.Label>{jenisPertanyaan === "Pilih Opsi"? "Tesk Opsi": "Jawaban"}</Form.Label>
+                                <Form.Label>{jenisPertanyaan === "Pilih Opsi"? "Teks Opsi": "Jawaban"}</Form.Label>
                                     <Form.Control 
                                         type="text" 
                                         value={jawaban}
@@ -212,7 +212,7 @@ export default function TambahPertanyaan(props) {
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>Opsi Pilihan</TableCell>
-                                                    <TableCell align="right">Action</TableCell>
+                                                    <TableCell align="right">Tindakan</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>

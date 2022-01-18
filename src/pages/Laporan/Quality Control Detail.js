@@ -53,7 +53,7 @@ export default function DetailQualityControlPipa(props) {
 
     let dataDetail= [];
     if(!data || loading){
-        dataDetail.push(<p key={0}>Loading....</p>)
+        dataDetail.push(<p key={0}>Memuat....</p>)
     }else if(data.getDLaporanQualityControlPipa === null){
         dataDetail.push(<p key={0}>Tidak ada Detail Laporan</p>)
     }else if(data.getDLaporanQualityControlPipa !== null){
@@ -73,7 +73,7 @@ export default function DetailQualityControlPipa(props) {
                                 <TableCell align="center">Ketebalan</TableCell>
                                 <TableCell align="center">Status</TableCell>
                                 <TableCell align="center">Banding</TableCell>
-                                <TableCell align="center">Action</TableCell>
+                                <TableCell align="center">Tindakan</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

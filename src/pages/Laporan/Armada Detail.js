@@ -57,7 +57,7 @@ export default function DetailArmada(props) {
 
     let dataDetail= [];
     if(!data || loading){
-        dataDetail.push(<p key={0}>Loading....</p>)
+        dataDetail.push(<p key={0}>Memuat....</p>)
     }else if(data.getDLaporanMasterArmada === null){
         dataDetail.push(<p key={0}>Tidak ada Detail Laporan</p>)
     }else if(data.getDLaporanMasterArmada !== null){
@@ -72,7 +72,7 @@ export default function DetailArmada(props) {
                                 <TableCell align="center">Penerima</TableCell>
                                 <TableCell align="center">Keterangan</TableCell>
                                 <TableCell align="center">Status</TableCell>
-                                <TableCell align="center">Action</TableCell>
+                                <TableCell align="center">Tindakan</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

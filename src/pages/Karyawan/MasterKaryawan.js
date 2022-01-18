@@ -88,7 +88,7 @@ export default function MasterKaryawan(props) {
     let dataKu= [];
     let counter = false;
     if(dataPermintaan === undefined || loadingPermintaan){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat...</p>)
     }else if(dataPermintaan.getPermintaanDataDiri.length === 0){
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Data Permintaan Perubahan Data Diri</p>)
     }else if(dataPermintaan.getPermintaanDataDiri.length > 0 && !counter){
@@ -103,7 +103,7 @@ export default function MasterKaryawan(props) {
                                     <p className="childRight">: {laporan.idKaryawan}</p>
                                 <p className="childLeft">Nama Karyawan</p>
                                     <p className="childRight">: {laporan.namaKaryawan}</p>
-                                <p className="childLeft">Field Yang Salah</p>
+                                <p className="childLeft">Bagian Yang Salah</p>
                                     <p className="childRight">: {laporan.bagianData}</p>
                                 <p className="childLeft">Isi Seharusnya</p>
                                     <p className="childRight">: {laporan.dataSeharusnya}</p>
@@ -151,9 +151,9 @@ export default function MasterKaryawan(props) {
       counterPage = true;
     }
     if(dataKaryawan === undefined || loadingKaryawan){
-        dataKaryawanKu.push(<p key={0}>Loading...</p>)
+        dataKaryawanKu.push(<p key={0}>Memuat...</p>)
     }else if(dataKaryawan.getListKaryawanMaster.rows.length === 0){
-        dataKaryawanKu.push(<p key={1}>Tidak Ada Data Absensi</p>)
+        dataKaryawanKu.push(<p key={1}>Tidak Ada Data Karyawan</p>)
     }else if(dataKaryawan.getListKaryawanMaster.rows.length > 0 && !counterKaryawanKu){
         dataKaryawanKu.push(
             <TableContainer component={Paper} key={0}>
@@ -170,7 +170,7 @@ export default function MasterKaryawan(props) {
                             <TableCell align="center">Agama</TableCell>
                             <TableCell align="center">Pendidikan</TableCell>
                             <TableCell align="center">Nama Jabatan</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

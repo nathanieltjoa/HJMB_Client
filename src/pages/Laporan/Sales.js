@@ -137,7 +137,7 @@ export default function Sales(props) {
         console.log(dataLaporan);
     }
     if(!dataLaporan || loadingLaporan){
-        pageKu.push(<p key={0} className="badgeStatusWaiting">Loading...</p>)
+        pageKu.push(<p key={0} className="badgeStatusWaiting">Memuat...</p>)
         {console.log(loadingLaporan)}
     }else if(dataLaporan.getLaporanMasterSales.count){
       var jml = Math.ceil(dataLaporan.getLaporanMasterSales.count / limit);
@@ -162,7 +162,7 @@ export default function Sales(props) {
       )
     }
     if(!dataLaporan || loadingLaporan){
-        dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(dataLaporan.getLaporanMasterSales.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterSales.rows.length > 0){
@@ -176,7 +176,7 @@ export default function Sales(props) {
                             <TableCell align="center">Tanggal Laporan</TableCell>
                             <TableCell align="center">Status</TableCell>
                             <TableCell align="center">Laporan Kejadian</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -235,7 +235,7 @@ export default function Sales(props) {
             <Row className="bg-white justify-content-center">
                 <Col>
                     <h1 className="text-center">Master Laporan Sales</h1>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Summary</Button>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Ringkasan</Button>
                 </Col>
             </Row>
             <Row>
@@ -321,7 +321,7 @@ export default function Sales(props) {
             </Row>
             <Modal show={visibleSummary} onHide={() => setVisibleSummary(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="judul">Summary</Modal.Title>
+                    <Modal.Title className="judul">Ringkasan</Modal.Title>
                 </Modal.Header>
                     <Modal.Body>
                         <Table className="tableKu" aria-label="simple table">

@@ -123,7 +123,7 @@ export default function DaftarAbsensi(props) {
     let counterTanggapan = false;
     if(dataTanggapan === undefined || loadingTanggapan){
         if(kuisioner !== ""){
-            dataTanggapanKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+            dataTanggapanKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
         }
     }else if(dataTanggapan.getTanggapanWeb.length === 0){
         if(kuisioner !== ""){
@@ -184,7 +184,7 @@ export default function DaftarAbsensi(props) {
             <Row className="bg-white p-0 justify-content-center">
                 <CCard className="col-md-5">
                     <CCardBody>
-                        <h1 className="text-center">Form Data Tanggapan</h1>
+                        <h1 className="text-center">Formulir Data Tanggapan</h1>
                         <Form onSubmit={cariData}>
                             <Form.Group as={Col}>
                             <Form.Label>Kuisioner</Form.Label>

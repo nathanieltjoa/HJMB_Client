@@ -70,7 +70,7 @@ export default function DetailKontrak(props) {
 
     let dataDetailKontrak= [];
     if(!data || loading){
-        dataDetailKontrak.push(<p key={0}>Loading....</p>)
+        dataDetailKontrak.push(<p key={0}>Memuat....</p>)
     }else if(data.getDetailKontrak === null){
         dataDetailKontrak.push(<p key={0}>Tidak ada Kontrak Karyawan</p>)
     }else if(data.getDetailKontrak !== null){

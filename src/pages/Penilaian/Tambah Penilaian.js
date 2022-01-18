@@ -225,9 +225,9 @@ export default function TambahPertanyaan(props) {
                             <Table className="tableKu" aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center">Nama Index</TableCell>
-                                        <TableCell align="center">Keterangan Index</TableCell>
-                                        <TableCell align="right">Persentase Index</TableCell>
+                                        <TableCell align="center">Nama Indeks</TableCell>
+                                        <TableCell align="center">Keterangan Indeks</TableCell>
+                                        <TableCell align="right">Persentase Indeks</TableCell>
                                         <TableCell align="right">Nilai ( 0-100 )</TableCell>
                                     </TableRow>
                                 </TableHead>

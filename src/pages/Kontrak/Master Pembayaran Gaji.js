@@ -200,7 +200,7 @@ export default function MasterPembayaranGaji(props) {
       )
     }
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(data.getPembayaranGaji.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Slip Pembayaran Gaji</p>)
     }else if(data.getPembayaranGaji.rows.length > 0 && !counter){
@@ -215,7 +215,7 @@ export default function MasterPembayaranGaji(props) {
                             <TableCell align="center">Total Gaji</TableCell>
                             <TableCell align="center">Tanggal Pembayaran</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

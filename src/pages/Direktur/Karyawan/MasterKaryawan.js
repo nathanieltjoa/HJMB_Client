@@ -71,7 +71,7 @@ export default function MasterKaryawan(props) {
         console.log(dataKaryawan);
     }
     if(dataKaryawan === undefined || loadingKaryawan){
-        pageKu.push(<p key={0}>Loading...</p>)
+        pageKu.push(<p key={0}>Memuat...</p>)
     }else if(dataKaryawan.getListKaryawanMaster.count && !counterPage){
       var jml = Math.ceil(dataKaryawan.getListKaryawanMaster.count / limit);
       pageKu.push(
@@ -96,9 +96,9 @@ export default function MasterKaryawan(props) {
       counterPage = true;
     }
     if(dataKaryawan === undefined || loadingKaryawan){
-        dataKaryawanKu.push(<p key={0}>Loading...</p>)
+        dataKaryawanKu.push(<p key={0}>Memuat...</p>)
     }else if(dataKaryawan.getListKaryawanMaster.rows.length === 0){
-        dataKaryawanKu.push(<p key={1}>Tidak Ada Data Absensi</p>)
+        dataKaryawanKu.push(<p key={1}>Tidak Ada Data Karyawan</p>)
     }else if(dataKaryawan.getListKaryawanMaster.rows.length > 0 && !counterKaryawanKu){
         dataKaryawanKu.push(
             <TableContainer component={Paper} key={0}>
@@ -115,7 +115,7 @@ export default function MasterKaryawan(props) {
                             <TableCell align="center">Agama</TableCell>
                             <TableCell align="center">Pendidikan</TableCell>
                             <TableCell align="center">Nama Jabatan</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

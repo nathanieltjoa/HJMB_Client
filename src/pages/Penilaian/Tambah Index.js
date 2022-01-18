@@ -45,7 +45,7 @@ export default function TambahIndex(props) {
         onCompleted(data){
             setErrors({});
             setSuccess({
-                Sukses: `Suksess tambah Index Penilaian`,
+                Sukses: `Suksess tambah Indeks Penilaian`,
             })
         }
     })
@@ -62,7 +62,7 @@ export default function TambahIndex(props) {
     return (
         <Fragment>
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Tambah Index Penilaian</h1></Col>
+                <Col><h1 className="text-center">Tambah Indeks Penilaian</h1></Col>
             </Row>
             <Row className="bg-white py-5 justify-content-md-center">
                 <Col xs lg="4">
@@ -70,7 +70,7 @@ export default function TambahIndex(props) {
                         {showError}
                         {showUser}
                         <Form.Group as={Col}>
-                            <Form.Label className={errors.namaIndex && 'text-danger'}>{errors.namaIndex ?? 'Nama Index'}</Form.Label>
+                            <Form.Label className={errors.namaIndex && 'text-danger'}>{errors.namaIndex ?? 'Nama Indeks'}</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nama"
@@ -91,7 +91,7 @@ export default function TambahIndex(props) {
                         </Form.Group>
                     <div className='text-center'>
                         <Button variant="success" type="submit">
-                            Tambah Index
+                            Tambah Indeks
                         </Button>
                     </div>
                     </Form>

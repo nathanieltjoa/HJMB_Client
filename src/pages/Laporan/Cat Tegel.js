@@ -116,7 +116,7 @@ export default function CatTegel(props) {
         console.log(dataLaporan);
     }
     if(!dataLaporan || loadingLaporan){
-        pageKu.push(<p key={0} className="badgeStatusWaiting">Loading...</p>)
+        pageKu.push(<p key={0} className="badgeStatusWaiting">Memuat...</p>)
         {console.log(loadingLaporan)}
     }else if(dataLaporan.getLaporanMasterCatTegel.count){
       var jml = Math.ceil(dataLaporan.getLaporanMasterCatTegel.count / limit);
@@ -141,7 +141,7 @@ export default function CatTegel(props) {
       )
     }
     if(!dataLaporan || loadingLaporan){
-        dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(dataLaporan.getLaporanMasterCatTegel.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterCatTegel.rows.length > 0){
@@ -156,7 +156,7 @@ export default function CatTegel(props) {
                             <TableCell align="center">Jenis Produk</TableCell>
                             <TableCell align="center">Merk</TableCell>
                             <TableCell align="center">Warna</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

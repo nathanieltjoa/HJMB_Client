@@ -1,6 +1,6 @@
-import React, {useState, Fragment, useEffect} from 'react'
-import { Row, Col, Form, Button, Alert, Container} from 'react-bootstrap';
-import { gql, useQuery, useMutation, useLazyQuery} from '@apollo/client';
+import React, {useEffect} from 'react'
+import { Row, Col, Card, Button, Form, Container} from 'react-bootstrap';
+import { gql, useQuery} from '@apollo/client';
 import dayjs from 'dayjs'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,32 +13,30 @@ import ReactPaginate from 'react-paginate';
 import CurrencyFormat from 'react-currency-format';
 import { useHistory } from 'react-router-dom';
 import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useState } from 'react';
 
 
-const getKontrakKaryawan = gql`
-query getKontrakKaryawan(
+const getListSuratPeringatanMaster = gql`
+query getListSuratPeringatanMaster(
     $page: Int 
     $limit: Int 
     $orderBy: String 
-    $karyawan: Int 
-    $bulan: MyDate
-    $status: Int 
+    $idKaryawan: Int 
+    $peringatanKe: Int 
+    $status: String 
 ){
-    getKontrakKaryawan(
-        page: $page
-        limit: $limit 
-        orderBy: $orderBy
-        karyawan: $karyawan
-        bulan: $bulan
-        status: $status
-    ){
-        count rows{
-            id jenisKontrak totalGaji totalIuran tanggalMulai tanggalBerakhir status karyawan{
-                id nama jabatan{
-                    tingkatJabatan namaJabatan
-                }
-            }
-        }
+    getListSuratPeringatanMaster(
+    page: $page
+    limit: $limit 
+    orderBy: $orderBy
+    idKaryawan: $idKaryawan
+    peringatanKe: $peringatanKe
+    status: $status
+  ){
+    count rows{
+        id karyawan{nama} hrd{nama} peringatanKe keterangan file diBatalkan createdAt
+    }
   }
 }
 `;
@@ -65,24 +63,24 @@ query getListKaryawanKontrak(
 }
 `;
 
-export default function MasterKontrak(props) {
+export default function DaftarSuratPeringatan(props) {
     let history = useHistory();
     const [page, setPage] = useState(0);
     const [limit, setLimit] = useState(5);
     const [selectedDateAwal, setSelectedDateAwal] = useState("");
     const [status, setStatus] = useState(-1);
+    const [peringatanKe, setPeringatanKe] = useState("");
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
-    const [orderBy, setOrderBy] = useState("");
-
-    const { loading, data, refetch } = useQuery(getKontrakKaryawan,{
+    const [orderBy, setOrderBy] = useState("DESC");
+    const { loading, data, refetch } = useQuery(getListSuratPeringatanMaster,{
         variables: {
             page: parseInt(page),
             limit: parseInt(limit),
             orderBy: orderBy,
             karyawan: parseInt(karyawanKontrak),
-            bulan: dayjs(selectedDateAwal).format('YYYY-MM-DD'),
-            status: parseInt(status),
+            peringatanKe: parseInt(peringatanKe),
+            status: status
         }
     });
 
@@ -95,22 +93,19 @@ export default function MasterKontrak(props) {
     }
 
     const goToDetail = (laporan) => {
-        console.log("asd");
         history.push({
-            pathname: '/kontrak/detail kontrak',
+            pathname: '/surat/detail surat peringatan',
             state: { laporan: laporan }
         });
     }
-
-    let dataKu= [];
     let pageKu = [];
     if(data){
         console.log(data);
     }
     if(data === undefined || loading){
-        pageKu.push(<p key={0}>Loading...</p>)
-    }else if(data.getKontrakKaryawan.count){
-      var jml = Math.ceil(data.getKontrakKaryawan.count / limit);
+        pageKu.push(<p key={0}>Memuat...</p>)
+    }else if(data.getListSuratPeringatanMaster.count){
+      var jml = Math.ceil(data.getListSuratPeringatanMaster.count / limit);
       pageKu.push(
         <ReactPaginate
           key={1}
@@ -131,64 +126,39 @@ export default function MasterKontrak(props) {
         />
       )
     }
+    let dataKu = [];
+    let counter = false;
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
-    }else if(data.getKontrakKaryawan.rows.length === 0){
-        dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Kontrak Karyawan</p>)
-    }else if(data.getKontrakKaryawan.rows.length > 0){
+        dataKu.push(<p className="badgeStatusWaitingText">Memuat...</p>)
+    }else if(data.getListSuratPeringatanMaster.rows.length === 0){
+        dataKu.push(<p className="badgeStatusNonText">Tidak Ada Surat Peringatan</p>)
+    }else if(data.getListSuratPeringatanMaster.rows.length > 0 && !counter){
         dataKu.push(
             <TableContainer component={Paper} key={0}>
                 <Table className="tableKu" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Id Karyawan</TableCell>
                             <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Jenis Kontrak</TableCell>
-                            <TableCell align="center">Total Gaji</TableCell>
-                            <TableCell align="center">Total Iuran</TableCell>
-                            <TableCell align="center">Tanggal Mulai</TableCell>
-                            <TableCell align="center">Tanggal Berakhir</TableCell>
+                            <TableCell align="center">Peringatan</TableCell>
+                            <TableCell align="center">Tanggal Terbit</TableCell>
+                            <TableCell align="center">Keterangan</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="right">Tindakan</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {
-                            data.getKontrakKaryawan.rows.map((laporan,index) =>(
+                            data.getListSuratPeringatanMaster.rows.map((laporan,index) =>(
                                 <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.karyawan.id}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.jenisKontrak}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
+                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
+                                    <TableCell align="center">{laporan.peringatanKe}</TableCell>
+                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY HH:mm:ss')}</TableCell>
+                                    <TableCell align="center">{laporan.keterangan}</TableCell>
+                                    <TableCell align="center">{laporan.diBatalkan === false? 
+                                        <div className="badgeStatusWaiting">Di Batalkan</div>:
+                                            <div className="badgeStatusAktif">Tidak Di Batalkan</div>}
                                     </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <CurrencyFormat displayType={'text'} value={laporan.totalIuran} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </TableCell>
-                                    {console.log(dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day'))}
-                                    <TableCell component="th" scope="row" align="center">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
-                                    {
-                                        dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 0? 
-                                            <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'grey'}}>
-                                                {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
-                                            </TableCell>:
-                                            dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 9? 
-                                                <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'red'}}>
-                                                    {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
-                                                </TableCell>:
-                                                    <TableCell component="th" scope="row" align="center">
-                                                        {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
-                                                    </TableCell>
-                                    }
-                                    <TableCell component="th" scope="row" align="center">
-                                        {
-                                            laporan.status === 0? <div className="badgeStatusWaiting">Menunggu Feedback</div>: 
-                                                laporan.status === 1? <div className="badgeStatusAktif">Di Setujui</div>:
-                                                    laporan.status === 2? <div className="badgeStatusNon">Di Tolak</div>:
-                                                        <div className="badgeStatusNon">Di Batalkan</div>
-                                        }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="right">
+                                    <TableCell align="center" style={{width: '20%'}}>
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
@@ -200,8 +170,9 @@ export default function MasterKontrak(props) {
                 </Table>
             </TableContainer>
         )
+        counter = true;
     }
-    
+
     
     const { 
         loading: loadingDivisi,
@@ -245,17 +216,14 @@ export default function MasterKontrak(props) {
     }
 
     useEffect(() => {
-        if (window.performance) {
-            if (performance.navigation.type == 1) {
-                refetch()
-            }
-        }
+        refetch();
     }, [])
-    
     return (
         <Container className="containerKu">
-            <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Kontrak Karyawan</h1></Col>
+            <Row className="bg-white py-5 justify-content-center">
+                <Col>
+                    <h1 className="text-center">Daftar Surat Peringatan (SP)</h1>
+                </Col>
             </Row>
             <Row>
                 <Col className="col-md-4">
@@ -295,21 +263,9 @@ export default function MasterKontrak(props) {
                             }
                         >
                         <option value="-1">Semuanya</option>
-                        <option value="0">Menunggu Feedback</option>
-                        <option value="1">Disetujui</option>
-                        <option value="2">Ditolak</option>
-                        <option value="3">Dibatalkan</option>
+                        <option value="false">Di Terima</option>
+                        <option value="true">Di Batalkan</option>
                         </Form.Control>
-                    </Form.Group>
-                    <Form.Group as={Col}>
-                        <Form.Label>Bulan</Form.Label>
-                        <DatePicker
-                            selected={selectedDateAwal}
-                            onChange={date => setSelectedDateAwal(date)}
-                            dateFormat='MM-yyyy'
-                            maxDate={new Date()}
-                            showMonthYearPicker
-                        />
                     </Form.Group>
                 </Col>
             </Row>
@@ -324,10 +280,9 @@ export default function MasterKontrak(props) {
                                 setOrderBy(e.target.value)
                             }
                         >
-                            <option value=""></option>
-                            <option value="Kontrak Terdekat">Kontrak Habis Terdekat</option>
-                            <option value="Nama Asc">Nama A-Z</option>
-                            <option value="Nama Desc">Nama Z-A</option>
+                            <option value="-1"></option>
+                            <option value="DESC">SP Terbaru</option>
+                            <option value="ASC">SP Terlama</option>
                         </Form.Control>
                     </Form.Group>
                 </Col>

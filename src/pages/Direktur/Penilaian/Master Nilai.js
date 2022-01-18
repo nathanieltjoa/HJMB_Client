@@ -28,7 +28,7 @@ export default function MasterNilai(props) {
     let dataKu= [];
     let counter = false;
     if(!data || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(data.getPengaruhNilai.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Data Nilai</p>)
     }else if(data.getPengaruhNilai.length > 0 && !counter){
@@ -39,7 +39,7 @@ export default function MasterNilai(props) {
                         <TableRow>
                             <TableCell align="center">Nilai Bawah</TableCell>
                             <TableCell align="center">Nilai Atas</TableCell>
-                            <TableCell align="center">Grade Nilai</TableCell>
+                            <TableCell align="center">Nilai</TableCell>
                             <TableCell align="center">Pengaruh Ke Gaji</TableCell>
                         </TableRow>
                     </TableHead>

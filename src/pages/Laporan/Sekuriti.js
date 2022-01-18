@@ -111,7 +111,7 @@ export default function Sekuriti(props) {
         console.log(dataLaporan);
     }
     if(!dataLaporan || loadingLaporan){
-        pageKu.push(<p key={0} className="badgeStatusWaiting">Loading...</p>)
+        pageKu.push(<p key={0} className="badgeStatusWaiting">Memuat...</p>)
         {console.log(loadingLaporan)}
     }else if(dataLaporan.getLaporanMasterSekuriti.count){
       var jml = Math.ceil(dataLaporan.getLaporanMasterSekuriti.count / limit);
@@ -136,7 +136,7 @@ export default function Sekuriti(props) {
       )
     }
     if(!dataLaporan || loadingLaporan){
-        dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(dataLaporan.getLaporanMasterSekuriti.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterSekuriti.rows.length > 0){
@@ -152,7 +152,7 @@ export default function Sekuriti(props) {
                             <TableCell align="center">Ketua</TableCell>
                             <TableCell align="center">Penyerah</TableCell>
                             <TableCell align="center">Penerima</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

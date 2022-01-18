@@ -57,7 +57,7 @@ export default function DetailDistribusi(props) {
     let dataDistribusiKu = []
     let counterDistribusi = false;
     if(!dataPertanyaan || loadingPertanyaan){
-        dataDistribusiKu.push(<p key={0} className="badgeStatusWaitingText">Loading....</p>)
+        dataDistribusiKu.push(<p key={0} className="badgeStatusWaitingText">Memuat....</p>)
     }else if(dataPertanyaan.getDistribusi.length === 0){
         dataDistribusiKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Distribusi</p>)
     }else if(dataPertanyaan.getDistribusi.length > 0){
@@ -78,7 +78,7 @@ export default function DetailDistribusi(props) {
                                 <TableRow key={index}>
                                     <TableCell component="th" scope="row">{laporan.namaJabatan}</TableCell>
                                     <TableCell component="th" scope="row">{laporan.persentaseNilai}</TableCell>
-                                    <TableCell component="th" scope="row">{laporan.status === true? "Aktif": "Non-Aktif"}</TableCell>
+                                    <TableCell component="th" scope="row">{laporan.status === true? "Aktif": "Tidak Aktif"}</TableCell>
                                 </TableRow>
                             ))
                         }

@@ -91,9 +91,9 @@ export default function RegisterKaryawanDirektur(props) {
     let usersMarkUp
     let counter = false;
     if(!data || loading){
-        usersMarkUp = <p>Loading...</p>
+        usersMarkUp = <p>Memuat...</p>
     }else if(data.getJabatan.length === 0){
-        usersMarkUp = <p>Tidak Ada Daftar Jabatan</p>
+        usersMarkUp = <p>Tidak Ada Daftar HRD</p>
     }else if(data.getJabatan.length > 0 && !counter){
         usersMarkUp = data.getJabatan.map(jabatan =>(
             <option key={jabatan.id} value={jabatan.id}>

@@ -94,9 +94,9 @@ export default function MasterIndex(props) {
     let dataKu= [];
     let counter = false;
     if(data === undefined || loading){
-        dataKu.push(<p key={0} className="badgeStatusWaitingText">Loading...</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaitingText">Memuat...</p>)
     }else if(data.getIndexPenilaian.length === 0){
-        dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Index Penilaian Yang Tersedia</p>)
+        dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Indeks Penilaian Yang Tersedia</p>)
     }else if(data.getIndexPenilaian.length > 0 && !counter){
         counterJml = 0;
         dataKu.push(
@@ -104,10 +104,10 @@ export default function MasterIndex(props) {
                 <Table className="tableKu" aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Nama Index</TableCell>
-                            <TableCell align="center">Keterangan Index</TableCell>
-                            <TableCell align="right">Persentase Index</TableCell>
-                            <TableCell align="right">Action</TableCell>
+                            <TableCell align="center">Nama Indeks</TableCell>
+                            <TableCell align="center">Keterangan Indeks</TableCell>
+                            <TableCell align="right">Persentase Indeks</TableCell>
+                            <TableCell align="right">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -125,7 +125,7 @@ export default function MasterIndex(props) {
                                         {
                                             laporan.status === true?
                                             <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                Non Aktifkan
+                                                Menonaktifkan
                                             </Button>:
                                             <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
                                                 Aktifkan
@@ -248,7 +248,7 @@ export default function MasterIndex(props) {
     return (
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Index Penilaian</h1></Col>
+                <Col><h1 className="text-center">Master Indeks Penilaian</h1></Col>
             </Row>
             <Row className="bg-white py-5 justify-content-md-center">
                 <Col className="col-md-5">
@@ -256,7 +256,7 @@ export default function MasterIndex(props) {
                         {showError}
                         {showUser}
                         <Form.Group as={Col}>
-                            <Form.Label className={errors.namaIndex && 'text-danger'}>{errors.namaIndex ?? 'Nama Index'}</Form.Label>
+                            <Form.Label className={errors.namaIndex && 'text-danger'}>{errors.namaIndex ?? 'Nama Indeks'}</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nama"
@@ -266,7 +266,7 @@ export default function MasterIndex(props) {
                             />
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className={errors.nilaiIndex && 'text-danger'}>{errors.nilaiIndex ?? 'Nilai Index'}</Form.Label>
+                            <Form.Label className={errors.nilaiIndex && 'text-danger'}>{errors.nilaiIndex ?? 'Nilai Indeks'}</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nilai"
@@ -293,7 +293,7 @@ export default function MasterIndex(props) {
                                 </Button>:
                                 <div className="buttonsSideBySide">
                                     <Button className="buttonSideBySide" variant="primary" onClick={() => updateIndex(true)}>
-                                        Update Index
+                                        Perbarui Indeks
                                     </Button>
                                     <Button className="buttonSideBySide" variant="danger" onClick={() => updateIndex(false)}>
                                         Batal

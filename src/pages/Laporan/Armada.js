@@ -135,7 +135,7 @@ export default function ProduksiPipa(props) {
         console.log(dataLaporan);
     }
     if(!dataLaporan || loadingLaporan){
-        pageKu.push(<p key={0} className="badgeStatusWaiting">Loading...</p>)
+        pageKu.push(<p key={0} className="badgeStatusWaiting">Memuat...</p>)
         {console.log(loadingLaporan)}
     }else if(dataLaporan.getLaporanMasterArmada.count){
       var jml = Math.ceil(dataLaporan.getLaporanMasterArmada.count / limit);
@@ -160,7 +160,7 @@ export default function ProduksiPipa(props) {
       )
     }
     if(!dataLaporan || loadingLaporan){
-        dataKu.push(<p key={0} className="badgeStatusWaiting">Loading....</p>)
+        dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(dataLaporan.getLaporanMasterArmada.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterArmada.rows.length > 0){
@@ -176,7 +176,7 @@ export default function ProduksiPipa(props) {
                             <TableCell align="center">Nama Stokist</TableCell>
                             <TableCell align="center">Nama Supir</TableCell>
                             <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell align="center">Tindakan</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -238,7 +238,7 @@ export default function ProduksiPipa(props) {
             <Row className="bg-white justify-content-center">
                 <Col>
                     <h1 className="text-center">Master Laporan Armada</h1>
-                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Summary</Button>
+                    <Button variant="info" onClick={() => setVisibleSummary(true)} className="btnSummary">Lihat Ringkasan Supir</Button>
                 </Col>
             </Row>
             <Row>
