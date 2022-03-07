@@ -205,68 +205,68 @@ export default function MasterPembayaranGaji(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Slip Pembayaran Gaji</p>)
     }else if(data.getPembayaranGaji.rows.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Jenis Kontrak</TableCell>
-                            <TableCell align="center">Masa Kontrak</TableCell>
-                            <TableCell align="center">Total Gaji</TableCell>
-                            <TableCell align="center">Tanggal Pembayaran</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            data.getPembayaranGaji.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.kontrak.karyawan?.nama}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.kontrak.jenisKontrak}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        {
-                                            dayjs(laporan.kontrak.tanggalMulai).format("DD-MM-YYYY")
-                                        } - {
-                                            dayjs(laporan.kontrak.tanggalBerakhir).format("DD-MM-YYYY")
-                                        }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        {
-                                            laporan.status === 4 ? 
-                                            dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"): 
+            <div className='tableContainer'>
+            <table size='string' className="table" aria-label="simple table">
+                <thead>
+                    <tr>
+                        <th>Nama Karyawan</th>
+                        <th>Jenis Kontrak</th>
+                        <th>Masa Kontrak</th>
+                        <th>Total Gaji</th>
+                        <th>Tanggal Pembayaran</th>
+                        <th>Status</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        data.getPembayaranGaji.rows.map((laporan,index) =>(
+                            <tr key={index} >
+                                <td data-label="Nama">{laporan.kontrak.karyawan?.nama}</td>
+                                <td data-label="Jenis Kontrak">{laporan.kontrak.jenisKontrak}</td>
+                                <td data-label="Masa Kontrak">
+                                    {
+                                        dayjs(laporan.kontrak.tanggalMulai).format("DD-MM-YYYY")
+                                    } - {
+                                        dayjs(laporan.kontrak.tanggalBerakhir).format("DD-MM-YYYY")
+                                    }
+                                </td>
+                                <td data-label="Total Gaji">
+                                    <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
+                                </td>
+                                <td data-label="Tanggal Pembayaran">
+                                    {
+                                        laporan.status === 4 ? 
+                                        dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"): 
+                                            laporan.status === 2?
+                                            dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"):
+                                            "-"
+                                    }
+                                </td>
+                                <td data-label="Status">
+                                    {
+                                        laporan.status === 0?
+                                            <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi HRD</p>:
+                                            laporan.status === 1?
+                                                <p key={0} className="badgeStatusWaiting">Menunggu Pembayaran</p>:
                                                 laporan.status === 2?
-                                                dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"):
-                                                "-"
-                                        }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        {
-                                            laporan.status === 0?
-                                                <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi HRD</p>:
-                                                laporan.status === 1?
-                                                    <p key={0} className="badgeStatusWaiting">Menunggu Pembayaran</p>:
-                                                    laporan.status === 2?
-                                                    <p key={0} className="badgeStatusAktif">Selesai</p>:
-                                                        laporan.status === 3?
-                                                        <p key={0} className="badgeStatusNon">Dibatalkan</p>:
-                                                        <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi Penerimaan</p>
-                                        }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
-                                            Detail
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                                <p key={0} className="badgeStatusAktif">Selesai</p>:
+                                                    laporan.status === 3?
+                                                    <p key={0} className="badgeStatusNon">Dibatalkan</p>:
+                                                    <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi Penerimaan</p>
+                                    }
+                                </td>
+                                <td data-label="#">
+                                    <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                        Detail
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
         )
         counter = true;
     }

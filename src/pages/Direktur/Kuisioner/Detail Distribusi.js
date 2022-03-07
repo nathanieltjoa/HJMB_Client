@@ -63,28 +63,31 @@ export default function DetailDistribusi(props) {
     }else if(dataPertanyaan.getDistribusi.length > 0){
         console.log("masuk")
         dataDistribusiKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nama Jabatan</TableCell>
-                            <TableCell>Persentase Nilai</TableCell>
-                            <TableCell>Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Jabatan</th>
+                            <th>Persentase Nilai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataPertanyaan.getDistribusi.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row">{laporan.namaJabatan}</TableCell>
-                                    <TableCell component="th" scope="row">{laporan.persentaseNilai}</TableCell>
-                                    <TableCell component="th" scope="row">{laporan.status === true? "Aktif": "Tidak Aktif"}</TableCell>
-                                </TableRow>
+                                <tr key={index} >
+                                    <td data-label="Nama Jabatan">{laporan.namaJabatan}</td>
+                                    <td data-label="Persentase Nilai">{laporan.persentaseNilai}</td>
+                                    <td data-label="Status">{
+                                        laporan.status === true? "Aktif": "Tidak Aktif"
+                                    }
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
     

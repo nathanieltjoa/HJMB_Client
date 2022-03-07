@@ -166,47 +166,46 @@ export default function ProduksiPipa(props) {
     }else if(dataLaporan.getLaporanMasterArmada.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterArmada.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Kendaraan</TableCell>
-                            <TableCell align="center">Nama Armada</TableCell>
-                            <TableCell align="center">Nama Stokist</TableCell>
-                            <TableCell align="center">Nama Supir</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal Laporan</th>
+                            <th>Kendaraan</th>
+                            <th>Nama Armada</th>
+                            <th>Nama Stokist</th>
+                            <th>Nama Supir</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterArmada.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.kendaraan}</TableCell>
-                                    <TableCell align="center">{laporan.armada?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.stokist?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.supir?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.status === 1? 
+                                <tr key={index} >
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Kendaraan">{laporan.kendaraan}</td>
+                                    <td data-label="Armada">{laporan.armada?.nama}</td>
+                                    <td data-label="Stokist">{laporan.stokist === null? "-": laporan.stokist?.nama}</td>
+                                    <td data-label="Supir">{laporan.supir === null? "-": laporan.supir?.nama}</td>
+                                    <td data-label="Status">{laporan.status === 1? 
                                         <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
                                             laporan.status === 2? 
                                             <div className="badgeStatusWaiting">Terverifikasi Stoksit</div>:
                                                 laporan.status === 3? 
                                                 <div className="badgeStatusWaiting">Pengantaran</div>:
-                                                    <div className="badgeStatusAktif">Selesai</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                                    <div className="badgeStatusAktif">Selesai</div>}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 

@@ -134,36 +134,36 @@ export default function MasterPembayaranGaji(props) {
     }else if(data.getPembayaranGaji.rows.length > 0 && !counter){
         console.log(data.getPembayaranGaji.rows.length)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Jenis Kontrak</TableCell>
-                            <TableCell align="center">Masa Kontrak</TableCell>
-                            <TableCell align="center">Total Gaji</TableCell>
-                            <TableCell align="center">Tanggal Pembayaran</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Jenis Kontrak</th>
+                            <th>Masa Kontrak</th>
+                            <th>Total Gaji</th>
+                            <th>Tanggal Pembayaran</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getPembayaranGaji.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.kontrak.karyawan?.nama}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.kontrak.jenisKontrak}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.kontrak.karyawan?.nama}</td>
+                                    <td data-label="Jenis Kontrak">{laporan.kontrak.jenisKontrak}</td>
+                                    <td data-label="Masa Kontrak">
                                         {
                                             dayjs(laporan.kontrak.tanggalMulai).format("DD-MM-YYYY")
                                         } - {
                                             dayjs(laporan.kontrak.tanggalBerakhir).format("DD-MM-YYYY")
                                         }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                    </td>
+                                    <td data-label="Total Gaji">
                                         <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                    </td>
+                                    <td data-label="Tanggal Pembayaran">
                                         {
                                             laporan.status === 4 ? 
                                             dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"): 
@@ -171,8 +171,8 @@ export default function MasterPembayaranGaji(props) {
                                                 dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"):
                                                 "-"
                                         }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                    </td>
+                                    <td data-label="Status">
                                         {
                                             laporan.status === 0?
                                                 <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi HRD</p>:
@@ -184,18 +184,18 @@ export default function MasterPembayaranGaji(props) {
                                                         <p key={0} className="badgeStatusNon">Dibatalkan</p>:
                                                         <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi Penerimaan</p>
                                         }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                    </td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

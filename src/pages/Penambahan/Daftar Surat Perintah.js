@@ -134,47 +134,46 @@ export default function DaftarSuratPerintah(props) {
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Permintaan Surat Dari Karyawan</p>)
     }else if(data.getListSuratPerintahMaster.rows.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Dinas</TableCell>
-                            <TableCell align="center">Tanggal Mulai</TableCell>
-                            <TableCell align="center">Tanggal Akhir</TableCell>
-                            <TableCell align="center">Keterangan</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Dinas</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Akhir</th>
+                            <th>Keterangan</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getListSuratPerintahMaster.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.dinas}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.tanggalAkhir).format('DD-MM-YYYY HH:mm:ss')}</TableCell>
-                                    <TableCell align="center">{laporan.keterangan}</TableCell>
-                                    <TableCell align="center">{laporan.status === 0? 
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan?.nama}</td>
+                                    <td data-label="Dinas">{laporan.dinas}</td>
+                                    <td data-label="Tanggal Mulai">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Tanggal Akhir">{dayjs(laporan.tanggalAkhir).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Keterangan">{laporan.keterangan}</td>
+                                    <td data-label="Status">{laporan.status === 0? 
                                         <div className="badgeStatusWaiting">Menunggu Persetujuan</div>:
                                             laporan.status === 1? 
                                             <div className="badgeStatusAktif">Di Terima</div>:
                                                 laporan.status === 2? 
                                                 <div className="badgeStatusNon">Di Tolak</div>:
-                                                <div className="badgeStatusNon">Di Batalkan</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                                <div className="badgeStatusNon">Di Batalkan</div>}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

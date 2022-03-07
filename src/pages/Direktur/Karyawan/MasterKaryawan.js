@@ -101,54 +101,52 @@ export default function MasterKaryawan(props) {
         dataKaryawanKu.push(<p key={1}>Tidak Ada Data Karyawan</p>)
     }else if(dataKaryawan.getListKaryawanMaster.rows.length > 0 && !counterKaryawanKu){
         dataKaryawanKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="right">Id</TableCell>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">NIK</TableCell>
-                            <TableCell align="center">Tanggal Masuk</TableCell>
-                            <TableCell align="center">Tempat Lahir</TableCell>
-                            <TableCell align="center">Tanggal Lahir</TableCell>
-                            <TableCell align="center">Alamat</TableCell>
-                            <TableCell align="center">Agama</TableCell>
-                            <TableCell align="center">Pendidikan</TableCell>
-                            <TableCell align="center">Nama Jabatan</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nama Karyawan</th>
+                            <th>NIK</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Alamat</th>
+                            <th>Agama</th>
+                            <th>Pendidikan</th>
+                            <th>Nama Jabatan</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataKaryawan.getListKaryawanMaster.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="right">{laporan.id}</TableCell>
-                                    <TableCell align="center">{laporan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.nik}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.tanggalMasuk).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.tempatLahir}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.tanggalLahir).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.alamat}</TableCell>
-                                    <TableCell align="center">{laporan.agama}</TableCell>
-                                    <TableCell align="center">{laporan.pendidikan}</TableCell>
-                                    <TableCell align="center">
-                                        {laporan.jabatan.tingkatJabatan === 2? 
-                                            "Ketua"
-                                            :laporan.jabatan.tingkatJabatan === 4?
-                                                "Ketua":
-                                                    "Anggota"} {laporan.jabatan.namaJabatan}
-                                    </TableCell>
-                                    <TableCell align="center">
+                                <tr key={index} >
+                                    <td data-label="Id">{laporan.id}</td>
+                                    <td data-label="Nama">{laporan.nama}</td>
+                                    <td data-label="NIK">{laporan.nik}</td>
+                                    <td data-label="Tanggal Masuk">{dayjs(laporan.tanggalMasuk).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Tempat Lahir">{laporan.tempatLahir}</td>
+                                    <td data-label="Tanggal Lahir">{dayjs(laporan.tanggalLahir).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Alamat">{laporan.alamat}</td>
+                                    <td data-label="Agama">{laporan.agama}</td>
+                                    <td data-label="Pendidikan">{laporan.pendidikan}</td>
+                                    <td data-label="Jabatan">{laporan.jabatan.tingkatJabatan === 2? 
+                                                "Ketua"
+                                                :laporan.jabatan.tingkatJabatan === 4?
+                                                    "Ketua":
+                                                        "Anggota"} {laporan.jabatan.namaJabatan}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan, null, null)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counterKaryawanKu = true;
     }

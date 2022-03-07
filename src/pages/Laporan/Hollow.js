@@ -172,54 +172,54 @@ export default function Hollow(props) {
     }else if(dataLaporan.getLaporanMasterHollow.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterHollow.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Shift</TableCell>
-                            <TableCell align="center">Ukuran</TableCell>
-                            <TableCell align="center">Ketebalan</TableCell>
-                            <TableCell align="center">Jumlah</TableCell>
-                            <TableCell align="center">BS</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Banding</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Shift</th>
+                            <th>Ukuran</th>
+                            <th>Ketebalan</th>
+                            <th>Jumlah</th>
+                            <th>BS</th>
+                            <th>Status</th>
+                            <th>Banding</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterHollow.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.hLaporanHollow.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.hLaporanHollow.shift}</TableCell>
-                                    <TableCell align="center">{laporan.ukuran}</TableCell>
-                                    <TableCell align="center">{laporan.ketebalan}</TableCell>
-                                    <TableCell align="center">{laporan.jumlah}</TableCell>
-                                    <TableCell align="center">{laporan.BS}</TableCell>
-                                    <TableCell align="center">{laporan.status === 1? 
-                                        <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                            laporan.status === 2? 
-                                            <div className="badgeStatusAktif">Terverifikasi</div>:
-                                            <div className="badgeStatusNon">Proses Banding</div>}
-                                    </TableCell>
-                                    <TableCell align="center">{laporan.pernahBanding === true? 
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.hLaporanHollow.karyawan.nama}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Shift">{laporan.hLaporanHollow.shift}</td>
+                                    <td data-label="Ukuran">{laporan.ukuran}</td>
+                                    <td data-label="Ketebalan">{laporan.ketebalan}</td>
+                                    <td data-label="Jumlah">{laporan.jumlah}</td>
+                                    <td data-label="BS">{laporan.BS}</td>
+                                    <td data-label="Status">
+                                        {laporan.status === 1? 
+                                            <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
+                                                laporan.status === 2? 
+                                                <div className="badgeStatusAktif">Terverifikasi</div>:
+                                                <div className="badgeStatusNon">Proses Banding</div>}
+                                    </td>
+                                    <td data-label="Banding">{laporan.pernahBanding === true? 
                                         <div className="badgeStatusNon">Pernah Banding</div>:
-                                            <div className="badgeStatusAktif">Aman</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                            <div className="badgeStatusAktif">Aman</div>}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 
@@ -244,7 +244,7 @@ export default function Hollow(props) {
                 console.log('Refreshed!');
             }
         }
-    }, []) 
+    }, [])
 
     return (
         <Container className="containerKu">
@@ -418,7 +418,6 @@ export default function Hollow(props) {
                                 {
                                     dataSummary?.getSummaryHollow.map((laporan,index) =>(
                                         <TableRow key={index}>
-                                            {console.log(laporan)}
                                             <TableCell align="center">{laporan.karyawan.nama}</TableCell>
                                             <TableCell align="center">{laporan.jumlahProduksi}</TableCell>
                                             <TableCell align="center">{laporan.jumlahBS}</TableCell>

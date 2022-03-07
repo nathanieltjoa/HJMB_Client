@@ -1,20 +1,12 @@
 import React, {useEffect} from 'react'
-import { Row, Col, Card, Button, Form, Container} from 'react-bootstrap';
-import { gql, useQuery} from '@apollo/client';
+import { Row, Col, Card, Button, Form, Container, Modal} from 'react-bootstrap';
+import { gql, useQuery, useMutation} from '@apollo/client';
 import dayjs from 'dayjs'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import ReactPaginate from 'react-paginate';
-import CurrencyFormat from 'react-currency-format';
 import { useHistory } from 'react-router-dom';
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useState } from 'react';
+const {URL} = require('../../config/config.json')
 
 
 const getListSuratPeringatanMaster = gql`
@@ -35,7 +27,7 @@ query getListSuratPeringatanMaster(
     status: $status
   ){
     count rows{
-        id karyawan{nama} hrd{nama} peringatanKe keterangan file diBatalkan createdAt
+        id karyawan{nama} hrd{nama} peringatanKe keterangan file keteranganBatal diBatalkan createdAt
     }
   }
 }
@@ -63,22 +55,42 @@ query getListKaryawanKontrak(
 }
 `;
 
+
+const updateBatalkanSuratPeringatanMaster = gql`
+    mutation updateBatalkanSuratPeringatanMaster(
+      $id: String
+      $status: Int
+      $keteranganBatal: String
+  ) {
+    updateBatalkanSuratPeringatanMaster(
+      id: $id
+      status: $status
+      keteranganBatal: $keteranganBatal
+    ){
+      id
+    }
+  }
+  `;
+
 export default function DaftarSuratPeringatan(props) {
     let history = useHistory();
     const [page, setPage] = useState(0);
     const [limit, setLimit] = useState(5);
     const [selectedDateAwal, setSelectedDateAwal] = useState("");
-    const [status, setStatus] = useState(-1);
-    const [peringatanKe, setPeringatanKe] = useState("");
+    const [visibleDetail, setVisibleDetail] = useState(false);
+    const [status, setStatus] = useState("-1");
+    const [peringatanKe, setPeringatanKe] = useState(-1);
     const [divisiKontrak, setDivisiKontrak] = useState("");
-    const [karyawanKontrak, setKaryawanKontrak] = useState("");
+    const [karyawanKontrak, setKaryawanKontrak] = useState(-1);
     const [orderBy, setOrderBy] = useState("DESC");
+    const [alasan, setAlasan] = useState("");
+    const [dataDetail, setDataDetail] = useState([]);
     const { loading, data, refetch } = useQuery(getListSuratPeringatanMaster,{
         variables: {
             page: parseInt(page),
             limit: parseInt(limit),
             orderBy: orderBy,
-            karyawan: parseInt(karyawanKontrak),
+            idKaryawan: parseInt(karyawanKontrak),
             peringatanKe: parseInt(peringatanKe),
             status: status
         }
@@ -92,16 +104,18 @@ export default function DaftarSuratPeringatan(props) {
         setPage(selected)
     }
 
+    const UnduhFile = (file, id) => {
+        var FileSaver = require('file-saver');
+        var fileImage = file;
+        fileImage = fileImage.replace("localhost:4000", URL);
+        FileSaver.saveAs(fileImage, id+".pdf");
+    }
+
     const goToDetail = (laporan) => {
-        history.push({
-            pathname: '/surat/detail surat peringatan',
-            state: { laporan: laporan }
-        });
+        setDataDetail(laporan)
+        setVisibleDetail(true);
     }
     let pageKu = [];
-    if(data){
-        console.log(data);
-    }
     if(data === undefined || loading){
         pageKu.push(<p key={0}>Memuat...</p>)
     }else if(data.getListSuratPeringatanMaster.count){
@@ -134,41 +148,42 @@ export default function DaftarSuratPeringatan(props) {
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Surat Peringatan</p>)
     }else if(data.getListSuratPeringatanMaster.rows.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Peringatan</TableCell>
-                            <TableCell align="center">Tanggal Terbit</TableCell>
-                            <TableCell align="center">Keterangan</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Peringatan</th>
+                            <th>Tanggal Terbit</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getListSuratPeringatanMaster.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.peringatanKe}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY HH:mm:ss')}</TableCell>
-                                    <TableCell align="center">{laporan.keterangan}</TableCell>
-                                    <TableCell align="center">{laporan.diBatalkan === false? 
-                                        <div className="badgeStatusWaiting">Di Batalkan</div>:
-                                            <div className="badgeStatusAktif">Tidak Di Batalkan</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan?.nama}</td>
+                                    <td data-label="Peringatan Ke">{laporan.peringatanKe}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format('DD-MM-YYYY HH:mm:ss')}</td>
+                                    <td data-label="Status">{
+                                        laporan.diBatalkan === 1? 
+                                            <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
+                                            laporan.diBatalkan === 2?
+                                                <div className="badgeStatusAktif">Diteruskan</div>:
+                                                <div className="badgeStatusNon">Dibatalkan</div>
+                                    }</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }
@@ -214,13 +229,42 @@ export default function DaftarSuratPeringatan(props) {
             <option key={index} value={element.id} >{element.nama} ({element.jabatan.jabatanKu})</option>
         )))
     }
+    
+    const [updateStatusPermintaanKu] = useMutation(updateBatalkanSuratPeringatanMaster,{
+        update(_,res){
+            console.log(res)
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+        onCompleted(data){
+            refetch();
+            setAlasan("");
+            setDataDetail([]);
+            setVisibleDetail(false);
+        }
+      })
+
+    const actionPermintaan = (id,status) => {
+        updateStatusPermintaanKu({variables:{
+          id: id,
+          status: status,
+          keteranganBatal: alasan,
+        }
+        });
+      }
 
     useEffect(() => {
-        refetch();
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                refetch()
+                console.log('Refreshed!');
+            }
+        }
     }, [])
     return (
         <Container className="containerKu">
-            <Row className="bg-white py-5 justify-content-center">
+            <Row className="bg-white justify-content-center">
                 <Col>
                     <h1 className="text-center">Daftar Surat Peringatan (SP)</h1>
                 </Col>
@@ -249,12 +293,26 @@ export default function DaftarSuratPeringatan(props) {
                                 setKaryawanKontrak(e.target.value)
                             }
                         >
-                            <option value=""></option>
+                            <option value="-1"></option>
                             {dataKaryawanKontrakKu}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col}>
-                        <Form.Label>Status Laporan: </Form.Label>
+                        <Form.Label>Peringatan Ke: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={peringatanKe} 
+                            onChange={e => 
+                                setPeringatanKe(e.target.value)
+                            }
+                        >
+                        <option value="-1">Semuanya</option>
+                        <option value="1">Pertama</option>
+                        <option value="2">Kedua</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Status: </Form.Label>
                         <Form.Control 
                             as="select" 
                             value={status} 
@@ -263,8 +321,9 @@ export default function DaftarSuratPeringatan(props) {
                             }
                         >
                         <option value="-1">Semuanya</option>
-                        <option value="false">Di Terima</option>
-                        <option value="true">Di Batalkan</option>
+                        <option value="1">Menunggu Verifikasi</option>
+                        <option value="0">Dibatalkan</option>
+                        <option value="2">Diteruskan</option>
                         </Form.Control>
                     </Form.Group>
                 </Col>
@@ -280,7 +339,6 @@ export default function DaftarSuratPeringatan(props) {
                                 setOrderBy(e.target.value)
                             }
                         >
-                            <option value="-1"></option>
                             <option value="DESC">SP Terbaru</option>
                             <option value="ASC">SP Terlama</option>
                         </Form.Control>
@@ -295,6 +353,70 @@ export default function DaftarSuratPeringatan(props) {
                     </div>
                 </Col>
             </Row>
+            <Modal show={visibleDetail} onHide={() => setVisibleDetail(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="judul">Detail SP</Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
+                        <div className="parent">
+                            <p className="childLeft">Nama Pembuat</p>
+                                <p className="childRight">: {dataDetail.hrd?.nama}</p>
+                            <p className="childLeft">Nama Karyawan</p>
+                                <p className="childRight">: {dataDetail.karyawan?.nama}</p>
+                            <p className="childLeft">Peringatan Ke</p>
+                                <p className="childRight">: {dataDetail.peringatanKe}</p>
+                            <p className="childLeft">Tanggal Pembuatan SP</p>
+                                <p className="childRight">: {dayjs(dataDetail.createdAt).format('DD-MM-YYYY HH:mm:ss')}</p>
+                            <p className="childLeft">Keterangan</p>
+                                <p className="childRight">: {dataDetail.keterangan}</p>
+                            {
+                                dataDetail.diBatalkan !== 0? null:
+                                <>
+                                    <p className="childLeft">Keterangan Batal</p>
+                                        <p className="childRight">: {dataDetail.keteranganBatal}</p>
+                                </>
+                            }
+                        </div>
+                        <p className="text-center statusKu">Status:
+                            {
+                                dataDetail.diBatalkan === 1? 
+                                    <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
+                                    dataDetail.diBatalkan === 2?
+                                        <div className="badgeStatusAktif">Diteruskan</div>:
+                                        <div className="badgeStatusNon">Dibatalkan</div>
+                            }
+                        </p>
+                        {
+                      dataDetail.diBatalkan !== 1? null:
+                        <div>
+                            <Form.Label className="childLeft">Alasan Batal: </Form.Label>
+                            <Form.Control 
+                                as="textarea" 
+                                value={alasan} 
+                                onChange={e => 
+                                    setAlasan(e.target.value)
+                                }
+                            />
+                            <div className="buttonsSideBySide">
+                                <Button className="buttonSideBySide" variant="primary" onClick={() => actionPermintaan(dataDetail.id,2)}>
+                                    Teruskan
+                                </Button>
+                                <Button className="buttonSideBySide" variant="danger" onClick={() => actionPermintaan(dataDetail.id,0)}>
+                                    Batalkan
+                                </Button>
+                            </div>
+                        </div>
+                        }
+                    </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="info" onClick={() => UnduhFile(dataDetail.file, dataDetail.id)}>
+                        Unduh
+                    </Button>
+                    <Button variant="danger" onClick={() => setVisibleDetail(false)}>
+                        Tutup
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 }

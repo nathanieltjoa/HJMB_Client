@@ -85,46 +85,44 @@ export default function DaftarAbsensi(props) {
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Data Absensi</p>)
     }else if(data.getAbsensi.rows.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nama Karyawan</TableCell>
-                            <TableCell align="right">Tanggal</TableCell>
-                            <TableCell align="right">Shift</TableCell>
-                            <TableCell align="right">Jam Masuk</TableCell>
-                            <TableCell align="right">Jam Keluar</TableCell>
-                            <TableCell align="right">Scan Masuk</TableCell>
-                            <TableCell align="right">Scan Pulang</TableCell>
-                            <TableCell align="right">Terlambat</TableCell>
-                            <TableCell align="right">Pulang Cepat</TableCell>
-                            <TableCell align="right">Absen</TableCell>
-                            <TableCell align="right">Lembur</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Tanggal</th>
+                            <th>Shift</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Keluar</th>
+                            <th>Scan Masuk</th>
+                            <th>Scan Pulang</th>
+                            <th>Terlambat</th>
+                            <th>Pulang Cepat</th>
+                            <th>Absen</th>
+                            <th>Lembur</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getAbsensi.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row">
-                                        {laporan.namaKaryawan}
-                                    </TableCell>
-                                    <TableCell align="right">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="right">{laporan.jamKerja.namaShift}</TableCell>
-                                    <TableCell align="right">{laporan.jamKerja.jamMasuk}</TableCell>
-                                    <TableCell align="right">{laporan.jamKerja.jamKeluar}</TableCell>
-                                    <TableCell align="right">{laporan.scanMasuk}</TableCell>
-                                    <TableCell align="right">{laporan.scanPulang}</TableCell>
-                                    <TableCell align="right">{laporan.terlambat}</TableCell>
-                                    <TableCell align="right">{laporan.jamBolos}</TableCell>
-                                    <TableCell align="right">{laporan.absen === true? <div className="badgeStatusNon">Bolos</div>: ""}</TableCell>
-                                    <TableCell align="right">{laporan.lembur}</TableCell>
-                                </TableRow>
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.namaKaryawan}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Shift">{laporan.jamKerja.namaShift}</td>
+                                    <td data-label="Jam Masuk">{laporan.jamKerja.jamMasuk}</td>
+                                    <td data-label="Jam Keluar">{laporan.jamKerja.jamKeluar}</td>
+                                    <td data-label="Scan Masuk">{laporan.scanMasuk === ""? "-": laporan.scanMasuk}</td>
+                                    <td data-label="Scan Keluar">{laporan.scanPulang === ""? "-": laporan.scanPulang}</td>
+                                    <td data-label="Terlambat">{laporan.terlambat === ""? "-": laporan.terlambat}</td>
+                                    <td data-label="Bolos">{laporan.jamBolos === ""? "-": laporan.jamBolos}</td>
+                                    <td data-label="Absen">{laporan.absen === true? <div className="badgeStatusNon">Bolos</div>: <div className="badgeStatusAktif">Aman</div>}</td>
+                                    <td data-label="Lembur">{laporan.lembur === ""? "-": laporan.lembur}</td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

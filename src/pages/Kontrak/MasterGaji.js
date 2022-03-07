@@ -188,50 +188,52 @@ export default function MasterGaji(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Indeks Gaji</p>)
     }else if(data.getIndexGaji.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Indeks</TableCell>
-                            <TableCell align="center">Keterangan Indeks</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Indeks</th>
+                            <th>Keterangan Indeks</th>
+                            <th>Status</th>
+                            <th>#</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getIndexGaji.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.namaGaji}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.keteranganGaji}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Nama Indeks">{laporan.namaGaji}</td>
+                                    <td data-label="Keterangan">{laporan.keteranganGaji === ""? "-": laporan.keteranganGaji}</td>
+                                    <td data-label="Status">
                                         <div className="badgeContainer">{
-                                        laporan.status === true? 
-                                            <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Tidak Aktif</div>
-                                    }</div></TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <div className="buttonsSideBySide">
-                                            <Button className="buttonSideBySide" variant="primary" onClick={() => editIndex(laporan)}>
-                                                Edit
+                                            laporan.status === true? 
+                                                <div className="badgeStatusAktif">Aktif</div>:
+                                                <div className="badgeStatusNon">Tidak Aktif</div>
+                                        }</div>
+                                    </td>
+                                    <td data-label="#">
+                                        <Button className="buttonSideBySide" variant="primary" onClick={() => editIndex(laporan)}>
+                                            Edit
+                                        </Button>
+                                    </td>
+                                    <td data-label="#">
+                                        {
+                                            laporan.status === true?
+                                            <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
+                                                Menonaktifkan
+                                            </Button>:
+                                            <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
+                                                Aktifkan
                                             </Button>
-                                            {
-                                                laporan.status === true?
-                                                <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                    Menonaktifkan
-                                                </Button>:
-                                                <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
-                                                    Aktifkan
-                                                </Button>
-                                            }
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                        }
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

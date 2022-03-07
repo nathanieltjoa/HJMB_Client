@@ -64,48 +64,50 @@ export default function DetailMixerPipa(props) {
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-12">
                     <h3 className="subJudul">Detail Laporan:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Total Hasil</TableCell>
-                                <TableCell align="center">Target Kerja</TableCell>
-                                <TableCell align="center">Status</TableCell>
-                                <TableCell align="center">Banding</TableCell>
-                                <TableCell align="center">Tindakan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getListDetailMixerPipa.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.totalHasil}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.targetKerja}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">
-                                        {
-                                            laporan.status === 1? 
-                                            <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                            laporan.status === 2? 
-                                                <div className="badgeStatusAktif">Terverifikasi</div>:
-                                                    <div className="badgeStatusNon">Proses Banding</div>
-                                        }
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" align="center">
-                                        {
-                                            laporan.pernahBanding === true? 
-                                                <div className="badgeStatusNon">Pernah Banding</div>:
-                                                <div className="badgeStatusAktif">Aman</div>
-                                        }
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" align="center">
-                                            <Button onClick={() => openModal(laporan)}>
-                                                Detail 
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Total Hasil</th>
+                                    <th>Target Kerja</th>
+                                    <th>Status</th>
+                                    <th>Banding</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getListDetailMixerPipa.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Total Hasil">{laporan.totalHasil}</td>
+                                            <td data-label="Target">{laporan.targetKerja}</td>
+                                            <td data-label="Status">
+                                            {
+                                                laporan.status === 1? 
+                                                <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
+                                                laporan.status === 2? 
+                                                    <div className="badgeStatusAktif">Terverifikasi</div>:
+                                                        <div className="badgeStatusNon">Proses Banding</div>
+                                            }
+                                            </td>
+                                            <td data-label="Banding">
+                                            {
+                                                laporan.pernahBanding === true? 
+                                                    <div className="badgeStatusNon">Pernah Banding</div>:
+                                                    <div className="badgeStatusAktif">Aman</div>
+                                            }
+                                            </td>
+                                            <td data-label="#">
+                                                <Button onClick={() => openModal(laporan)}>
+                                                    Detail 
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )

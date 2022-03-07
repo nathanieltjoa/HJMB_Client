@@ -67,88 +67,100 @@ export default function DetailSekuriti(props) {
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-6">
                     <h3 className="subJudul">Detail Laporan Absensi Dinas:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama</TableCell>
-                                <TableCell align="center">Jam Masuk</TableCell>
-                                <TableCell align="center">Jam Keluar</TableCell>
-                                <TableCell align="center">Nomor HT</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDLaporanSekuriti.dLaporanDinasSekuriti.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.namaPelapor}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jamMasuk}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jamKeluar}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.noHT}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Jam Masuk</th>
+                                    <th>Jam Keluar</th>
+                                    <th>Nomor HT</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDLaporanSekuriti.dLaporanDinasSekuriti.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nama">
+                                            {laporan.namaPelapor}
+                                            </td>
+                                            <td data-label="Jam Masuk">{laporan.jamMasuk}</td>
+                                            <td data-label="Jam Keluar">{laporan.jamKeluar}</td>
+                                            <td data-label="No HT">{laporan.noHT}</td>
+                                            <td data-label="Keterangan">{laporan.keterangan}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
                 <Col className="col-md-6">
                     <h3 className="subJudul">Detail Laporan Inventaris:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama Pelapor</TableCell>
-                                <TableCell align="center">Nama Barang</TableCell>
-                                <TableCell align="center">Jumlah Barang</TableCell>
-                                <TableCell align="center">Kondisi</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDLaporanSekuriti.dLaporanInventarisSekuriti.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.namaPelapor}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.namaBarang}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jumlahBarang}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.kondisi === true? "Baik": "Tidak Baik"}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Pelapor</th>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah Barang</th>
+                                    <th>Kondisi</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDLaporanSekuriti.dLaporanInventarisSekuriti.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Pelapor">
+                                                {laporan.namaPelapor}
+                                            </td>
+                                            <td data-label="Nama Barang">{laporan.namaBarang}</td>
+                                            <td data-label="Jumlah Barang">{laporan.jumlahBarang}</td>
+                                            <td data-label="Kondisi">{laporan.baik === true? "Baik": "Tidak Baik"}</td>
+                                            <td data-label="Keterangan">{laporan.keterangan}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
                 <Col className="col-md-12">
                     <h3 className="subJudul">Detail Laporan Mutasi:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Jam Laporan</TableCell>
-                                <TableCell align="center">Nama Pelapor</TableCell>
-                                <TableCell align="center">Uraian</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                                <TableCell align="center">Tindakan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDLaporanSekuriti.dLaporanMutasiSekuriti.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jamLaporan}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.namaPelapor}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.uraian}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                        <TableCell align="center" style={{width: '20%'}}>
-                                            <Button variant="info" onClick={() => goToDetail(laporan.foto)}>
-                                                Detail
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Jam Laporan</th>
+                                    <th>Nama Pelapor</th>
+                                    <th>Uraian</th>
+                                    <th>Keterangan</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDLaporanSekuriti.dLaporanMutasiSekuriti.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Jam Laporan">
+                                                {laporan.jamLaporan}
+                                            </td>
+                                            <td data-label="Nama">{laporan.namaPelapor}</td>
+                                            <td data-label="Uraian">{laporan.uraian}</td>
+                                            <td data-label="Keterangan">{laporan.keterangan}</td>
+                                            <td data-label="#">
+                                                <Button variant="info" onClick={() => goToDetail(laporan.foto)}>
+                                                    Detail
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )
@@ -163,7 +175,7 @@ export default function DetailSekuriti(props) {
                 </Col>
             </Row>
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Laporan Sales</h1></Col>
+                <Col><h1 className="text-center">Master Laporan Sekuriti</h1></Col>
             </Row>
             <Row className="bg-white py-5 justify-content-md-center">
                 <Col className="col-md-6">

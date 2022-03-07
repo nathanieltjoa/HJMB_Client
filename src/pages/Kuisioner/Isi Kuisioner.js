@@ -116,7 +116,8 @@ export default function IsiKuisioner(props) {
         setAnswerText(answerText.map((item) => 
             item.id === id? 
             {...item, 
-            text: text, }: 
+            text: text,
+            edit: true }: 
             item))
         console.log(text + " - " + id)
     }
@@ -126,7 +127,8 @@ export default function IsiKuisioner(props) {
         setAnswerRadio(answerRadio.map((item) => 
             item.id === id? 
             {...item, 
-            text: text, }: 
+            text: text,
+            edit: true }: 
             item))
         console.log(text + " - "+ id)
     }
@@ -135,7 +137,8 @@ export default function IsiKuisioner(props) {
         setAnswerPilihan(answerPilihan.map((item) => 
             item.id === id? 
             {...item, 
-            text: parseInt(text), }: 
+            text: parseInt(text),
+            edit: true }: 
             item))
         console.log(text+ " - " + id);
     }
@@ -144,7 +147,8 @@ export default function IsiKuisioner(props) {
         setAnswerOpsi(answerOpsi.map((item) => 
             item.id === id? 
             {...item, 
-            text: text, }: 
+            text: text,
+            edit: true }: 
             item))
         console.log(text+ " - " + id);
     }
@@ -289,21 +293,25 @@ export default function IsiKuisioner(props) {
                     setAnswerText(prevItems =>[...prevItems, {
                     id: laporan.id,
                     text: "",
+                    edit: false,
                     }]): 
                     laporan.jenisPertanyaan === "Rating"?
                     setAnswerRadio(prevItems =>[...prevItems, {
                         id: laporan.id,
                         text: 1,
+                        edit: false,
                     }]):
                     laporan.jenisPertanyaan === "Pilih Karyawan"?
                         setAnswerPilihan(prevItems =>[...prevItems, {
                         id: laporan.id,
                         text: "",
+                        edit: false,
                         }]):
                         laporan.jenisPertanyaan === "Pilih Opsi"?
                         setAnswerOpsi(prevItems =>[...prevItems, {
                         id: laporan.id,
                         text: "",
+                        edit: false,
                         }]):null
             ))
         }
@@ -312,7 +320,6 @@ export default function IsiKuisioner(props) {
     useEffect(() => {
         if (window.performance) {
             if (performance.navigation.type == 1) {
-                setListKaryawan({});
                 refetchKuisioner()
                 console.log('Refreshed!');
             }
@@ -322,36 +329,42 @@ export default function IsiKuisioner(props) {
 
     const [tambahTanggapanKu] = useMutation(tambahTanggapanKuisioner,{
         onError: (err) => {
-            console.log(err)
+            alert(err.graphQLErrors[0].extensions.errors);
         },
         onCompleted(data){
             console.log("sukess")
             console.log(data);
-            Alert.alert(
-                "Message",
-                "Suksess Tambah Tanggapan",
-            )
+            alert("Suksess Tambah Tanggapan")
         }
     })
     const submitLaporan = e => {
         e.preventDefault();
-        console.log("Pilihan")
-        console.log(answerPilihan)
-        console.log("Text")
-        console.log(answerText)
-        console.log("Radio")
-        console.log(answerRadio)
-        console.log("Opsi")
-        console.log(answerOpsi)
-        tambahTanggapanKu(
-            {variables:{
-                KuisionerId: parseInt(kuisioner),
-                answerText: answerText,
-                answerRadio: answerRadio,
-                answerPilihan: answerPilihan,
-                answerOpsi: answerOpsi,
-            }
-        });
+        var sudahIsi = true;
+        answerText.map(element => {
+          if(element.edit === false) sudahIsi = false;
+        })
+        answerOpsi.map(element => {
+          if(element.edit === false) sudahIsi = false;
+        })
+        answerPilihan.map(element => {
+          if(element.edit === false) sudahIsi = false;
+        })
+        answerRadio.map(element => {
+          if(element.edit === false) sudahIsi = false;
+        })
+        if(sudahIsi === true){
+            tambahTanggapanKu(
+                {variables:{
+                    KuisionerId: parseInt(kuisioner),
+                    answerText: answerText,
+                    answerRadio: answerRadio,
+                    answerPilihan: answerPilihan,
+                    answerOpsi: answerOpsi,
+                }
+            });
+        }else{
+            alert("Error Masih Ada Pertanyaan Yang Belum Diisi")
+        }
     }
 
     return (

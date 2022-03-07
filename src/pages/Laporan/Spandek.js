@@ -101,9 +101,6 @@ export default function Spandek(props) {
         refetch: refetchSummary
     } = useQuery(getSummarySpandek);
 
-    if(dataSummary){
-        console.log(dataSummary)
-    }
 
     const { 
         loading: loadingLaporan, 
@@ -176,56 +173,54 @@ export default function Spandek(props) {
     }else if(dataLaporan.getLaporanMasterSpandek.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterSpandek.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Jenis Produk</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Shift</TableCell>
-                            <TableCell align="center">Pemesan</TableCell>
-                            <TableCell align="center">Ukuran</TableCell>
-                            <TableCell align="center">Panjang</TableCell>
-                            <TableCell align="center">BS</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Banding</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Jenis Produk</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Shift</th>
+                            <th>Pemesan</th>
+                            <th>Ukuran</th>
+                            <th>Panjang</th>
+                            <th>BS</th>
+                            <th>Status</th>
+                            <th>Banding</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterSpandek.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.hLaporanSpandek.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.hLaporanSpandek.jenisProduk}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.hLaporanSpandek.shift}</TableCell>
-                                    <TableCell align="center">{laporan.namaPemesan}</TableCell>
-                                    <TableCell align="center">{laporan.ukuran}</TableCell>
-                                    <TableCell align="center">{laporan.panjang}</TableCell>
-                                    <TableCell align="center">{laporan.BS}</TableCell>
-                                    <TableCell align="center">{laporan.status === 1? 
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.hLaporanSpandek.karyawan.nama}</td>
+                                    <td data-label="Jenis Produk">{laporan.hLaporanSpandek.jenisProduk}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Shift">{laporan.hLaporanSpandek.shift}</td>
+                                    <td data-label="Pemesan">{laporan.namaPemesan}</td>
+                                    <td data-label="Ukuran">{laporan.ukuran}</td>
+                                    <td data-label="Panjang">{laporan.panjang}</td>
+                                    <td data-label="BS">{laporan.BS}</td>
+                                    <td data-label="Status">{laporan.status === 1? 
                                         <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
                                             laporan.status === 2? 
                                             <div className="badgeStatusAktif">Terverifikasi</div>:
-                                            <div className="badgeStatusNon">Proses Banding</div>}
-                                    </TableCell>
-                                    <TableCell align="center">{laporan.pernahBanding === true? 
+                                            <div className="badgeStatusNon">Proses Banding</div>}</td>
+                                    <td data-label="Banding">{laporan.pernahBanding === true? 
                                         <div className="badgeStatusNon">Pernah Banding</div>:
-                                            <div className="badgeStatusAktif">Aman</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
-                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                            <div className="badgeStatusAktif">Aman</div>}</td>
+                                    <td data-label="#">
+                                        <Button Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 
@@ -421,12 +416,9 @@ export default function Spandek(props) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {console.log(dataSummary)}
                                 {
                                     dataSummary?.getSummarySpandek.map((laporan,index) =>(
                                         <TableRow key={index}>
-                                            {console.log("qwe")}
-                                            {console.log(laporan)}
                                             <TableCell align="center">{laporan.karyawan.nama}</TableCell>
                                             <TableCell align="center">{Number((laporan.jumlahProduksiFloat).toFixed(2))}</TableCell>
                                             <TableCell align="center">{Number((laporan.jumlahBSFloat).toFixed(2))}</TableCell>

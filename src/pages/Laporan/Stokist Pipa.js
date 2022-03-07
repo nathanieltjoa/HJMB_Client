@@ -215,6 +215,48 @@ export default function QualityControl(props) {
                         }
                     </TableBody>
                 </Table>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Shift</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Jumlah Baik</th>
+                            <th>Jumlah BS</th>
+                            <th>Status</th>
+                            <th>Banding</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            dataLaporan.getLaporanMasterStokistPipa.rows.map((laporan,index) =>(
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan?.nama}</td>
+                                    <td data-label="Shift">{laporan.shift}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Jumlah Baik">{laporan.jumlahBaik}</td>
+                                    <td data-label="Jumlah BS">{laporan.jumlahBS}</td>
+                                    <td data-label="Status">{laporan.status === 1? 
+                                        <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
+                                            laporan.status === 2? 
+                                            <div className="badgeStatusAktif">Terverifikasi</div>:
+                                            <div className="badgeStatusNon">Proses Banding</div>}</td>
+                                    <td data-label="Banding">{laporan.pernahBanding === true? 
+                                        <div className="badgeStatusNon">Pernah Banding</div>:
+                                            <div className="badgeStatusAktif">Aman</div>}</td>
+                                    <td data-label="#">
+                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                            Detail
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
             </TableContainer>
         )
     }

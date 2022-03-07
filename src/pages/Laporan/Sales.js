@@ -168,42 +168,40 @@ export default function Sales(props) {
     }else if(dataLaporan.getLaporanMasterSales.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterSales.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Pelapor</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Laporan Kejadian</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Pelapor</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Status</th>
+                            <th>Laporan Kejadian</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterSales.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.createdAt}</TableCell>
-                                    <TableCell align="center">{laporan.status === 1? 
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan.nama}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Status">{laporan.status === 1? 
                                         <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                            <div className="badgeStatusAktif">Terverifikasi</div>}
-                                    </TableCell>
-                                    <TableCell align="center">{laporan.laporanKejadian === true? 
+                                            <div className="badgeStatusAktif">Terverifikasi</div>}</td>
+                                    <td data-label="Laporan Kejadian">{laporan.laporanKejadian === true? 
                                         <div className="badgeStatusNon">Ada</div>:
-                                            <div className="badgeStatusAktif">Tidak Ada</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                            <div className="badgeStatusAktif">Tidak Ada</div>}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 

@@ -45,6 +45,9 @@ const SidebarNav = styled.nav`
   transition: 350ms;
   z-index: 10;
   overflow-y: scroll;
+  @media (max-width: 600px) {
+    width: 225px;
+  }
 `;
 
 const SidebarWrap = styled.div`
@@ -56,6 +59,9 @@ const SideMenuBtn = styled.nav`
   left: ${({ sidebar }) => (sidebar ? '+18%' : '2%')};
   transition: 350ms;
   z-index: 10;
+  @media screen and (max-width: 600px) {
+    left: ${({ sidebar }) => (sidebar ? '+65%' : '2%')};
+  }
 `;
 
 const Sidebar = () => {
@@ -66,7 +72,6 @@ const Sidebar = () => {
   const divisi = localStorage.getItem('divisi');
   return (
     <>
-      
         {
           user ? 
             <IconContext.Provider value={{ color: '#fff' }}>
@@ -77,7 +82,7 @@ const Sidebar = () => {
                   </SideMenuBtn>
                 </NavIcon>
               </Nav>
-              <SidebarNav sidebar={sidebar}>
+              <SidebarNav sidebar={sidebar} className="sideBarKu">
                 <SidebarWrap>
                   <NavIcon to='#'>
                     <img src="/logo.png" width="25%"/>

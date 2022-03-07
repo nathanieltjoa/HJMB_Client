@@ -130,38 +130,36 @@ export default function DaftarPenilaian(props) {
         console.log("asd");
         console.log(data.getNilaiKaryawan.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nama Karyawan</TableCell>
-                            <TableCell>Divisi Karyawan</TableCell>
-                            <TableCell align="right">Nilai HRD</TableCell>
-                            <TableCell align="right">Nilai Kuisioner</TableCell>
-                            <TableCell align="right">Total Nilai</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Divisi Karyawan</th>
+                            <th align='right'>Nilai HRD</th>
+                            <th align='right'>Nilai Kuisioner</th>
+                            <th align='right'>Total Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getNilaiKaryawan.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row">
-                                        {laporan.nama}
-                                    </TableCell>
-                                    <TableCell component="th" scope="row">
-                                        {laporan.jabatan.tingkatJabatan === 2? "Ketua ":
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.nama}</td>
+                                    <td data-label="Divisi">{laporan.jabatan.tingkatJabatan === 2? "Ketua ":
                                             laporan.jabatan.tingkatJabatan === 4? "Ketua ": "Anggota "}
-                                            {laporan.jabatan.namaJabatan}
-                                    </TableCell>
-                                    <TableCell align="right">{laporan.hPenilaianHRD.length <= 0? "0": laporan.hPenilaianHRD[0].totalNilai}</TableCell>
-                                    <TableCell align="right">{laporan.totalNilaiKuisioner}</TableCell>
-                                    <TableCell align="right">{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.totalNilaiKuisioner)}</TableCell>
-                                </TableRow>
+                                            {laporan.jabatan.namaJabatan}</td>
+                                    <td data-label="Nilai HRD" align='right'>
+                                        {laporan.hPenilaianHRD === null? "Belum Ada Penilaian": laporan.hPenilaianHRD[0].totalNilai}
+                                    </td>
+                                    <td data-label="Nilai Kuisioner" align='right'>{laporan.totalNilaiKuisioner}</td>
+                                    <td data-label="Total Nilai" align='right'>{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.totalNilaiKuisioner)}</td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

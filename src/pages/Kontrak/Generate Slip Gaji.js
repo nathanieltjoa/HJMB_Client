@@ -9,15 +9,20 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CurrencyFormat from 'react-currency-format';
 
 const registerPembayaranGaji = gql`
     mutation registerPembayaranGaji(
         $idKaryawan: Int 
         $jumlahLembur: Int
+        $ptkp: Int 
+        $jumlahTelat: Int 
   ) {
     registerPembayaranGaji(
         idKaryawan: $idKaryawan
         jumlahLembur: $jumlahLembur
+        ptkp: $ptkp
+        jumlahTelat: $jumlahTelat
     ) {
         id
     }
@@ -74,6 +79,8 @@ query getListLemburPribadiMaster(
 export default function GenerateSlipGaji(props) {
     const [idKaryawan, setIdKaryawan] = useState(0);
     const [lembur, setLembur] = useState(0);
+    const [telat, setTelat] = useState(0);
+    const [PTKP, setPTKP] = useState(0);
     const [divisi, setDivisi] = useState("");
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState({});
@@ -116,6 +123,8 @@ export default function GenerateSlipGaji(props) {
         registerPembayaranGajiKu({variables:{
             idKaryawan: parseInt(idKaryawan),
             jumlahLembur: parseInt(lembur),
+            ptkp: parseInt(PTKP),
+            jumlahTelat: parseInt(telat)
         }
         });
     }
@@ -183,38 +192,38 @@ export default function GenerateSlipGaji(props) {
         dataAbsensiKu.push(
             <div>
                 <h3>Absensi Karyawan</h3>
-                <TableContainer component={Paper} key={0}>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Tanggal</TableCell>
-                                <TableCell align="center">Shift</TableCell>
-                                <TableCell align="center">Jam Masuk</TableCell>
-                                <TableCell align="center">Jam Keluar</TableCell>
-                                <TableCell align="center">Scan Masuk</TableCell>
-                                <TableCell align="center">Scan Pulang</TableCell>
-                                <TableCell align="center">Absen</TableCell>
-                                <TableCell align="center">Lembur</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
+                <div className='tableContainer'>
+                    <table size='string' className="table" aria-label="simple table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Shift</th>
+                                <th>Jam Masuk</th>
+                                <th>Jam Keluar</th>
+                                <th>Scan Masuk</th>
+                                <th>Scan Pulang</th>
+                                <th>Absen</th>
+                                <th>Lembur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {
                                 dataAbsensi.getListAbsensiPribadiMaster.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell align="center">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</TableCell>
-                                        <TableCell align="center">{laporan.jamKerja.namaShift}</TableCell>
-                                        <TableCell align="center">{laporan.jamKerja.jamMasuk}</TableCell>
-                                        <TableCell align="center">{laporan.jamKerja.jamKeluar}</TableCell>
-                                        <TableCell align="center">{laporan.scanMasuk}</TableCell>
-                                        <TableCell align="center">{laporan.scanPulang}</TableCell>
-                                        <TableCell align="center">{laporan.absen === true? <div className="badgeStatusNon">Bolos</div>: ""}</TableCell>
-                                        <TableCell align="center">{laporan.lembur}</TableCell>
-                                    </TableRow>
+                                    <tr key={index} >
+                                        <td data-label="Tanggal">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</td>
+                                        <td data-label="Shift">{laporan.jamKerja.namaShift}</td>
+                                        <td data-label="Jam Masuk">{laporan.jamKerja.jamMasuk}</td>
+                                        <td data-label="Jam Keluar">{laporan.jamKerja.jamKeluar}</td>
+                                        <td data-label="Scan Masuk">{laporan.scanMasuk === ""? "-": laporan.scanMasuk}</td>
+                                        <td data-label="Scan Keluar">{laporan.scanPulang === ""? "-": laporan.scanPulang}</td>
+                                        <td data-label="Absen">{laporan.absen === true? <div className="badgeStatusNon">Bolos</div>: <div className="badgeStatusAktif">Aman</div>}</td>
+                                        <td data-label="Lembur">{laporan.lembur === ""? "-": laporan.lembur}</td>
+                                    </tr>
                                 ))
                             }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
@@ -236,35 +245,34 @@ export default function GenerateSlipGaji(props) {
     }else if(dataLembur.getListLemburPribadiMaster.length > 0){
         console.log(dataLembur.getListLemburPribadiMaster);
         dataLemburKu.push(
-            <div>
-                <h3>Lembur Karyawan</h3>
-                <TableContainer component={Paper} key={0}>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Tanggal</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                                <TableCell align="center">Alasan</TableCell>
-                                <TableCell align="center">Tindakan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                dataLembur.getListLemburPribadiMaster.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell align="center">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
-                                        <TableCell align="center">{laporan.keterangan}</TableCell>
-                                        <TableCell align="center">{laporan.alasan}</TableCell>
-                                        <TableCell align="center">{
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                            <th>Alasan</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            dataLembur.getListLemburPribadiMaster.map((laporan,index) =>(
+                                <tr key={index} >
+                                    <td data-label="Nama Indeks">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Keterangan">{laporan.keterangan}</td>
+                                    <td data-label="Status">{laporan.alasan}</td>
+                                    <td data-label="#">
+                                        {
                                             laporan.status === 3? <div className="badgeStatusAktif">Di Terima</div>:
                                             <div className="badgeStatusNon">Di Tolak</div>
-                                        }</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                        }
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -321,14 +329,39 @@ export default function GenerateSlipGaji(props) {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label>Jumlah Lembur</Form.Label>
+                            <Form.Label>Jumlah Lembur (Jam)</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 name="nama"
+                                placeholder='0'
                                 value= {lembur}
-                                style={{width: '20%'}}
                                 onChange={e => 
                                     setLembur(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Jumlah Telat (Jam)</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                name="nama"
+                                placeholder='0'
+                                value= {telat}
+                                onChange={e => 
+                                    setTelat(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>PTKP</Form.Label>
+                            <CurrencyFormat 
+                                className='formRupiahNew'
+                                thousandSeparator={'.'} 
+                                decimalSeparator={','} 
+                                prefix={'Rp '}
+                                placeholder={'Rp 0'}
+                                onValueChange={(value) => {
+                                        setPTKP(value)
+                                    }
+                                } 
                             />
                         </Form.Group>
                         <div className="buttonsSideBySide">

@@ -41,7 +41,7 @@ export default function DetailPermintaan(props) {
             console.log(res)
         },
         onError: (err) => {
-          console.log(err);
+          alert(err.graphQLErrors[0].extensions.errors);
         },
         onCompleted(data){
             console.log(data);

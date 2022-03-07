@@ -171,40 +171,40 @@ export default function MixerPipa(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterMixerPipa.rows.length > 0){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Jenis Mixer</TableCell>
-                            <TableCell align="center">Tipe Mesin</TableCell>
-                            <TableCell align="center">Total Hasil</TableCell>
-                            <TableCell align="center">Jumlah Banding</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Jenis Mixer</th>
+                            <th>Tipe Mesin</th>
+                            <th>Total Hasil</th>
+                            <th>Jumlah Banding</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterMixerPipa.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.jenisMixer}</TableCell>
-                                    <TableCell align="center">{laporan.tipeMesin}</TableCell>
-                                    <TableCell align="center">{laporan.totalMix}</TableCell>
-                                    <TableCell align="center">{laporan.jumlahBanding}</TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan?.nama}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Jenis Mixer">{laporan.jenisMixer}</td>
+                                    <td data-label="Tipe Mesin">{laporan.tipeMesin}</td>
+                                    <td data-label="Total Hasil">{laporan.totalMix}</td>
+                                    <td data-label="Banding">{laporan.jumlahBanding}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 

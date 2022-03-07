@@ -361,6 +361,12 @@ export const SidebarData = [
         cName: 'sub-nav'
       },
       {
+        title: 'Daftar Surat Peringatan',
+        path: '/surat/daftar surat peringatan',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
         title: 'Daftar Surat Perintah',
         path: '/surat/daftar surat perintah',
         icon: <IoIcons.IoIosPaper />,

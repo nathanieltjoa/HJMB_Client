@@ -43,11 +43,11 @@ export default function DetailSurat(props) {
             console.log(res)
         },
         onError: (err) => {
-          console.log(err);
+          alert(err.graphQLErrors[0].extensions.errors);
         },
         onCompleted(data){
-            console.log(data);
-            history.push('/surat/daftar surat keterangan');
+          console.log(data);
+          history.push('/surat/daftar surat keterangan');
         }
       })
 

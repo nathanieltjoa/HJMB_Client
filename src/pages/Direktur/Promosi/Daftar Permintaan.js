@@ -150,49 +150,45 @@ export default function DaftarPermintaanPromosi(props) {
         dataUtangKu.push(<p key={1}>Tidak Ada Data Promosi</p>)
     }else if(dataPermintaan.getListPermintaanPromosiMaster.rows.length > 0 && !counterUtangKu){
         dataUtangKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="right">Nama Peminta</TableCell>
-                            <TableCell align="center">Keterangan</TableCell>
-                            <TableCell align="center">Promosi</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tanggal</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Nama Peminta</th>
+                            <th>Promosi</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataPermintaan.getListPermintaanPromosiMaster.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.pelapor?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.keterangan}</TableCell>
-                                    <TableCell align="center">{laporan.kenaikan === true? 
+                                <tr key={index} >
+                                    <td data-label="Nama Karyawan">{laporan.karyawan?.nama}</td>
+                                    <td data-label="Pelapor">{laporan.pelapor?.nama}</td>
+                                    <td data-label="Promosi">{laporan.kenaikan === true? 
                                         <div className="badgeStatusAktif">Naik Jabatan</div>:
                                         <div className="badgeStatusNon">Turun Jabatan</div>
-                                    }</TableCell>
-                                    <TableCell align="center">{
+                                    }</td>
+                                    <td data-label="Status">{
                                         laporan.status === 0?
                                             <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
                                             laporan.status === 1?
                                                 <div className="badgeStatusAktif">Di Setujui</div>:
                                                 <div className="badgeStatusNon">Di Tolak</div>
-                                    }</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY HH:mm:ss')}</TableCell>
-                                    <TableCell component="th" scope="row" align="right">
+                                    }</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => openModal(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counterUtangKu = true;
     }

@@ -132,6 +132,8 @@ export default function MasterNilai(props) {
         },
         onError: (err) => {
             console.log(err)
+            setErrors(err.graphQLErrors[0].extensions.errors)
+            setSuccess({});
         },
         onCompleted(data){
             refetch()
@@ -179,42 +181,40 @@ export default function MasterNilai(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Data Nilai</p>)
     }else if(data.getPengaruhNilai.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nilai Bawah</TableCell>
-                            <TableCell align="center">Nilai Atas</TableCell>
-                            <TableCell align="center">Nilai</TableCell>
-                            <TableCell align="center">Pengaruh Ke Gaji</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nilai Bawah</th>
+                            <th>Nilai Atas</th>
+                            <th>Nilai</th>
+                            <th>Pengaruh Ke Gaji</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getPengaruhNilai.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.nilaiMin}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.nilaiMax}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.hasilNilai}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Nilai Bawah">{laporan.nilaiMin}</td>
+                                    <td data-label="Nilai Atas">{laporan.nilaiMax}</td>
+                                    <td data-label="Nilai">{laporan.hasilNilai}</td>
+                                    <td data-label="Pengaruh Ke Gaji">
                                         <div className={laporan.pengurangan === true? "badgeStatusNonText": "badgeStatusAktifText"}>
                                             {laporan.pengurangan === true?"-":"+"}<CurrencyFormat displayType={'text'} value={laporan.nilaiUang} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
                                         </div>
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <div className="buttonsSideBySide">
-                                            <Button className="buttonSideBySide" variant="primary" onClick={() => editIndex(laporan)}>
-                                                Edit
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                    <td data-label="#">
+                                        <Button variant="primary" onClick={() => editIndex(laporan)}>
+                                            Edit
+                                        </Button>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }
@@ -278,7 +278,7 @@ export default function MasterNilai(props) {
                                         decimalSeparator={','} 
                                         prefix={'Rp '}
                                         className="inputCenter"
-                                        value={nilaiUang}
+                                        placeholder='Rp 0'
                                         style={{width: '50%', fontSize: 20}}
                                         onValueChange={(value) => {
                                                 setNilaiUang(value.value)

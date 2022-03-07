@@ -145,40 +145,39 @@ export default function CatTegel(props) {
     }else if(dataLaporan.getLaporanMasterCatTegel.rows.length === 0){
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Laporan Karyawan</p>)
     }else if(dataLaporan.getLaporanMasterCatTegel.rows.length > 0){
-        console.log(dataLaporan.getLaporanMasterCatTegel.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Jenis Produk</TableCell>
-                            <TableCell align="center">Merk</TableCell>
-                            <TableCell align="center">Warna</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Jenis Produk</th>
+                            <th>Merk</th>
+                            <th>Warna</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterCatTegel.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.hLaporanCatTegel.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.createdAt}</TableCell>
-                                    <TableCell align="center">{laporan.hLaporanCatTegel.jenisProduk}</TableCell>
-                                    <TableCell align="center">{laporan.merkProduk}</TableCell>
-                                    <TableCell align="center">{laporan.warna}</TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.hLaporanCatTegel.karyawan.nama}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Jenis">{laporan.hLaporanCatTegel.jenisProduk}</td>
+                                    <td data-label="Merk">{laporan.merkProduk}</td>
+                                    <td data-label="Warna">{laporan.warna}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 

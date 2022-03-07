@@ -50,46 +50,46 @@ export default function MasterKuisioner(props) {
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Kuisioner Tersedia</p>)
     }else if(data.getKuisioner.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Kuisioner</TableCell>
-                            <TableCell align="center">Divisi</TableCell>
-                            <TableCell align="center">Deskripsi Kuisioner</TableCell>
-                            <TableCell align="center">Jenis Kuisioner</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Kuisioner</th>
+                            <th>Divisi</th>
+                            <th>Deskripsi Kuisioner</th>
+                            <th>Jenis Kuisioner</th>
+                            <th>Status</th>
+                            <th>#</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getKuisioner.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.namaKuisioner}</TableCell>
-                                    <TableCell align="center">{laporan.divisi}</TableCell>
-                                    <TableCell align="center">{laporan.deskripsiKuisioner}</TableCell>
-                                    <TableCell align="center">{laporan.jenisKuisioner}</TableCell>
-                                    <TableCell align="center">{laporan.status === true? 
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.namaKuisioner}</td>
+                                    <td data-label="Divisi">{laporan.divisi}</td>
+                                    <td data-label="Deskripsi Kuisioner">{laporan.deskripsiKuisioner}</td>
+                                    <td data-label="Jenis Kuisioner">{laporan.jenisKuisioner}</td>
+                                    <td data-label="Status">{laporan.status === true? 
                                         <div className="badgeStatusAktif">Aktif</div>:
-                                        <div className="badgeStatusNon">Tidak Aktif</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
-                                        <div className="buttonsSideBySide">
-                                            <Button className="buttonSideBySide" variant="info" onClick={() => goToDetail(laporan)}>
-                                                Detail
-                                            </Button>
-                                            <Button className="buttonSideBySide" variant="info" onClick={() => goToDistribusi(laporan)}>
-                                                Distribusi
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                        <div className="badgeStatusNon">Tidak Aktif</div>}</td>
+                                    <td data-label="#">
+                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                            Detail
+                                        </Button>
+                                    </td>
+                                    <td data-label="#">
+                                        <Button variant="info" onClick={() => goToDistribusi(laporan)}>
+                                            Distribusi
+                                        </Button>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

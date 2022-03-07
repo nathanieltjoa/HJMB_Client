@@ -16,6 +16,8 @@ import PermintaanPinjaman from './pages/Permintaan/Permintaan Utang';
 import DetailPinjaman from './pages/Permintaan/Detail Utang';
 import PermintaanSurat from './pages/Permintaan/Permintaan Surat';
 import DetailSurat from './pages/Permintaan/Detail Surat';
+import TambahSuratPeringatan from './pages/Penambahan/Tambah Surat Peringatan';
+import DaftarSuratPeringatan from './pages/Penambahan/Daftar Surat Peringatan';
 import DaftarSuratPerintah from './pages/Penambahan/Daftar Surat Perintah';
 import DetailSuratPerintah from './pages/Penambahan/Detail Surat Perintah';
 import Dashboard from './pages/Dashboard';
@@ -133,10 +135,13 @@ function App() {
               <DynamicRoute path='/penambahan/mesin' exact component={RegisterMesin} authenticated />
               <DynamicRoute path='/penambahan/tambah group' exact component={TambahGroup} authenticated />
               <DynamicRoute path='/surat/tambah surat' exact component={TambahSuratPerintah} authenticated />
+              <DynamicRoute path='/surat/tambah surat peringatan' exact component={TambahSuratPeringatan} authenticated />
+              <DynamicRoute path='/surat/daftar surat peringatan' exact component={DaftarSuratPeringatan} authenticated />
               <DynamicRoute path='/surat/daftar surat keterangan' exact component={PermintaanSurat} authenticated />
               <DynamicRoute path='/surat/detail surat' exact component={DetailSurat} authenticated />
               <DynamicRoute path='/surat/daftar surat perintah' exact component={DaftarSuratPerintah} authenticated />
               <DynamicRoute path='/surat/detail surat perintah' exact component={DetailSuratPerintah} authenticated />
+              <DynamicRoute path='/surat/daftar surat perintah' exact component={DaftarSuratPerintah} authenticated />
               <DynamicRoute path='/penambahan/detail pembagian group' exact component={DetailPembagianGroup} authenticated />
               <DynamicRoute path='/absensi/tambah' exact component={RegisterAbsensi} authenticated />
               <DynamicRoute path='/absensi/daftar' exact component={DaftarAbsensi} authenticated />

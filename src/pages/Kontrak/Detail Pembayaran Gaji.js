@@ -72,32 +72,34 @@ export default function DetailKontrak(props) {
     }else if(data.getDetailPembayaranGaji.length > 0 ){
         dataDetailKontrak.push(
             <Row key={0} className="justify-content-center">
-                <Col className="col-md-8">
+                <Col className="col-md-8 colGanda">
                     <h3 className="text-center">Detail Slip:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                                <TableCell align="center">Total</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDetailPembayaranGaji.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.nama}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Keterangan</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDetailPembayaranGaji.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nama">{laporan.nama}</td>
+                                            <td data-label="Ketrangan">{laporan.keterangan}</td>
+                                            <td data-label="Total">
                                             <div className={laporan.pengurangan === true? "badgeStatusNon": "badgeStatusAktif"}>
                                                 {laporan.pengurangan === true? "-":null} <CurrencyFormat displayType={'text'} value={laporan.total} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp '} />
                                             </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )

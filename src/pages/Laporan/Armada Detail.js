@@ -65,36 +65,38 @@ export default function DetailArmada(props) {
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-12">
                     <h3 className="subJudul">Detail Pengiriman:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">ID Nota</TableCell>
-                                <TableCell align="center">Penerima</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                                <TableCell align="center">Status</TableCell>
-                                <TableCell align="center">Tindakan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDLaporanMasterArmada.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.idNota}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.penerima}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.diBatalkan === true? 
-                                            <div className="badgeStatusNon">Di Batalkan</div>:
-                                            <div className="badgeStatusAktif">Aman</div>}</TableCell>
-                                        <TableCell align="center" style={{width: '20%'}}>
-                                            <Button variant="info" onClick={() => goToDetail(laporan)}>
-                                                Detail
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>ID Nota</th>
+                                    <th>Penerima</th>
+                                    <th>Keterangan</th>
+                                    <th>Status</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDLaporanMasterArmada.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nota">{laporan.idNota}</td>
+                                            <td data-label="Penerima">{laporan.penerima === ""? "-": laporan.penerima}</td>
+                                            <td data-label="Keterangan">{laporan.keterangan === ""? "-": laporan.keterangan}</td>
+                                            <td data-label="Status">{laporan.diBatalkan === true? 
+                                                <div className="badgeStatusNon">Di Batalkan</div>:
+                                                <div className="badgeStatusAktif">Aman</div>}</td>
+                                            <td data-label="#">
+                                                <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                                    Detail
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )
@@ -194,30 +196,32 @@ export default function DetailArmada(props) {
                         </p>
                         <p className="subJudul">Dokumentasi: </p>
                         <CImage src={!newUri ? "/defaultImage.png": newUri} alt="" id="img" className="img imageCenter" width="250" height="200"/>
-                        <Table className="tableKu" aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="center">No.</TableCell>
-                                    <TableCell align="center">Merk</TableCell>
-                                    <TableCell align="center">Tipe Barang</TableCell>
-                                    <TableCell align="center">Ukuran Barang</TableCell>
-                                    <TableCell align="center">Jumlah Barang</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    dataUraian.uLaporan?.map((laporan,index) =>(
-                                        <TableRow key={index}>
-                                            <TableCell component="th" scope="row" align="center">{index+1}</TableCell>
-                                            <TableCell component="th" scope="row" align="center">{laporan.merkBarang}</TableCell>
-                                            <TableCell component="th" scope="row" align="center">{laporan.tipeBarang}</TableCell>
-                                            <TableCell component="th" scope="row" align="center">{laporan.ukuranBarang}</TableCell>
-                                            <TableCell component="th" scope="row" align="center">{laporan.jumlahBarang} {laporan.satuanBarang}</TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
+                        <div className='tableContainer' style={{marginTop: '10px'}}>
+                            <table size='string' className="table" aria-label="simple table">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Merk</th>
+                                        <th>Tipe Barang</th>
+                                        <th>Ukuran Barang</th>
+                                        <th>Jumlah Barang</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        dataUraian.uLaporan?.map((laporan,index) =>(
+                                            <tr key={index} >
+                                                <td data-label="No">{index+1}</td>
+                                                <td data-label="Merk">{laporan.merkBarang}</td>
+                                                <td data-label="Tipe">{laporan.tipeBarang}</td>
+                                                <td data-label="Ukuran">{laporan.ukuranBarang}</td>
+                                                <td data-label="Jumlah">{laporan.jumlahBarang} {laporan.satuanBarang}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={() => setVisible(false)}>

@@ -22,10 +22,6 @@ body{
     margin-bottom: 5%;
 }
 
-.tableKu{
-  min-width: 650;
-}
-
 .pageContainerKu{
     margin-top: 25px;
 }
@@ -86,6 +82,7 @@ body{
 }
 
 .buttonSideBySide{
+    margin-top: 10px;
     margin-right: 10px;
     transition-duration: 0.4s;
 }
@@ -248,4 +245,118 @@ body{
 
 .btnSummary{
     width: 100%;
+}
+
+.cardImage{
+    background-color: #2b2eff;
+}
+
+.containerLogin{
+    height: 80vh;
+}
+
+.tableContainer{
+    overflow-x: auto;
+}
+.table{
+    min-width: 100%;
+    border-collapse: collapse;
+}
+.table thead{
+    background-color: #2b2eff;
+}
+.table thead tr th{
+    font-size: 14px;
+    font-weight: medium;
+    letter-spacing: 0.35px;
+    color: #FFFFFF;
+    opacity: 1;
+    padding: 12px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #dee2e685;
+    overflow-x: scroll;
+}
+.table tbody tr td{
+    font-size: 14px;
+    letter-spacing: 0.35px;
+    font-weight: normal;
+    color: #555;
+    background-color: #eee;
+    padding: 8px;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #dee2e685;
+}
+
+.formRupiah{
+    width: 50%;
+}
+
+.formRupiahNew{
+    width: 100%;
+}
+
+@media only screen and (max-width: 700px) {
+    .cardImage{
+        width: 50%;
+        height: 10;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .containerKu{
+        margin-top: 10%;
+        margin-bottom: 5%;
+        font-size: 4vw;
+    }
+    h1{
+        font-size: 10vw;
+    }
+    .col{
+        min-width: auto;
+    }
+    .colGanda{
+        min-width: fit-content;
+    }
+    .buttonSideBySide{
+        width: 40%;
+    }
+    .formRupiah{
+        width: 100%;
+    }
+    .paginationBttns {
+        width: 80%;
+        height: 40px;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        font-size: small;
+    }
+    .table thead{
+        display: none;
+    }
+    .table, .table tbody, .table tr, .table td{
+        display: block;
+        width: 100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+    }
+    .table tbody tr td{
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        background-color: #3c3f44;
+        color: #eee;
+    }
+    .table td:before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: left;
+    }
 }

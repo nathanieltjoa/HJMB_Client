@@ -81,7 +81,7 @@ query getIndexIuran(
 export default function TambahKontrak(props) {
     const [divisi, setDivisi] = useState("");
     const [idKaryawan, setIdKaryawan] = useState(0);
-    const [jenisKontrak, setJenisKontrak] = useState("");
+    const [jenisKontrak, setJenisKontrak] = useState("Bulanan");
     const [tanggalMulai, setTanggalMulai] = useState(new Date());
     const [tanggalBerakhir, setTanggalBerakhir] = useState(new Date());
     const [gaji, setGaji] = useState([]);
@@ -279,19 +279,6 @@ export default function TambahKontrak(props) {
                                 {dataKaryawanKu}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Jenis Kontrak</Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={jenisKontrak} 
-                                onChange={e => 
-                                    setJenisKontrak(e.target.value)
-                                }
-                            >
-                                <option value="Harian">Harian</option>
-                                <option value="Bulanan">Bulanan</option>
-                            </Form.Control>
-                        </Form.Group>
                         <Row className="justify-content-center text-center">
                             <div className="col-md-4">
                                 <Form.Label>Tanggal Mulai:</Form.Label>
@@ -318,73 +305,77 @@ export default function TambahKontrak(props) {
                     </Form>
                 </Col>
             </Row>
-            <Row>
-                <Col className="col-md-6">
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama Iuran</TableCell>
-                                <TableCell align="center">Total</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                dataIuran?.getIndexIuran.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" align="center">{laporan.namaIuran}</TableCell>
-                                        <TableCell component="th" align="center">
-                                            <Form.Group as={Col} align="center">
-                                                <CurrencyFormat 
-                                                    thousandSeparator={'.'} 
-                                                    decimalSeparator={','} 
-                                                    prefix={'Rp '}
-                                                    style={{width: '50%'}}
-                                                    onValueChange={(value) => {
-                                                            updateNilai(value, laporan.id, "Iuran")
-                                                        }
-                                                    } 
-                                                />
-                                            </Form.Group>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+            <Row className="justify-content-md-center" style={{marginTop:10}}>
+                <Col className="col-md-5 colGanda">
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Iuran</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    dataIuran?.getIndexIuran.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nama Iuran">{laporan.namaIuran}</td>
+                                            <td data-label="Total">
+                                                <Form.Group as={Col} align="center">
+                                                    <CurrencyFormat 
+                                                        className='formRupiah'
+                                                        thousandSeparator={'.'} 
+                                                        decimalSeparator={','} 
+                                                        prefix={'Rp '}
+                                                        onValueChange={(value) => {
+                                                                updateNilai(value, laporan.id, "Iuran")
+                                                            }
+                                                        } 
+                                                    />
+                                                </Form.Group>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
-                <Col className="col-md-6">
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama Gaji</TableCell>
-                                <TableCell align="center">Total</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                dataGaji?.getIndexGaji.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" align="center">{laporan.namaGaji}</TableCell>
-                                        <TableCell component="th" align="center">
-                                            <Form.Group as={Col} align="center">
-                                                <CurrencyFormat 
-                                                    defaultValue={0}
-                                                    thousandSeparator={'.'} 
-                                                    decimalSeparator={','} 
-                                                    prefix={'Rp '}
-                                                    style={{width: '50%'}}
-                                                    onValueChange={(value) => {
-                                                            updateNilai(value, laporan.id, "Gaji")
-                                                        }
-                                                    } 
-                                                />
-                                            </Form.Group>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                <Col className="col-md-5 colGanda">
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Gaji</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    dataGaji?.getIndexGaji.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nama Gaji">{laporan.namaGaji}</td>
+                                            <td data-label="Total">
+                                                <Form.Group as={Col} align="center">
+                                                    <CurrencyFormat 
+                                                        className='formRupiah'
+                                                        defaultValue={0}
+                                                        thousandSeparator={'.'} 
+                                                        decimalSeparator={','} 
+                                                        prefix={'Rp '}
+                                                        onValueChange={(value) => {
+                                                                updateNilai(value, laporan.id, "Gaji")
+                                                            }
+                                                        } 
+                                                    />
+                                                </Form.Group>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
             <Row style={{marginTop:10}}>

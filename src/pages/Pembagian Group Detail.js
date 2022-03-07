@@ -65,7 +65,6 @@ export default function DetailPembagianGroup(props) {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell align="center">Nama</TableCell>
-                                        <TableCell align="center">Group</TableCell>
                                         <TableCell align="center">Jabatan</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -78,7 +77,6 @@ export default function DetailPembagianGroup(props) {
                                             <TableRow key={index}>
                                                 {console.log(laporan)}
                                                 <TableCell component="th" scope="row" align="center">{laporan.karyawan?.nama}</TableCell>
-                                                <TableCell component="th" scope="row" align="center">{laporan.groupKaryawan}</TableCell>
                                                 <TableCell component="th" scope="row" align="center">
                                                     {
                                                         laporan.ketua === true?

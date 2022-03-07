@@ -173,48 +173,48 @@ export default function ProduksiPipa(props) {
     }else if(dataLaporan.getLaporanMasterProduksiPipa.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterProduksiPipa.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Shift</TableCell>
-                            <TableCell align="center">Jenis Pipa</TableCell>
-                            <TableCell align="center">Tipe Mesin</TableCell>
-                            <TableCell align="center">Ukuran</TableCell>
-                            <TableCell align="center">Dis</TableCell>
-                            <TableCell align="center">Pin</TableCell>
-                            <TableCell align="center">Hasil Produksi</TableCell>
-                            <TableCell align="center">BS</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Shift</th>
+                            <th>Jenis Pipa</th>
+                            <th>Tipe Mesin</th>
+                            <th>Ukuran</th>
+                            <th>Dis</th>
+                            <th>Pin</th>
+                            <th>Hasil Produksi</th>
+                            <th>BS</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterProduksiPipa.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.shift}</TableCell>
-                                    <TableCell align="center">{laporan.jenisPipa}</TableCell>
-                                    <TableCell align="center">{laporan.tipeMesin}</TableCell>
-                                    <TableCell align="center">{laporan.ukuran}</TableCell>
-                                    <TableCell align="center">{laporan.dis}</TableCell>
-                                    <TableCell align="center">{laporan.pin}</TableCell>
-                                    <TableCell align="center">{laporan.hasilProduksi}</TableCell>
-                                    <TableCell align="center">{laporan.BS}</TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan.nama}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Shift">{laporan.shift}</td>
+                                    <td data-label="Jenis Pipa">{laporan.jenisPipa}</td>
+                                    <td data-label="Tipe Mesin">{laporan.tipeMesin}</td>
+                                    <td data-label="Ukuran">{laporan.ukuran}</td>
+                                    <td data-label="Dis">{laporan.dis}</td>
+                                    <td data-label="Pin">{laporan.pin}</td>
+                                    <td data-label="Hasil Produksi">{laporan.hasilProduksi}</td>
+                                    <td data-label="BS">{laporan.BS}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 

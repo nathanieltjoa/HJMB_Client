@@ -50,32 +50,34 @@ export default function DetailSales(props) {
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-12">
                     <h3 className="subJudul">Detail Laporan:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Dokumentasi</TableCell>
-                                <TableCell align="center">Nama Toko</TableCell>
-                                <TableCell align="center">Jam Masuk</TableCell>
-                                <TableCell align="center">Jam Keluar</TableCell>
-                                <TableCell align="center">Keterangan</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDLaporanSales.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">
-                                            <CImage src={!laporan.foto ? "/defaultImage.png": laporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/>
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.namaToko}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jamMasuk}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jamKeluar}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.keterangan}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Dokumentasi</th>
+                                    <th>Nama Toko</th>
+                                    <th>Jam Masuk</th>
+                                    <th>Jam Keluar</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDLaporanSales.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Dokumentasi">
+                                                <CImage src={!laporan.foto ? "/defaultImage.png": laporan.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/>
+                                            </td>
+                                            <td data-label="Nama Toko">{laporan.namaToko}</td>
+                                            <td data-label="Jam Masuk">{laporan.jamMasuk}</td>
+                                            <td data-label="Jam Keluar">{laporan.jamKeluar}</td>
+                                            <td data-label="Keterangan">{laporan.keterangan}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )

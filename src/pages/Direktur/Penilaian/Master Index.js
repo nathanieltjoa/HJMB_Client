@@ -33,40 +33,36 @@ export default function MasterIndex(props) {
     }else if(data.getIndexPenilaian.length > 0 && !counter){
         counterJml = 0;
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Indeks</TableCell>
-                            <TableCell align="center">Keterangan Indeks</TableCell>
-                            <TableCell align="right">Persentase Indeks</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Indeks</th>
+                            <th>Keterangan Indeks</th>
+                            <th>Persentase Indeks</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getIndexPenilaian.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.namaIndex}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.keteranganIndex}</TableCell>
-                                    <TableCell component="th" scope="row" align="right" >{laporan.nilaiIndex}</TableCell>
-                                    <p hidden>{counterJml += laporan.nilaiIndex}</p>
-                                </TableRow>
+                                <tr key={index} >
+                                    <td data-label="Nama Indeks">{laporan.namaIndex}</td>
+                                    <td data-label="Keterangan">{laporan.keteranganIndex === ""? "-": laporan.keteranganIndex}</td>
+                                    <td data-label="Nilai Indeks">{laporan.nilaiIndex}</td>
+                                    <td data-label="Status">
+                                        <div className="badgeContainer">{
+                                            laporan.status === true? 
+                                                <div className="badgeStatusAktif">Aktif</div>:
+                                                <div className="badgeStatusNon">Tidak Aktif</div>
+                                        }</div>
+                                    </td>
+                                </tr>
                             ))
                         }
-                        <TableRow>
-                            <TableCell component="th" scope="row"></TableCell>
-                            <TableCell component="th" scope="row" align="right" style={{fontWeight: 'bold'}}>Total</TableCell>
-                            {
-                                counterJml < 80?
-                                    <TableCell component="th" scope="row" align="right" style={{backgroundColor: 'red'}}>{counterJml}(Jumlah Kurang Dari 80)</TableCell>:
-                                    counterJml > 80?
-                                        <TableCell component="th" scope="row" align="right" style={{backgroundColor: 'red'}}>{counterJml}(Jumlah Lebih Dari 80)</TableCell>:
-                                            <TableCell component="th" scope="row" align="right">{counterJml}</TableCell>
-                            }
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

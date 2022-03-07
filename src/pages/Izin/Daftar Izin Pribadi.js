@@ -96,43 +96,42 @@ export default function DaftarIzinPribadi(props) {
         dataKu.push(<p className="badgeStatusNonText">Tidak Ada Daftar Izin</p>)
     }else if(dataPermintaan.getListIzinPribadiHRD.rows.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Izin</TableCell>
-                            <TableCell align="center">Tanggal Mulai</TableCell>
-                            <TableCell align="center">Tanggal Berakhir</TableCell>
-                            <TableCell align="center">Total</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Izin</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Berakhir</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataPermintaan.getListIzinPribadiHRD.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.izin?.namaIzin}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.totalHari} Hari</TableCell>
-                                    <TableCell align="center">{laporan.status === 4? 
+                                <tr key={index} >
+                                    <td data-label="Izin">{laporan.izin?.namaIzin}</td>
+                                    <td data-label="Tanggal Mulai">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Tanggal Berakhir">{dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}</td>
+                                    <td data-label="Total Hari">{laporan.totalHari} Hari</td>
+                                    <td data-label="Status">{laporan.status === 4? 
                                         <div className="badgeStatusWaiting">Menunggu Verifikasi Direktur</div>:
                                             laporan.status === 3?
                                             <div className="badgeStatusAktif">Di Terima</div>:
-                                            <div className="badgeStatusNon">Di Tolak</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                            <div className="badgeStatusNon">Di Tolak</div>}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

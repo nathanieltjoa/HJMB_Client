@@ -35,33 +35,34 @@ export default function MasterIuran(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Indeks Iuran</p>)
     }else if(data.getIndexIuran.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Indeks</TableCell>
-                            <TableCell align="center">Keterangan Indeks</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Indeks</th>
+                            <th>Keterangan Indeks</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getIndexIuran.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.namaIuran}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.keteranganIuran}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Nama Indeks">{laporan.namaIuran}</td>
+                                    <td data-label="Keterangan">{laporan.keteranganIuran === ""? "-": laporan.keteranganIuran}</td>
+                                    <td data-label="Status">
                                         <div className="badgeContainer">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
                                             <div className="badgeStatusNon">Tidak Aktif</div>
-                                    }</div></TableCell>
-                                </TableRow>
+                                        }</div>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

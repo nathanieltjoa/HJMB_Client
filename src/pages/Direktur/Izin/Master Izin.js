@@ -37,42 +37,40 @@ export default function MasterIzin(props) {
         dataCuti.push(<p key={1} className="badgeStatusNonText">Tidak Ada Daftar Izin</p>)
     }else if(data.getIzin.length > 0 && !counterCuti){
         dataCuti.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Izin</TableCell>
-                            <TableCell align="right">Total Cuti</TableCell>
-                            <TableCell align="center">Keterangan</TableCell>
-                            <TableCell align="center">Batasan Hari</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Izin</th>
+                            <th>Total Izin</th>
+                            <th>Keterangan</th>
+                            <th>Batasan Hari</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getIzin.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    {console.log(laporan)}
-                                    <TableCell align="center">{laporan.namaIzin}</TableCell>
-                                    <TableCell align="right">{laporan.totalIzin} Hari</TableCell>
-                                    <TableCell align="center">{laporan.keterangan}</TableCell>
-                                    <TableCell align="center">{
+                                <tr key={index} >
+                                    <td data-label="Izin">{laporan.namaIzin}</td>
+                                    <td data-label="Tanggal Izin">{laporan.totalIzin} Hari</td>
+                                    <td data-label="Keterangan">{laporan.keterangan}</td>
+                                    <td data-label="Batasan Hari">{
                                             laporan.batasanHari === true? 
                                                 <div className="badgeStatusNon">Ada Batasan Hari</div>: 
                                                 <div className="badgeStatusAktif">Tidak Ada Batasan</div>
-                                    }</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <div className="badgeContainer">{
+                                    }</td>
+                                    <td data-label="Status">{
                                         laporan.status === true? 
                                             <div className="badgeStatusAktif">Aktif</div>:
                                             <div className="badgeStatusNon">Tidak Aktif</div>
-                                    }</div></TableCell>
-                                </TableRow>
+                                    }</td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counterCuti = true;
     }
@@ -81,7 +79,7 @@ export default function MasterIzin(props) {
         <Container className="containerKu">
             <Row className="bg-white py-5 justify-content-md-center">
                 <Col className="col-md-4">
-                    <h1 className="text-center">Detail Kuisioner</h1>
+                    <h1 className="text-center">Master Cuti</h1>
                 </Col>
             </Row>
             <Row>

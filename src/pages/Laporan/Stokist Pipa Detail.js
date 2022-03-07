@@ -55,38 +55,40 @@ export default function DetailStokistPipa(props) {
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-12">
                     <h3 className="subJudul">Detail Laporan:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">No.</TableCell>
-                                <TableCell align="center">Tipe Barang</TableCell>
-                                <TableCell align="center">Merk</TableCell>
-                                <TableCell align="center">Ukuran</TableCell>
-                                <TableCell align="center">Panjang</TableCell>
-                                <TableCell align="center">Berat</TableCell>
-                                <TableCell align="center">Jumlah Pipa</TableCell>
-                                <TableCell align="center">Pipa Bagus</TableCell>
-                                <TableCell align="center">Pipa BS</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDLaporanStokistPipa.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{index+1}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.laporanStokStokistPipa.tipeBarang}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.laporanStokStokistPipa.merkBarang}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.laporanStokStokistPipa.ukuranBarang}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.panjangPipa}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.beratPipa}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.jumlahPipa}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.totalBaik}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">{laporan.totalBS}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Tipe Barang</th>
+                                    <th>Merk</th>
+                                    <th>Ukuran</th>
+                                    <th>Panjang</th>
+                                    <th>Berat</th>
+                                    <th>Jumlah Pipa</th>
+                                    <th>Pipa Bagus</th>
+                                    <th>Pipa BS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDLaporanStokistPipa.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="No.">{index+1}</td>
+                                            <td data-label="Tipe Barang">{laporan.laporanStokStokistPipa.tipeBarang}</td>
+                                            <td data-label="Merk Barang">{laporan.laporanStokStokistPipa.merkBarang}</td>
+                                            <td data-label="Ukuran Barang">{laporan.laporanStokStokistPipa.ukuranBarang}</td>
+                                            <td data-label="Panjang Barang">{laporan.panjangPipa}</td>
+                                            <td data-label="Berat Pipa">{laporan.beratPipa}</td>
+                                            <td data-label="Jumlah Pipa">{laporan.jumlahPipa}</td>
+                                            <td data-label="Total Baik">{laporan.totalBaik}</td>
+                                            <td data-label="Total BS">{laporan.totalBS}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )

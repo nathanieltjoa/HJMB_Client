@@ -204,8 +204,8 @@ export default function TambahSuratPerintah(props) {
                             <DatePicker
                                 selected={tanggalMulai}
                                 onChange={date => setTanggalMulai(date)}
+                                minDate={new Date()}
                                 dateFormat='dd-MM-yyyy'
-                                maxDate={tanggalAkhir}
                                 showYearDropdown
                                 scrollableMonthYearDropdown
                             />
@@ -216,6 +216,7 @@ export default function TambahSuratPerintah(props) {
                                 selected={tanggalAkhir}
                                 onChange={date => setTanggalAkhir(date)}
                                 dateFormat='dd-MM-yyyy'
+                                minDate={new Date()}
                                 showYearDropdown
                                 scrollableMonthYearDropdown
                             />

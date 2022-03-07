@@ -67,12 +67,12 @@ export default function Login(props) {
       loginUser({variables});
     }
     return (
-      <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <div className="bg-light d-flex align-items-center containerLogin">
         <CContainer>
           <CRow className="justify-content-center">
             <CCol md={8}>
               <CCardGroup>
-                <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+                <CCard className="align-self-center cardImage">
                   <CCardBody className="text-center">
                       <CImage
                         src="/logo.png"

@@ -105,14 +105,18 @@ export default function TambahIzin(props) {
     const handleFileChange = e =>{
         const file = e.target.files[0]
         if(!file) return
-        setFile(e.target.files[0]);
-        const reader = new FileReader();
-        reader.onload = () =>{
-            if(reader.readyState === 2){
-                setImageURI(reader.result);
+        console.log(file.type);
+        if(!file.type.toString().includes("image")) alert("Tipe file hanya boleh gambar saja");
+        else{
+            setFile(e.target.files[0]);
+            const reader = new FileReader();
+            reader.onload = () =>{
+                if(reader.readyState === 2){
+                    setImageURI(reader.result);
+                }
             }
+            reader.readAsDataURL(e.target.files[0])
         }
-        reader.readAsDataURL(e.target.files[0])
     }
     return (
         <Container className="containerKu">

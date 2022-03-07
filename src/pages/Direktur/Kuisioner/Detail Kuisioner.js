@@ -83,51 +83,51 @@ export default function DetailKuisioner(props) {
         dataPertanyaanKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Pertanyaan</p>)
     }else if(dataPertanyaan.getPertanyaan.length > 0 && !counterPertanyaan){
         dataPertanyaanKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Teks Pertanyaan</TableCell>
-                            <TableCell align="center">Jenis Pertanyaan</TableCell>
-                            <TableCell align="center">Jawaban</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Teks Pertanyaan</th>
+                            <th>Jenis Pertanyaan</th>
+                            <th>Jawaban</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataPertanyaan.getPertanyaan.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    {console.log(laporan)}
-                                    <TableCell>{laporan.teskPertanyaan}</TableCell>
-                                    <TableCell align="center">{laporan.jenisPertanyaan}</TableCell>
-                                    <TableCell align="center">
-                                    {
-                                        laporan.jenisPertanyaan === "Pilih Opsi"?
-                                        <>
-                                            <ul>
-                                            {
-                                                laporan.listJawaban.map((jawaban, index1)=>(
-                                                    <li>{jawaban.teskJawaban}</li>
-                                                ))
-                                            }
-                                            </ul>
-                                        </>
-                                        :
-                                        laporan.listJawaban[0]?.teskJawaban
-                                    }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Pertanyaan">{laporan.teskPertanyaan}</td>
+                                    <td data-label="Jenis">{laporan.jenisPertanyaan}</td>
+                                    <td data-label="Jawaban">
+                                        {
+                                            laporan.jenisPertanyaan === "Pilih Opsi"?
+                                            <>
+                                                <ul>
+                                                {
+                                                    laporan.listJawaban.map((jawaban, index1)=>(
+                                                        <li>{jawaban.teskJawaban}</li>
+                                                    ))
+                                                }
+                                                </ul>
+                                            </>
+                                            :
+                                            laporan.listJawaban[0]?.teskJawaban
+                                        }
+                                    </td>
+                                    <td data-label="Status">
                                         <div className="badgeContainer">{
-                                        laporan.status === true? 
-                                            <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Tidak Aktif</div>
-                                    }</div></TableCell>
-                                </TableRow>
+                                            laporan.status === true? 
+                                                <div className="badgeStatusAktif">Aktif</div>:
+                                                <div className="badgeStatusNon">Tidak Aktif</div>
+                                        }</div>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counterPertanyaan = true;
     }

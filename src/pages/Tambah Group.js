@@ -50,6 +50,7 @@ export default function TambahGroup(props) {
         onError: (err) => {
             console.log(err)
             setVisible(false)   
+            alert(err.graphQLErrors[0].extensions.errors);
         },
         onCompleted(data){
             refetch()

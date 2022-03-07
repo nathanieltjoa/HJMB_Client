@@ -221,40 +221,40 @@ export default function TambahPertanyaan(props) {
             <Row className="justify-content-center">
                 <Col className="col-md-8">
                     <Form onSubmit={register}>
-                        <TableContainer component={Paper} key={0}>
-                            <Table className="tableKu" aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center">Nama Indeks</TableCell>
-                                        <TableCell align="center">Keterangan Indeks</TableCell>
-                                        <TableCell align="right">Persentase Indeks</TableCell>
-                                        <TableCell align="right">Nilai ( 0-100 )</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
+                        <div className='tableContainer'>
+                            <table size='string' className="table" aria-label="simple table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Indeks</th>
+                                        <th>Keterangan Indeks</th>
+                                        <th>Persentase Indeks</th>
+                                        <th>Nilai (0-100)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     {
                                         data?.getIndexPenilaian.map((laporan,index) =>(
-                                            <TableRow key={index}>
-                                                <TableCell component="th" align="center">{laporan.namaIndex}</TableCell>
-                                                <TableCell component="th" align="center">{laporan.keteranganIndex}</TableCell>
-                                                <TableCell component="th" align="right">{laporan.nilaiIndex}</TableCell>
-                                                <TableCell component="th" align="right">
+                                            <tr key={index} >
+                                                <td data-label="Nama Indeks">{laporan.namaIndex}</td>
+                                                <td data-label="Keterangan">{laporan.keteranganIndex}</td>
+                                                <td data-label="Persentase Indeks">{laporan.nilaiIndex}</td>
+                                                <td data-label="Nilai (0-100)">
                                                     <Form.Group as={Col} align="right">
                                                         <Form.Control 
                                                             type="text" 
                                                             name="nama"
-                                                            style={{width: '40%'}}
+                                                            className='formRupiah'
                                                             onChange={e => 
                                                                 updateNilai(e.target.value, laporan.id, laporan.nilaiIndex)}
                                                         />
                                                     </Form.Group>
-                                                </TableCell>
-                                            </TableRow>
+                                                </td>
+                                            </tr>
                                         ))
                                     }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                                </tbody>
+                            </table>
+                        </div>
                         <div className='text-center' style={{marginTop: 10}}>
                             <Button variant="primary" type="submit">
                                 Tambah Penilaian

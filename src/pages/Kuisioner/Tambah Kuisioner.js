@@ -133,17 +133,6 @@ export default function TambahKuisioner(props) {
                                 }
                             />
                         </Form.Group>
-                        <Form.Group as={Col}>
-                        <Form.Label>Jenis Kuisioner</Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={jenis}
-                                onChange={e => 
-                                    setJenis(e.target.value)
-                            }>
-                                <option value="Penilaian">Penilaian</option>
-                            </Form.Control>
-                        </Form.Group>
                     <div className='text-center'>
                         <Button variant="primary" type="submit">
                             Tambahkan

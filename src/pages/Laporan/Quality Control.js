@@ -173,42 +173,42 @@ export default function QualityControl(props) {
     }else if(dataLaporan.getLaporanMasterQualityControl.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterQualityControl.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Shift</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Merk</TableCell>
-                            <TableCell align="center">Total Reject</TableCell>
-                            <TableCell align="center">Total Produksi</TableCell>
-                            <TableCell align="center">Jumlah Banding</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Karyawan</th>
+                            <th>Shift</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Merk</th>
+                            <th>Total Reject</th>
+                            <th>Total Produksi</th>
+                            <th>Jumlah Banding</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterQualityControl.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell align="center">{laporan.shift}</TableCell>
-                                    <TableCell align="center">{dayjs(laporan.createdAt).format('DD-MM-YYYY')}</TableCell>
-                                    <TableCell align="center">{laporan.merkPipa} {laporan.tipePipa} {laporan.ukuranPipa}</TableCell>
-                                    <TableCell align="center">{laporan.totalReject}</TableCell>
-                                    <TableCell align="center">{laporan.totalProduksi}</TableCell>
-                                    <TableCell align="center">{laporan.jumlahBanding}</TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan.nama}</td>
+                                    <td data-label="Shift">{laporan.shift}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.createdAt).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Merk">{laporan.merkPipa} {laporan.tipePipa} {laporan.ukuranPipa}</td>
+                                    <td data-label="Reject">{laporan.totalReject}</td>
+                                    <td data-label="Total Produksi">{laporan.totalProduksi}</td>
+                                    <td data-label="Jumalah Banding">{laporan.jumlahBanding}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 

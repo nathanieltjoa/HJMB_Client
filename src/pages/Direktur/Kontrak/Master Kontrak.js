@@ -140,64 +140,67 @@ export default function MasterKontrak(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Kontrak Karyawan</p>)
     }else if(data.getKontrakKaryawan.rows.length > 0){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Id Karyawan</TableCell>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Jenis Kontrak</TableCell>
-                            <TableCell align="center">Total Gaji</TableCell>
-                            <TableCell align="center">Total Iuran</TableCell>
-                            <TableCell align="center">Tanggal Mulai</TableCell>
-                            <TableCell align="center">Tanggal Berakhir</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="right">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Id Karyawan</th>
+                            <th>Nama Karyawan</th>
+                            <th>Jenis Kontrak</th>
+                            <th>Total Gaji</th>
+                            <th>Total Iuran</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Berakhir</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getKontrakKaryawan.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.karyawan.id}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.jenisKontrak}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Id">{laporan.karyawan.id}</td>
+                                    <td data-label="Nama">{laporan.karyawan.nama}</td>
+                                    <td data-label="Jenis Kontrak">{laporan.jenisKontrak}</td>
+                                    <td data-label="Total Gaji">
                                         <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                    </td>
+                                    <td data-label="Total Iuran">
                                         <CurrencyFormat displayType={'text'} value={laporan.totalIuran} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </TableCell>
-                                    {console.log(dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day'))}
-                                    <TableCell component="th" scope="row" align="center">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</TableCell>
+                                    </td>
+                                    <td data-label="Tanggal Mulai">{dayjs(laporan.tanggalMulai).format('DD-MM-YYYY')}</td>
                                     {
-                                        dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 9? 
-                                            <TableCell component="th" scope="row" align="center" style={{backgroundColor: 'red'}}>
+                                        dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 0? 
+                                            <td data-label="Tanggal Berakhir" style={{color: 'grey'}}>
                                                 {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
-                                            </TableCell>:
-                                            <TableCell component="th" scope="row" align="center">
-                                                {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
-                                            </TableCell>
+                                            </td>:
+                                            dayjs(laporan.tanggalBerakhir).diff(new Date(), 'day') < 9? 
+                                                <td data-label="Tanggal Berakhir" style={{color: 'red'}}>
+                                                    {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
+                                                </td>:
+                                                    <td data-label="Tanggal Berakhir">
+                                                        {dayjs(laporan.tanggalBerakhir).format('DD-MM-YYYY')}
+                                                    </td>
                                     }
-                                    <TableCell component="th" scope="row" align="center">
-                                        {
-                                            laporan.status === 0? <div className="badgeStatusWaiting">Menunggu Persetujuan</div>: 
+                                    <td data-label="Status">
+                                    {
+                                            laporan.status === 0? <div className="badgeStatusWaiting">Menunggu Feedback</div>: 
                                                 laporan.status === 1? <div className="badgeStatusAktif">Di Setujui</div>:
                                                     laporan.status === 2? <div className="badgeStatusNon">Di Tolak</div>:
                                                         <div className="badgeStatusNon">Di Batalkan</div>
-                                        }
-                                    </TableCell>
-                                    <TableCell component="th" scope="row" align="right">
+                                    }
+                                    </td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
     

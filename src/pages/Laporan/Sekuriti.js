@@ -142,40 +142,40 @@ export default function Sekuriti(props) {
     }else if(dataLaporan.getLaporanMasterSekuriti.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterSekuriti.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Gudang</TableCell>
-                            <TableCell align="center">Shift</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Ketua</TableCell>
-                            <TableCell align="center">Penyerah</TableCell>
-                            <TableCell align="center">Penerima</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Gudang</th>
+                            <th>Shift</th>
+                            <th>Tanggal Laporan</th>
+                            <th>Ketua</th>
+                            <th>Penyerah</th>
+                            <th>Penerima</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataLaporan.getLaporanMasterSekuriti.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.gudang.namaGudang}</TableCell>
-                                    <TableCell align="center">{laporan.shift}</TableCell>
-                                    <TableCell align="center">{laporan.tanggalLaporan}</TableCell>
-                                    <TableCell align="center">{laporan.ketua?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.penyerah?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.penerima?.nama}</TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
+                                <tr key={index} >
+                                    <td data-label="Gudang">{laporan.gudang.namaGudang}</td>
+                                    <td data-label="Shift">{laporan.shift}</td>
+                                    <td data-label="Tanggal">{dayjs(laporan.tanggalLaporan).format("DD-MM-YYYY")}</td>
+                                    <td data-label="Ketua">{laporan.ketua?.nama}</td>
+                                    <td data-label="Penyerah">{laporan.penyerah?.nama}</td>
+                                    <td data-label="Penerima">{laporan.penerima?.nama}</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
     }
 
@@ -204,7 +204,7 @@ export default function Sekuriti(props) {
     return (
         <Container className="containerKu">
             <Row className="bg-white justify-content-center">
-                <Col><h1 className="text-center">Master Laporan Gudang</h1></Col>
+                <Col><h1 className="text-center">Master Laporan Sekuriti</h1></Col>
             </Row>
             <Row>
                 <Col className="col-md-4">

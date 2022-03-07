@@ -138,34 +138,34 @@ export default function PermintaanPinjaman(props) {
         dataUtangKu.push(<p key={1}>Tidak Ada Data Absensi</p>)
     }else if(dataPinjaman.getListPinjaman.rows.length > 0 && !counterUtangKu){
         dataUtangKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="right">Jumlah Pinjaman</TableCell>
-                            <TableCell align="center">Keterangan Pinjaman</TableCell>
-                            <TableCell align="center">Lunas</TableCell>
-                            <TableCell align="center">Cicilan</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Jumlah Pinjaman</th>
+                            <th>Keterangan Pinjaman</th>
+                            <th>Lunas</th>
+                            <th>Cicilan</th>
+                            <th>Status</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             dataPinjaman.getListPinjaman.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan.nama}</TableCell>
-                                    <TableCell align="right">
+                                <tr key={index} >
+                                    <td data-label="Nama">{laporan.karyawan?.nama}</td>
+                                    <td data-label="Jumlah Pinjaman">
                                         <CurrencyFormat displayType={'text'} value={laporan.jumlahPinjam} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </TableCell>
-                                    <TableCell align="center">{laporan.keteranganPinjam}</TableCell>
-                                    <TableCell align="center">{laporan.lunas === true? 
+                                    </td>
+                                    <td data-label="Keterangan">{laporan.keteranganPinjam}</td>
+                                    <td data-label="Status Lunas">{laporan.lunas === true? 
                                         <div className="badgeStatusAktif">Lunas</div>:
                                         <div className="badgeStatusNon">Belum</div>
-                                    }</TableCell>
-                                    <TableCell align="center">{laporan.cicilan}</TableCell>
-                                    <TableCell align="center">{
+                                    }</td>
+                                    <td data-label="Cicilan">{laporan.cicilan}</td>
+                                    <td data-label="Status">{
                                         laporan.status === 0?
                                             <div className="badgeStatusWaiting">Menunggu HRD</div>:
                                             laporan.status === 1?
@@ -175,18 +175,18 @@ export default function PermintaanPinjaman(props) {
                                                     laporan.status === 4?
                                                     <div className="badgeStatusNon">Menunggu Verifikasi Penerima</div>:
                                                         <div className="badgeStatusNon">Di Tolak</div>
-                                    }</TableCell>
-                                    <TableCell align="center">
+                                    }</td>
+                                    <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
                                             Detail
                                         </Button>
-                                    </TableCell>
-                                </TableRow>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counterUtangKu = true;
     }

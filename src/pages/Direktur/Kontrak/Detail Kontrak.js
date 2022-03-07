@@ -60,49 +60,53 @@ export default function DetailKontrak(props) {
             <Row key={0} className="justify-content-center">
                 <Col className="col-md-4">
                     <h3 className="text-center">Detail Gaji:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama Gaji</TableCell>
-                                <TableCell align="center">Total</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDetailKontrak.dKontrakGaji.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.dKontrakIndexGaji.namaGaji}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Gaji</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDetailKontrak.dKontrakGaji.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nama Gaji">{laporan.dKontrakIndexGaji.namaGaji}</td>
+                                            <td data-label="Total">
                                             <CurrencyFormat displayType={'text'} value={laporan.total} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp '} />
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
                 <Col className="col-md-4">
                     <h3 className="text-center">Detail Iuran:</h3>
-                    <Table className="tableKu" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">Nama Iuran</TableCell>
-                                <TableCell align="center">Total</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {
-                                data.getDetailKontrak.dKontrakIuran.map((laporan,index) =>(
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row" align="center">{laporan.dKontrakIndexIuran.namaIuran}</TableCell>
-                                        <TableCell component="th" scope="row" align="center">
-                                        <CurrencyFormat displayType={'text'} value={laporan.total} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp '} />
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
+                    <div className='tableContainer'>
+                        <table size='string' className="table" aria-label="simple table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Iuran</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.getDetailKontrak.dKontrakIuran.map((laporan,index) =>(
+                                        <tr key={index} >
+                                            <td data-label="Nama Iuran">{laporan.dKontrakIndexIuran.namaIuran}</td>
+                                            <td data-label="Total">
+                                            <CurrencyFormat displayType={'text'} value={laporan.total} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp '} />
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Col>
             </Row>
         )
