@@ -141,50 +141,52 @@ export default function Register(props) {
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Daftar Gudang</p>)
     }else if(data.getListGudang.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Gudang</TableCell>
-                            <TableCell align="center">Alamat</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Gudang</th>
+                            <th>Alamat</th>
+                            <th>Status</th>
+                            <th>#</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getListGudang.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.namaGudang}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">{laporan.alamatGudang}</TableCell>
-                                    <TableCell component="th" scope="row" align="center">
+                                <tr key={index} >
+                                    <td data-label="Nama Gudang">{laporan.namaGudang}</td>
+                                    <td data-label="Keterangan">{laporan.alamatGudang === ""? "-": laporan.alamatGudang}</td>
+                                    <td data-label="Status">
                                         <div className="badgeContainer">{
-                                        laporan.status === 1? 
-                                            <div className="badgeStatusAktif">Aktif</div>:
-                                            <div className="badgeStatusNon">Tidak Aktif</div>
-                                    }</div></TableCell>
-                                    <TableCell component="th" scope="row" align="center">
-                                        <div className="buttonsSideBySide">
-                                            <Button className="buttonSideBySide" variant="primary" onClick={() => editIndex(laporan)}>
-                                                Edit
+                                            laporan.status === 1? 
+                                                <div className="badgeStatusAktif">Aktif</div>:
+                                                <div className="badgeStatusNon">Tidak Aktif</div>
+                                        }</div>
+                                    </td>
+                                    <td data-label="#">
+                                        <Button  variant="primary" onClick={() => editIndex(laporan)}>
+                                            Edit
+                                        </Button>
+                                    </td>
+                                    <td data-label="#">
+                                        {
+                                            laporan.status === 1?
+                                            <Button  variant="danger" onClick={() => updateStatus(false, laporan.id)}>
+                                                Menonaktifkan
+                                            </Button>:
+                                            <Button variant="success" onClick={() => updateStatus(true, laporan.id)}>
+                                                Aktifkan
                                             </Button>
-                                            {
-                                                laporan.status === 1?
-                                                <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
-                                                    Menonaktifkan
-                                                </Button>:
-                                                <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
-                                                    Aktifkan
-                                                </Button>
-                                            }
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                        }
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

@@ -93,37 +93,38 @@ export default function TambahGroup(props) {
 
     }else if(data.getListDivisi.length > 0 && !counter){
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Divisi</TableCell>
-                            <TableCell align="right">Jumlah Group</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className='tableContainer'>
+                <table size='string' className="table" aria-label="simple table">
+                    <thead>
+                        <tr>
+                            <th>Nama Divisi</th>
+                            <th>Jumlah Group</th>
+                            <th>#</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
                             data.getListDivisi.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row" align="center">{laporan.namaDivisi}</TableCell>
-                                    <TableCell component="th" scope="row" align="right">{laporan.jumlahGroup}</TableCell>
-                                    <TableCell align="center">
-                                        <div className="buttonsSideBySide">
-                                            <Button className="buttonSideBySide" variant="primary" onClick={() => editIndex(laporan)}>
-                                                Edit
-                                            </Button>
-                                            <Button className="buttonSideBySide" variant="info" onClick={() => goToDetail(laporan)}>
-                                                Detail
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
+                                <tr key={index} >
+                                    <td data-label="Nama Divisi">{laporan.namaDivisi}</td>
+                                    <td data-label="Jumlah Group">{laporan.jumlahGroup}</td>
+                                    <td data-label="#">
+                                        <Button variant="primary" onClick={() => editIndex(laporan)}>
+                                            Edit
+                                        </Button>
+                                    </td>
+                                    <td data-label="#">
+                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                            Detail
+                                        </Button>
+                                    </td>
+                                </tr>
                             ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </tbody>
+                </table>
+            </div>
         )
         counter = true;
     }

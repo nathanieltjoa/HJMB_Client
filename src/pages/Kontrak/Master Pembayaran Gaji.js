@@ -159,7 +159,7 @@ export default function MasterPembayaranGaji(props) {
 
     const { loading, data, refetch } = useQuery(getPembayaranGaji,{
         variables:{
-            page: parseInt(page),
+            page: parseInt(page +1),
             limit: parseInt(limit),
             orderBy: orderBy,
             karyawan: parseInt(karyawanKontrak),

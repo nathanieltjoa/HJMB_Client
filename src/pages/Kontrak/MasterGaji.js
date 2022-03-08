@@ -213,17 +213,17 @@ export default function MasterGaji(props) {
                                         }</div>
                                     </td>
                                     <td data-label="#">
-                                        <Button className="buttonSideBySide" variant="primary" onClick={() => editIndex(laporan)}>
+                                        <Button variant="primary" onClick={() => editIndex(laporan)}>
                                             Edit
                                         </Button>
                                     </td>
                                     <td data-label="#">
                                         {
                                             laporan.status === true?
-                                            <Button className="buttonSideBySide" variant="danger" onClick={() => updateStatus(false, laporan.id)}>
+                                            <Button variant="danger" onClick={() => updateStatus(false, laporan.id)}>
                                                 Menonaktifkan
                                             </Button>:
-                                            <Button className="buttonSideBySide" variant="success" onClick={() => updateStatus(true, laporan.id)}>
+                                            <Button variant="success" onClick={() => updateStatus(true, laporan.id)}>
                                                 Aktifkan
                                             </Button>
                                         }
