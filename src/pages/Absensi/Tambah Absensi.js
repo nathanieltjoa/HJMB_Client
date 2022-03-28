@@ -153,7 +153,7 @@ export default function Register(props) {
                                             index >= 10 ? null:
                                             <tr key={index} >
                                                 <td data-label="Nama">{laporan.Nama}</td>
-                                                <td data-label="Tanggal">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</td>
+                                                <td data-label="Tanggal">{laporan["Tanggal"]}</td>
                                                 <td data-label="Shift">{laporan["Jam Kerja"]}</td>
                                                 <td data-label="Jam Masuk">{laporan["Jam Masuk"]}</td>
                                                 <td data-label="Jam Keluar">{laporan["Jam Pulang"]}</td>

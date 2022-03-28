@@ -78,6 +78,13 @@ export default function TambahPertanyaan(props) {
                 </Alert>
             ))
     }
+    if(errors.length !== undefined){
+        console.log(errors);
+        showError = 
+            <Alert variant='danger'>
+                {errors}
+            </Alert>
+    }
 
     const { 
         loading: loadingDivisi, 
@@ -153,7 +160,10 @@ export default function TambahPertanyaan(props) {
     }
 
     const updateNilai = (nilai, id, persentase) =>{
-        var hasil = parseInt(nilai) * persentase / 100;
+        var nilaiInt = parseInt(nilai);
+        if(!Number.isInteger(nilaiInt) && nilai !== "") alert("Hanya Boleh Angka")
+        if(nilaiInt > 100 || nilaiInt < 0) alert("Nilai Hanya Boleh Diantara 0 Sampai 100")
+        var hasil = nilaiInt * persentase / 100;
         setListNilai(listNilai.map((item) => 
           item.id === id? 
           {...item, 
@@ -200,7 +210,7 @@ export default function TambahPertanyaan(props) {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group as={Col}>
-                    <Form.Label className={errors.karyawan && 'text-danger'}>{errors.karyawan ?? 'Karyawan'}</Form.Label>
+                    <Form.Label>Karyawan</Form.Label>
                         <Form.Control 
                             as="select"
                             value={karyawan}

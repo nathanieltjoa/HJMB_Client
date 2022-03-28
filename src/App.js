@@ -62,6 +62,9 @@ import ProduksiPipa from './pages/Laporan/Produksi Pipa';
 import MixerPipa from './pages/Laporan/Mixer Pipa';
 import QualityControl from './pages/Laporan/Quality Control';
 import StokistPipa from './pages/Laporan/Stokist Pipa';
+import KeluarMasukPipa from './pages/Laporan/Keluar Masuk Pipa';
+import Rusak from './pages/Laporan/Rusak';
+import Retur from './pages/Laporan/Retur';
 import Armada from './pages/Laporan/Armada';
 import CatTegel from './pages/Laporan/Cat Tegel';
 import Hollow from './pages/Laporan/Hollow';
@@ -72,6 +75,8 @@ import DetailSales from './pages/Laporan/Sales Detail';
 import DetailSekuriti from './pages/Laporan/Sekuriti Detail';
 import DetailArmada from './pages/Laporan/Armada Detail';
 import DetailStokistPipa from './pages/Laporan/Stokist Pipa Detail';
+import DetailRusak from './pages/Laporan/Rusak Detail';
+import DetailRetur from './pages/Laporan/Retur Detail';
 import DetailQualityControlPipa from './pages/Laporan/Quality Control Detail';
 import DetailProduksiPipa from './pages/Laporan/Produksi Pipa Detail';
 import DetailCatTegel from './pages/Laporan/Cat Tegel Detail';
@@ -85,7 +90,7 @@ import MasterGajiDirektur from './pages/Direktur/Kontrak/MasterGaji';
 import MasterIuranDirektur from './pages/Direktur/Kontrak/MasterIuran';
 import MasterKontrakDirektur from './pages/Direktur/Kontrak/Master Kontrak';
 import DetailKontrakDirektur from './pages/Direktur/Kontrak/Detail Kontrak';
-import MasterPembayaranGajiDirektur from './pages/Direktur/Kontrak/Master Pembayaran Gaji';
+import MasterPembayaranGajiDirektur from './pages/Kontrak/Master Pembayaran Gaji';
 import DetailPembayaranGajiDirektur from './pages/Direktur/Kontrak/Detail Pembayaran Gaji';
 import PermintaanPinjamanDirektur from './pages/Direktur/Permintaan/Permintaan Utang';
 import DetailPinjamanDirektur from './pages/Direktur/Permintaan/Detail Utang';
@@ -179,6 +184,11 @@ function App() {
               <DynamicRoute path='/laporan/mixer pipa' exact component={MixerPipa} authenticated />
               <DynamicRoute path='/laporan/quality control' exact component={QualityControl} authenticated />
               <DynamicRoute path='/laporan/stokist pipa' exact component={StokistPipa} authenticated />
+              <DynamicRoute path='/laporan/keluar masuk pipa' exact component={KeluarMasukPipa} authenticated />
+              <DynamicRoute path='/laporan/pipa rusak' exact component={Rusak} authenticated />
+              <DynamicRoute path='/laporan/detail pipa rusak' exact component={DetailRusak} authenticated />
+              <DynamicRoute path='/laporan/pipa retur' exact component={Retur} authenticated />
+              <DynamicRoute path='/laporan/detail pipa retur' exact component={DetailRetur} authenticated />
               <DynamicRoute path='/laporan/armada' exact component={Armada} authenticated />
               <DynamicRoute path='/laporan/cat tegel' exact component={CatTegel} authenticated />
               <DynamicRoute path='/laporan/spandek' exact component={Spandek} authenticated />

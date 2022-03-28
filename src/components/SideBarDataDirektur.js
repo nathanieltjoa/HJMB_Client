@@ -149,6 +149,24 @@ export const SidebarDataDirektur = [
         cName: 'sub-nav'
       },
       {
+        title: 'Keluar Masuk Pipa',
+        path: '/laporan/keluar masuk pipa',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Pipa Retur',
+        path: '/laporan/pipa retur',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Pipa Rusak',
+        path: '/laporan/pipa rusak',
+        icon: <FaIcons.FaFileAlt />,
+        cName: 'sub-nav'
+      },
+      {
         title: 'Armada',
         path: '/laporan/armada',
         icon: <FaIcons.FaFileAlt />,

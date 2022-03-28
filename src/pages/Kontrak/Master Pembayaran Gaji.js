@@ -104,51 +104,6 @@ export default function MasterPembayaranGaji(props) {
     const [status, setStatus] = useState(-1);
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
-    const [errors, setErrors] = useState({});
-    const [success, setSuccess] = useState({});
-    
-    let showError
-    let showUser
-    if(success){
-        showUser = 
-            Object.keys(success).map(i => (
-                <Alert variant='success'>
-                    {success[i]}
-                </Alert>
-            ))
-    }
-    if(errors.length !== undefined){
-        showError = 
-            <Alert variant='danger'>
-                {errors}
-            </Alert>
-    }
-
-    const [registerPembayaranGajiKu] = useMutation(registerPembayaranGaji,{
-        update(_,res){
-            console.log(res)
-        },
-        onError: (err) => {
-            console.log(err)
-            setErrors(err.graphQLErrors[0].extensions.errors)
-            setSuccess({});
-        },
-        onCompleted(data){
-            setErrors({});
-            setSuccess({
-                Sukses: `Suksess Tambah Slip Pembayaran Gaji`,
-            })
-            refetch()
-        }
-    })
-
-    const registerIndex = () =>{
-        registerPembayaranGajiKu({variables:{
-            idKaryawan: parseInt(idKaryawan),
-            jumlahLembur: parseInt(lembur),
-        }
-        });
-    }
 
     const goToDetail = (laporan) => {
         history.push({

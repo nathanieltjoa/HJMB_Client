@@ -1,14 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Row, Col, Card, Button, Container} from 'react-bootstrap';
 import { gql, useLazyQuery, useQuery} from '@apollo/client';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import ReactPaginate from 'react-paginate';
 import 'react-datepicker/dist/react-datepicker.css'
 import dayjs from 'dayjs'
@@ -98,14 +90,14 @@ export default function MasterKaryawan(props) {
                 {
                     dataPermintaan.getPermintaanDataDiri.map((laporan,index) =>(
                         <div className="cardKu" key={index}>
-                            <div className="parent">
-                                <p className="childLeft">Id</p>
+                            <div className="parent" style={{marginLeft: '25%', marginLeft: '25%', paddingTop: '5px'}}>
+                                <p className="childLeft" style={{textAlign: 'left'}}>Id</p>
                                     <p className="childRight">: {laporan.idKaryawan}</p>
-                                <p className="childLeft">Nama Karyawan</p>
+                                <p className="childLeft" style={{textAlign: 'left'}}>Nama Karyawan</p>
                                     <p className="childRight">: {laporan.namaKaryawan}</p>
-                                <p className="childLeft">Bagian Yang Salah</p>
+                                <p className="childLeft" style={{textAlign: 'left'}}>Bagian Yang Salah</p>
                                     <p className="childRight">: {laporan.bagianData}</p>
-                                <p className="childLeft">Isi Seharusnya</p>
+                                <p className="childLeft" style={{textAlign: 'left'}}>Isi Seharusnya</p>
                                     <p className="childRight">: {laporan.dataSeharusnya}</p>
                             </div>
                             <div className="text-center">
@@ -160,38 +152,38 @@ export default function MasterKaryawan(props) {
             <table size='string' className="table" aria-label="simple table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Nama Karyawan</th>
-                        <th>NIK</th>
-                        <th>Tanggal Masuk</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Alamat</th>
-                        <th>Agama</th>
-                        <th>Pendidikan</th>
-                        <th>Nama Jabatan</th>
-                        <th>#</th>
+                        <th className='columnTable'>Id</th>
+                        <th className='columnTable'>Nama Karyawan</th>
+                        <th className='columnTable'>NIK</th>
+                        <th className='columnTable'>Tanggal Masuk</th>
+                        <th className='columnTable'>Tempat Lahir</th>
+                        <th className='columnTable'>Tanggal Lahir</th>
+                        <th className='columnTable'>Alamat</th>
+                        <th className='columnTable'>Agama</th>
+                        <th className='columnTable'>Pendidikan</th>
+                        <th className='columnTable'>Nama Jabatan</th>
+                        <th className='columnTable'>#</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         dataKaryawan.getListKaryawanMaster.rows.map((laporan,index) =>(
                             <tr key={index} >
-                                <td data-label="Id">{laporan.id}</td>
-                                <td data-label="Nama">{laporan.nama}</td>
-                                <td data-label="NIK">{laporan.nik}</td>
-                                <td data-label="Tanggal Masuk">{dayjs(laporan.tanggalMasuk).format('DD-MM-YYYY')}</td>
-                                <td data-label="Tempat Lahir">{laporan.tempatLahir}</td>
-                                <td data-label="Tanggal Lahir">{dayjs(laporan.tanggalLahir).format('DD-MM-YYYY')}</td>
-                                <td data-label="Alamat">{laporan.alamat}</td>
-                                <td data-label="Agama">{laporan.agama}</td>
-                                <td data-label="Pendidikan">{laporan.pendidikan}</td>
-                                <td data-label="Jabatan">{laporan.jabatan.tingkatJabatan === 2? 
+                                <td data-label="Id"  className='columnTable'>{laporan.id}</td>
+                                <td data-label="Nama" className='columnTable'>{laporan.nama}</td>
+                                <td data-label="NIK" className='columnTable'>{laporan.nik}</td>
+                                <td data-label="Tanggal Masuk" className='columnTable'>{dayjs(laporan.tanggalMasuk).format('DD-MM-YYYY')}</td>
+                                <td data-label="Tempat Lahir" className='columnTable'>{laporan.tempatLahir}</td>
+                                <td data-label="Tanggal Lahir" className='columnTable'>{dayjs(laporan.tanggalLahir).format('DD-MM-YYYY')}</td>
+                                <td data-label="Alamat" className='columnTable'>{laporan.alamat}</td>
+                                <td data-label="Agama" className='columnTable'>{laporan.agama}</td>
+                                <td data-label="Pendidikan" className='columnTable'>{laporan.pendidikan}</td>
+                                <td data-label="Jabatan" className='columnTable'>{laporan.jabatan.tingkatJabatan === 2? 
                                             "Ketua"
                                             :laporan.jabatan.tingkatJabatan === 4?
                                                 "Ketua":
                                                     "Anggota"} {laporan.jabatan.namaJabatan}</td>
-                                <td data-label="#">
+                                <td data-label="#" className='columnTable'>
                                     <Button variant="info" onClick={() => goToDetail(laporan, null, null)}>
                                         Detail
                                     </Button>
@@ -220,10 +212,12 @@ export default function MasterKaryawan(props) {
 
     return (
         <CContainer className="containerKu">
-            <Row className="bg-white py-5 justify-content-center">
-                <Col>
+            <Row className="bg-white justify-content-center">
+                <Col className="col-md-8">
                     <h1 className="text-center">Master Karyawan</h1>
                     {dataKu}
+                </Col>
+                <Col className="col-md-12">
                     {dataKaryawanKu}
                     <div className="pageContainerKu">
                         {pageKu}

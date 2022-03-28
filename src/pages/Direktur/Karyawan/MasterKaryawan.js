@@ -102,51 +102,51 @@ export default function MasterKaryawan(props) {
     }else if(dataKaryawan.getListKaryawanMaster.rows.length > 0 && !counterKaryawanKu){
         dataKaryawanKu.push(
             <div className='tableContainer'>
-                <table size='string' className="table" aria-label="simple table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nama Karyawan</th>
-                            <th>NIK</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Tempat Lahir</th>
-                            <th>Tanggal Lahir</th>
-                            <th>Alamat</th>
-                            <th>Agama</th>
-                            <th>Pendidikan</th>
-                            <th>Nama Jabatan</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            dataKaryawan.getListKaryawanMaster.rows.map((laporan,index) =>(
-                                <tr key={index} >
-                                    <td data-label="Id">{laporan.id}</td>
-                                    <td data-label="Nama">{laporan.nama}</td>
-                                    <td data-label="NIK">{laporan.nik}</td>
-                                    <td data-label="Tanggal Masuk">{dayjs(laporan.tanggalMasuk).format('DD-MM-YYYY')}</td>
-                                    <td data-label="Tempat Lahir">{laporan.tempatLahir}</td>
-                                    <td data-label="Tanggal Lahir">{dayjs(laporan.tanggalLahir).format('DD-MM-YYYY')}</td>
-                                    <td data-label="Alamat">{laporan.alamat}</td>
-                                    <td data-label="Agama">{laporan.agama}</td>
-                                    <td data-label="Pendidikan">{laporan.pendidikan}</td>
-                                    <td data-label="Jabatan">{laporan.jabatan.tingkatJabatan === 2? 
-                                                "Ketua"
-                                                :laporan.jabatan.tingkatJabatan === 4?
-                                                    "Ketua":
-                                                        "Anggota"} {laporan.jabatan.namaJabatan}</td>
-                                    <td data-label="#">
-                                        <Button variant="info" onClick={() => goToDetail(laporan, null, null)}>
-                                            Detail
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>
+            <table size='string' className="table" aria-label="simple table">
+                <thead>
+                    <tr>
+                        <th className='columnTable'>Id</th>
+                        <th className='columnTable'>Nama Karyawan</th>
+                        <th className='columnTable'>NIK</th>
+                        <th className='columnTable'>Tanggal Masuk</th>
+                        <th className='columnTable'>Tempat Lahir</th>
+                        <th className='columnTable'>Tanggal Lahir</th>
+                        <th className='columnTable'>Alamat</th>
+                        <th className='columnTable'>Agama</th>
+                        <th className='columnTable'>Pendidikan</th>
+                        <th className='columnTable'>Nama Jabatan</th>
+                        <th className='columnTable'>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        dataKaryawan.getListKaryawanMaster.rows.map((laporan,index) =>(
+                            <tr key={index} >
+                                <td data-label="Id"  className='columnTable'>{laporan.id}</td>
+                                <td data-label="Nama" className='columnTable'>{laporan.nama}</td>
+                                <td data-label="NIK" className='columnTable'>{laporan.nik}</td>
+                                <td data-label="Tanggal Masuk" className='columnTable'>{dayjs(laporan.tanggalMasuk).format('DD-MM-YYYY')}</td>
+                                <td data-label="Tempat Lahir" className='columnTable'>{laporan.tempatLahir}</td>
+                                <td data-label="Tanggal Lahir" className='columnTable'>{dayjs(laporan.tanggalLahir).format('DD-MM-YYYY')}</td>
+                                <td data-label="Alamat" className='columnTable'>{laporan.alamat}</td>
+                                <td data-label="Agama" className='columnTable'>{laporan.agama}</td>
+                                <td data-label="Pendidikan" className='columnTable'>{laporan.pendidikan}</td>
+                                <td data-label="Jabatan" className='columnTable'>{laporan.jabatan.tingkatJabatan === 2? 
+                                            "Ketua"
+                                            :laporan.jabatan.tingkatJabatan === 4?
+                                                "Ketua":
+                                                    "Anggota"} {laporan.jabatan.namaJabatan}</td>
+                                <td data-label="#" className='columnTable'>
+                                    <Button variant="info" onClick={() => goToDetail(laporan, null, null)}>
+                                        Detail
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
         )
         counterKaryawanKu = true;
     }

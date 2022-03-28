@@ -67,7 +67,7 @@ export default function DetailIzinPribadi(props) {
                             <div className="badgeStatusAktif">Di Terima</div>:
                             <div className="badgeStatusNon">Di Tolak</div>}
                     </p>
-                    {dataLaporan?.upload === undefined ? null : <img src={dataLaporan?.upload.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/> }
+                    {dataLaporan?.upload === "-" ? null : <img src={dataLaporan?.upload.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/> }
                   </Card.Text>
                 </Card.Body>
             </Card>

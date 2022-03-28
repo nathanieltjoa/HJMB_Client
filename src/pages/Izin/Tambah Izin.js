@@ -67,7 +67,7 @@ export default function TambahIzin(props) {
                 </Alert>
             ))
     }
-    if(errors.length !== undefined){
+    if(errors.length){
         showError = 
             <Alert variant='danger'>
                 {errors}
@@ -80,7 +80,7 @@ export default function TambahIzin(props) {
         },
         onError: (err) => {
             console.log(err)
-            setErrors(err.graphQLErrors[0].extensions.errors)
+            //setErrors(err.graphQLErrors[0].extensions.errors)
             setSuccess({});
         },
         onCompleted(data){

@@ -359,7 +359,7 @@ export default function GenerateSlipGaji(props) {
                                 prefix={'Rp '}
                                 placeholder={'Rp 0'}
                                 onValueChange={(value) => {
-                                        setPTKP(value)
+                                        setPTKP(value.value)
                                     }
                                 } 
                             />

@@ -172,49 +172,6 @@ export default function QualityControl(props) {
     }else if(dataLaporan.getLaporanMasterStokistPipa.rows.length > 0){
         console.log(dataLaporan.getLaporanMasterStokistPipa.rows)
         dataKu.push(
-            <TableContainer component={Paper} key={0}>
-                <Table className="tableKu" aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">Nama Karyawan</TableCell>
-                            <TableCell align="center">Shift</TableCell>
-                            <TableCell align="center">Tanggal Laporan</TableCell>
-                            <TableCell align="center">Jumlah Baik</TableCell>
-                            <TableCell align="center">Jumlah BS</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Banding</TableCell>
-                            <TableCell align="center">Tindakan</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            dataLaporan.getLaporanMasterStokistPipa.rows.map((laporan,index) =>(
-                                <TableRow key={index}>
-                                    <TableCell align="center">{laporan.karyawan?.nama}</TableCell>
-                                    <TableCell align="center">{laporan.shift}</TableCell>
-                                    <TableCell align="center">{laporan.createdAt}</TableCell>
-                                    <TableCell align="center">{laporan.jumlahBaik}</TableCell>
-                                    <TableCell align="center">{laporan.jumlahBS}</TableCell>
-                                    <TableCell align="center">{laporan.status === 1? 
-                                        <div className="badgeStatusWaiting">Menunggu Verifikasi</div>:
-                                            laporan.status === 2? 
-                                            <div className="badgeStatusAktif">Terverifikasi</div>:
-                                            <div className="badgeStatusNon">Proses Banding</div>}
-                                    </TableCell>
-                                    <TableCell align="center">{laporan.pernahBanding === true? 
-                                        <div className="badgeStatusNon">Pernah Banding</div>:
-                                            <div className="badgeStatusAktif">Aman</div>}
-                                    </TableCell>
-                                    <TableCell align="center" style={{width: '20%'}}>
-                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
-                                            Detail
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
             <div className='tableContainer'>
                 <table size='string' className="table" aria-label="simple table">
                     <thead>
@@ -257,7 +214,6 @@ export default function QualityControl(props) {
                     </tbody>
                 </table>
             </div>
-            </TableContainer>
         )
     }
 

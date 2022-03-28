@@ -99,9 +99,6 @@ export default function MasterPembayaranGaji(props) {
     let dataKu= [];
     let pageKu = [];
     let counter = false;
-    if(data){
-        console.log(data);
-    }
     if(data === undefined || loading){
 
     }else if(data.getPembayaranGaji.count){
@@ -129,73 +126,71 @@ export default function MasterPembayaranGaji(props) {
     if(!data || loading){
         dataKu.push(<p key={0} className="badgeStatusWaiting">Memuat....</p>)
     }else if(data.getPembayaranGaji.rows.length === 0){
-        console.log(data.getPembayaranGaji.rows.length)
         dataKu.push(<p key={0} className="badgeStatusNonText">Tidak ada Slip Pembayaran Gaji</p>)
     }else if(data.getPembayaranGaji.rows.length > 0 && !counter){
-        console.log(data.getPembayaranGaji.rows.length)
         dataKu.push(
             <div className='tableContainer'>
-                <table size='string' className="table" aria-label="simple table">
-                    <thead>
-                        <tr>
-                            <th>Nama Karyawan</th>
-                            <th>Jenis Kontrak</th>
-                            <th>Masa Kontrak</th>
-                            <th>Total Gaji</th>
-                            <th>Tanggal Pembayaran</th>
-                            <th>Status</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            data.getPembayaranGaji.rows.map((laporan,index) =>(
-                                <tr key={index} >
-                                    <td data-label="Nama">{laporan.kontrak.karyawan?.nama}</td>
-                                    <td data-label="Jenis Kontrak">{laporan.kontrak.jenisKontrak}</td>
-                                    <td data-label="Masa Kontrak">
-                                        {
-                                            dayjs(laporan.kontrak.tanggalMulai).format("DD-MM-YYYY")
-                                        } - {
-                                            dayjs(laporan.kontrak.tanggalBerakhir).format("DD-MM-YYYY")
-                                        }
-                                    </td>
-                                    <td data-label="Total Gaji">
-                                        <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
-                                    </td>
-                                    <td data-label="Tanggal Pembayaran">
-                                        {
-                                            laporan.status === 4 ? 
-                                            dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"): 
+            <table size='string' className="table" aria-label="simple table">
+                <thead>
+                    <tr>
+                        <th>Nama Karyawan</th>
+                        <th>Jenis Kontrak</th>
+                        <th>Masa Kontrak</th>
+                        <th>Total Gaji</th>
+                        <th>Tanggal Pembayaran</th>
+                        <th>Status</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        data.getPembayaranGaji.rows.map((laporan,index) =>(
+                            <tr key={index} >
+                                <td data-label="Nama">{laporan.kontrak.karyawan?.nama}</td>
+                                <td data-label="Jenis Kontrak">{laporan.kontrak.jenisKontrak}</td>
+                                <td data-label="Masa Kontrak">
+                                    {
+                                        dayjs(laporan.kontrak.tanggalMulai).format("DD-MM-YYYY")
+                                    } - {
+                                        dayjs(laporan.kontrak.tanggalBerakhir).format("DD-MM-YYYY")
+                                    }
+                                </td>
+                                <td data-label="Total Gaji">
+                                    <CurrencyFormat displayType={'text'} value={laporan.totalGaji} thousandSeparator={'.'} decimalSeparator={','} prefix={'Rp'} />
+                                </td>
+                                <td data-label="Tanggal Pembayaran">
+                                    {
+                                        laporan.status === 4 ? 
+                                        dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"): 
+                                            laporan.status === 2?
+                                            dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"):
+                                            "-"
+                                    }
+                                </td>
+                                <td data-label="Status">
+                                    {
+                                        laporan.status === 0?
+                                            <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi HRD</p>:
+                                            laporan.status === 1?
+                                                <p key={0} className="badgeStatusWaiting">Menunggu Pembayaran</p>:
                                                 laporan.status === 2?
-                                                dayjs(laporan.tanggalPembayaran).format("DD-MM-YYYY"):
-                                                "-"
-                                        }
-                                    </td>
-                                    <td data-label="Status">
-                                        {
-                                            laporan.status === 0?
-                                                <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi HRD</p>:
-                                                laporan.status === 1?
-                                                    <p key={0} className="badgeStatusWaiting">Menunggu Pembayaran</p>:
-                                                    laporan.status === 2?
-                                                    <p key={0} className="badgeStatusAktif">Selesai</p>:
-                                                        laporan.status === 3?
-                                                        <p key={0} className="badgeStatusNon">Dibatalkan</p>:
-                                                        <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi Penerimaan</p>
-                                        }
-                                    </td>
-                                    <td data-label="#">
-                                        <Button variant="info" onClick={() => goToDetail(laporan)}>
-                                            Detail
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>
+                                                <p key={0} className="badgeStatusAktif">Selesai</p>:
+                                                    laporan.status === 3?
+                                                    <p key={0} className="badgeStatusNon">Dibatalkan</p>:
+                                                    <p key={0} className="badgeStatusWaiting">Menunggu Verifikasi Penerimaan</p>
+                                    }
+                                </td>
+                                <td data-label="#">
+                                    <Button variant="info" onClick={() => goToDetail(laporan)}>
+                                        Detail
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
         )
         counter = true;
     }
