@@ -36,7 +36,9 @@ const getNilaiKaryawan = gql`
                     namaJabatan tingkatJabatan
                 } hPenilaianHRD{
                     totalNilai
-                } totalNilaiKuisioner
+                } hPenilaianKuisioner{
+                    totalNilai
+                }
             }
         }
     }
@@ -70,7 +72,7 @@ export default function DaftarPenilaian(props) {
     const [selectedDateAwal, setSelectedDateAwal] = useState(new Date());
     const [divisiKontrak, setDivisiKontrak] = useState("");
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
-    const [orderBy, setOrderBy] = useState("");
+    const [orderBy, setOrderBy] = useState("Nilai Tertinggi");
     const { loading, data, refetch } = useQuery(getNilaiKaryawan,{
         variables: {
             page: parseInt(pageNumber),
@@ -127,8 +129,9 @@ export default function DaftarPenilaian(props) {
     }else if(data.getNilaiKaryawan.rows.length === 0){
         dataKu.push(<p key={1} className="badgeStatusNonText">Tidak Ada Penilaian Yang Tersedia</p>)
     }else if(data.getNilaiKaryawan.rows.length > 0 && !counter){
-        console.log("asd");
+        console.log("data")
         console.log(data.getNilaiKaryawan.rows)
+        var counterNilai = 0;
         dataKu.push(
             <div className='tableContainer'>
                 <table size='string' className="table" aria-label="simple table">
@@ -145,15 +148,21 @@ export default function DaftarPenilaian(props) {
                         {
                             data.getNilaiKaryawan.rows.map((laporan,index) =>(
                                 <tr key={index} >
+                                    {
+                                        laporan.hPenilaianKuisioner.map(element =>{
+                                            counterNilai+= element.totalNilai
+                                        })
+                                    }
                                     <td data-label="Nama">{laporan.nama}</td>
                                     <td data-label="Divisi">{laporan.jabatan.tingkatJabatan === 2? "Ketua ":
                                             laporan.jabatan.tingkatJabatan === 4? "Ketua ": "Anggota "}
                                             {laporan.jabatan.namaJabatan}</td>
                                     <td data-label="Nilai HRD" align='right'>
-                                        {laporan.hPenilaianHRD === null? "Belum Ada Penilaian": laporan.hPenilaianHRD[0].totalNilai}
+                                        {laporan.hPenilaianHRD.length === 0? "0": laporan.hPenilaianHRD[0]?.totalNilai}
                                     </td>
-                                    <td data-label="Nilai Kuisioner" align='right'>{laporan.totalNilaiKuisioner}</td>
-                                    <td data-label="Total Nilai" align='right'>{(laporan.hPenilaianHRD[0]?.totalNilai + laporan.totalNilaiKuisioner)}</td>
+                                    <td data-label="Nilai Kuisioner" align='right'>{counterNilai}</td>
+                                    <td data-label="Total Nilai" align='right'>{laporan.hPenilaianHRD.length === 0? (counterNilai) :(laporan.hPenilaianHRD[0]?.totalNilai + counterNilai)}</td>
+                                    <p hidden>{counterNilai = 0}</p>
                                 </tr>
                             ))
                         }
@@ -264,7 +273,6 @@ export default function DaftarPenilaian(props) {
                                 setOrderBy(e.target.value)
                             }
                         >
-                            <option value=""></option>
                             <option value="Nilai Tertinggi">Nilai Tertinggi</option>
                             <option value="Nilai Terendah">Nilai Terendah</option>
                         </Form.Control>

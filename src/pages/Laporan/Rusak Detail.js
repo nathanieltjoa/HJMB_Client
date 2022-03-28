@@ -104,7 +104,8 @@ export default function DetailRusak(props) {
                                 <p className="childLeft">Keterangan</p>
                                     <p className="childRight">: {dataLaporan.keterangan}</p>
                             </Card.Text>
-                            {dataLaporan?.foto === undefined ? null : <img src={dataLaporan?.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/> }
+                            {dataLaporan?.foto === undefined ? null :
+                                dataLaporan.foto === "-"? null: <img src={dataLaporan?.foto.replace("localhost:4000", URL)} alt="" id="img" className="img" width="250" height="200"/> }
                         </Card.Body>
                     </Card>
                 </Col>

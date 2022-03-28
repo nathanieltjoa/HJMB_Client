@@ -164,7 +164,9 @@ export default function PermintaanDirektur(props) {
                                             <div className="badgeStatusWaiting">Menunggu Verifikasi HRD</div>:
                                                 laporan.status === 3?
                                                 <div className="badgeStatusAktif">Di Terima</div>:
-                                                <div className="badgeStatusNon">Di Tolak</div>}
+                                                    laporan.status === 4?
+                                                    <div className="badgeStatusAktif">Menunggu Verifiksi Direktur</div>:
+                                                    <div className="badgeStatusNon">Di Tolak</div>}
                                     </td>
                                     <td data-label="#">
                                         <Button variant="info" onClick={() => goToDetail(laporan)}>
