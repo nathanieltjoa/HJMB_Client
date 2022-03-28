@@ -93,7 +93,7 @@ export default function PermintaanSuratDirektur(props) {
 
     const goToDetail = (laporan) => {
         history.push({
-            pathname: '/surat/detail surat',
+            pathname: '/direktur/surat/detail surat',
             state: { laporan: laporan }
         });
     }
@@ -150,7 +150,6 @@ export default function PermintaanSuratDirektur(props) {
                             data.getListSuratMaster.rows.map((laporan,index) =>(
                                 <tr key={index} >
                                     <td data-label="Nama">{laporan.karyawan?.nama}</td>
-                                    <td data-label="Dinas">{laporan.dinas}</td>
                                     <td data-label="Tanggal Permintaan">{dayjs(laporan.tanggalKerja).format('DD-MM-YYYY')}</td>
                                     <td data-label="Tanggal Laporan">{dayjs(laporan.createdAt).format('DD-MM-YYYY HH:mm:ss')}</td>
                                     <td data-label="Keterangan">{laporan.keterangan}</td>

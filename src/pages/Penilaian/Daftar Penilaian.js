@@ -161,7 +161,7 @@ export default function DaftarPenilaian(props) {
                                         {laporan.hPenilaianHRD.length === 0? "0": laporan.hPenilaianHRD[0]?.totalNilai}
                                     </td>
                                     <td data-label="Nilai Kuisioner" align='right'>{counterNilai}</td>
-                                    <td data-label="Total Nilai" align='right'>{laporan.hPenilaianHRD.length === 0? "0" :(laporan.hPenilaianHRD[0]?.totalNilai + counterNilai)}</td>
+                                    <td data-label="Total Nilai" align='right'>{laporan.hPenilaianHRD.length === 0? (counterNilai) :(laporan.hPenilaianHRD[0]?.totalNilai + counterNilai)}</td>
                                     <p hidden>{counterNilai = 0}</p>
                                 </tr>
                             ))

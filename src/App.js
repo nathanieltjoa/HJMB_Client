@@ -90,7 +90,7 @@ import MasterGajiDirektur from './pages/Direktur/Kontrak/MasterGaji';
 import MasterIuranDirektur from './pages/Direktur/Kontrak/MasterIuran';
 import MasterKontrakDirektur from './pages/Direktur/Kontrak/Master Kontrak';
 import DetailKontrakDirektur from './pages/Direktur/Kontrak/Detail Kontrak';
-import MasterPembayaranGajiDirektur from './pages/Kontrak/Master Pembayaran Gaji';
+import MasterPembayaranGajiDirektur from './pages/Direktur/Kontrak/Master Pembayaran Gaji';
 import DetailPembayaranGajiDirektur from './pages/Direktur/Kontrak/Detail Pembayaran Gaji';
 import PermintaanPinjamanDirektur from './pages/Direktur/Permintaan/Permintaan Utang';
 import DetailPinjamanDirektur from './pages/Direktur/Permintaan/Detail Utang';
@@ -230,10 +230,10 @@ function App() {
               <DynamicRoute path='/direktur/penilaian/master nilai' exact component={MasterNilaiDirektur} authenticated />
               <DynamicRoute path='/direktur/izin/master izin' exact component={MasterIzinDirektur} authenticated />
               <DynamicRoute path='/direktur/promosi/daftar permintaan promosi' exact component={DaftarPermintaanPromosi} authenticated />
-              <DynamicRoute path='/direktur/surat/daftar surat keterangan' exact component={DaftarSuratPerintahDirektur} authenticated />
-              <DynamicRoute path='/direktur/surat/detail surat' exact component={DetailSuratPerintahDirektur} authenticated />
-              <DynamicRoute path='/direktur/surat/daftar surat perintah' exact component={PermintaanSuratDirektur} authenticated />
-              <DynamicRoute path='/direktur/surat/detail surat perintah' exact component={DetailSuratDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/daftar surat perintah' exact component={DaftarSuratPerintahDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/detail surat perintah' exact component={DetailSuratPerintahDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/daftar surat keterangan' exact component={PermintaanSuratDirektur} authenticated />
+              <DynamicRoute path='/direktur/surat/detail surat' exact component={DetailSuratDirektur} authenticated />
               <DynamicRoute path='/logout' exact logout />
             </Switch>
           </Container>

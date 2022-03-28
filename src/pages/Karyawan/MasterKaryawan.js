@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Card, Button, Container} from 'react-bootstrap';
+import { Row, Col, Form, Button, Container} from 'react-bootstrap';
 import { gql, useLazyQuery, useQuery} from '@apollo/client';
 import ReactPaginate from 'react-paginate';
 import 'react-datepicker/dist/react-datepicker.css'
@@ -20,10 +20,12 @@ const getListKaryawanMaster = gql`
     query getListKaryawanMaster(
         $page: Int 
         $limit: Int 
+        $nama: String 
     ){
         getListKaryawanMaster(
             page: $page
             limit: $limit
+            nama: $nama
         ){
             count rows{
                 id nama nik noTelp tanggalMasuk tempatLahir tanggalLahir alamat agama pendidikan foto jabatan{
@@ -38,6 +40,7 @@ export default function MasterKaryawan(props) {
     let history = useHistory();
     const [pageNumber, setPageNumber] = useState(0);
     const [limit, setLimit] = useState(10);
+    const [nama, setNama] = useState("");
     const [selectedDateAwal, setSelectedDateAwal] = useState(null);
     const [selectedDateAkhir, setSelectedDateAkhir] = useState(null);
     const { 
@@ -53,8 +56,14 @@ export default function MasterKaryawan(props) {
         variables: {
             page: pageNumber,
             limit: limit,
+            nama: nama
         }
     });
+
+    
+    useEffect(() => {
+        refetchKaryawan()
+    }, [nama])
 
     const changePage = ({ selected }) => {
         setPageNumber(selected)
@@ -217,6 +226,22 @@ export default function MasterKaryawan(props) {
                     <h1 className="text-center">Master Karyawan</h1>
                     {dataKu}
                 </Col>
+            </Row>
+            <Row className="bg-white">
+                <Col className='col-md-4'>
+                    <Form.Group>
+                        <Form.Label>Cari Berdasarkan Nama: </Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            name="nama"
+                            value= {nama}
+                            onChange={e => 
+                                setNama(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row className="bg-white justify-content-center">
                 <Col className="col-md-12">
                     {dataKaryawanKu}
                     <div className="pageContainerKu">

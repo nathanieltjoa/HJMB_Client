@@ -33,7 +33,7 @@ export default function DetailSuratPerintahDirektur(props) {
       <Container className="containerKu">
         <Row>
             <Col>
-                <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/surat/daftar surat perintah'})} className="iconBack"/>
+                <BiIcons.BiArrowBack size="50" onClick={() => history.push({pathname: '/direktur/surat/daftar surat perintah'})} className="iconBack"/>
             </Col>
         </Row>
         <Row className="justify-content-center">

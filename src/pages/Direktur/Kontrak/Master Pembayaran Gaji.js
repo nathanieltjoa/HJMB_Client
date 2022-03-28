@@ -1,5 +1,5 @@
 import React, {useState, Fragment, useEffect} from 'react'
-import { Row, Col, Form, Button, Alert, Container, Badge} from 'react-bootstrap';
+import { Row, Col, Form, Button, Alert, Container, Badge, Modal} from 'react-bootstrap';
 import { gql, useQuery, useMutation, useLazyQuery} from '@apollo/client';
 import dayjs from 'dayjs'
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +15,21 @@ import { CCard, CCardBody, CImage } from '@coreui/react';
 import ReactPaginate from 'react-paginate';
 import DatePicker from 'react-datepicker'
 import CurrencyFormat from 'react-currency-format';
+
+const registerPembayaranGaji = gql`
+    mutation registerPembayaranGaji(
+        $idKaryawan: Int 
+        $jumlahLembur: Int
+  ) {
+    registerPembayaranGaji(
+        idKaryawan: $idKaryawan
+        jumlahLembur: $jumlahLembur
+    ) {
+        id
+    }
+  }
+`;
+
 
 const getPembayaranGaji = gql`
 query getPembayaranGaji(
@@ -51,6 +66,18 @@ query getListDivisi{
 }
 `;
 
+const getListKaryawanPembayaranGaji = gql`
+query getListKaryawanPembayaranGaji(
+    $divisi: String 
+){
+    getListKaryawanPembayaranGaji(
+        divisi: $divisi
+    ){
+        id nama
+  }
+}
+`;
+
 const getListKaryawanKontrak = gql`
 query getListKaryawanKontrak(
     $divisi: String 
@@ -62,10 +89,16 @@ query getListKaryawanKontrak(
   }
 }
 `;
+
 export default function MasterPembayaranGaji(props) {
     let history = useHistory();
+    const [id, setId] = useState(-1);
     const [page, setPage] = useState(0);
     const [limit, setLimit] = useState(10);
+    const [idKaryawan, setIdKaryawan] = useState(0);
+    const [lembur, setLembur] = useState(0);
+    const [divisi, setDivisi] = useState("");
+    const [bulan, setBulan] = useState("1");
     const [orderBy, setOrderBy] = useState("");
     const [selectedDateAwal, setSelectedDateAwal] = useState("");
     const [status, setStatus] = useState(-1);
@@ -73,17 +106,15 @@ export default function MasterPembayaranGaji(props) {
     const [karyawanKontrak, setKaryawanKontrak] = useState("");
 
     const goToDetail = (laporan) => {
-        console.log("asd");
-        console.log(laporan)
         history.push({
-            pathname: '/kontrak/detail pembayaran gaji',
+            pathname: '/direktur/kontrak/detail pembayaran gaji',
             state: { laporan: laporan }
         });
     }
 
     const { loading, data, refetch } = useQuery(getPembayaranGaji,{
         variables:{
-            page: parseInt(page),
+            page: parseInt(page +1),
             limit: parseInt(limit),
             orderBy: orderBy,
             karyawan: parseInt(karyawanKontrak),
@@ -216,6 +247,34 @@ export default function MasterPembayaranGaji(props) {
         counterDivisi = true;
     }
 
+    useEffect(() => {
+        getKaryawanKu({
+            variables: {
+                divisi: divisi
+            }
+        })
+    }, [divisi])
+    
+    const [getKaryawanKu,{ 
+        loading: loadingKaryawan,
+        data: dataKaryawan 
+    }] = useLazyQuery(getListKaryawanPembayaranGaji);
+
+    let dataKaryawanKu = [];
+    let counterKaryawan = false;
+    if(!dataKaryawan || loadingKaryawan){
+
+    }else if(dataKaryawan.getListKaryawanPembayaranGaji.length === 0){
+        
+    }else if(dataKaryawan.getListKaryawanPembayaranGaji.length > 0 && !counterKaryawan){
+        dataKaryawanKu.push(dataKaryawan.getListKaryawanPembayaranGaji.map((karyawan,index) =>(
+            <option key={index} value={karyawan.id}>
+                {karyawan.nama}
+            </option>
+        )))
+        counterKaryawan = true;
+    }
+
     const { 
         loading: loadingKaryawanKontrak, 
         data: dataKaryawanKontrak, 
@@ -238,94 +297,94 @@ export default function MasterPembayaranGaji(props) {
     }
     
     return (
-        <Fragment>
-            <Container className="containerKu">
-                <Row className="bg-white justify-content-center">
-                    <Col><h1 className="text-center">Master Pembayaran Gaji</h1></Col>
-                </Row>
-                <Row>
-                    <Col className="col-md-4">
-                        <Form.Group as={Col}>
-                            <Form.Label>Divisi Karyawan</Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={divisiKontrak} 
-                                onChange={e => 
-                                    setDivisiKontrak(e.target.value)
-                                }
-                            >
-                                <option value=""></option>
-                                {dataDivisiKu}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Karyawan: </Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={karyawanKontrak} 
-                                onChange={e => 
-                                    setKaryawanKontrak(e.target.value)
-                                }
-                            >
-                                <option value=""></option>
-                                {dataKaryawanKontrakKu}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Status Laporan: </Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={status} 
-                                onChange={e => 
-                                    setStatus(e.target.value)
-                                }
-                            >
-                            <option value="-1">Semuanya</option>
-                            <option value="0">Menunggu Verifikasi HRD</option>
-                            <option value="1">Menunggu Pembayaran Gaji</option>
-                            <option value="2">Selesai</option>
-                            <option value="3">Dibatalkan</option>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Bulan</Form.Label>
-                            <DatePicker
-                                selected={selectedDateAwal}
-                                onChange={date => setSelectedDateAwal(date)}
-                                dateFormat='MM-yyyy'
-                                maxDate={new Date()}
-                                showMonthYearPicker
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row className="d-flex flex-row-reverse">
-                    <Col className="col-md-4">
-                        <Form.Group as={Col}>
-                            <Form.Label>Urutkan Berdasar: </Form.Label>
-                            <Form.Control 
-                                as="select" 
-                                value={orderBy} 
-                                onChange={e => 
-                                    setOrderBy(e.target.value)
-                                }
-                            >
-                                <option value=""></option>
-                                <option value="Slip Terbaru">Slip Terbaru</option>
-                                <option value="Slip Terlama">Slip Terlama</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        {dataKu}
-                        <div className="pageContainerKu">
-                            {pageKu}
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </Fragment>
+        <Container className="containerKu">
+            <Row className="bg-white justify-content-center">
+                <Col>
+                    <h1 className="text-center">Master Pembayaran Gaji</h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="col-md-4">
+                    <Form.Group as={Col}>
+                        <Form.Label>Divisi Karyawan</Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={divisiKontrak} 
+                            onChange={e => 
+                                setDivisiKontrak(e.target.value)
+                            }
+                        >
+                            <option value=""></option>
+                            {dataDivisiKu}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Karyawan: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={karyawanKontrak} 
+                            onChange={e => 
+                                setKaryawanKontrak(e.target.value)
+                            }
+                        >
+                            <option value=""></option>
+                            {dataKaryawanKontrakKu}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Status Laporan: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={status} 
+                            onChange={e => 
+                                setStatus(e.target.value)
+                            }
+                        >
+                        <option value="-1">Semuanya</option>
+                        <option value="0">Menunggu Verifikasi HRD</option>
+                        <option value="1">Menunggu Pembayaran Gaji</option>
+                        <option value="2">Selesai</option>
+                        <option value="3">Dibatalkan</option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Bulan</Form.Label>
+                        <DatePicker
+                            selected={selectedDateAwal}
+                            onChange={date => setSelectedDateAwal(date)}
+                            dateFormat='MM-yyyy'
+                            maxDate={new Date()}
+                            showMonthYearPicker
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row className="d-flex flex-row-reverse">
+                <Col className="col-md-4">
+                    <Form.Group as={Col}>
+                        <Form.Label>Urutkan Berdasar: </Form.Label>
+                        <Form.Control 
+                            as="select" 
+                            value={orderBy} 
+                            onChange={e => 
+                                setOrderBy(e.target.value)
+                            }
+                        >
+                            <option value=""></option>
+                            <option value="Slip Terbaru">Slip Terbaru</option>
+                            <option value="Slip Terlama">Slip Terlama</option>
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {dataKu}
+                    <div className="pageContainerKu">
+                        {pageKu}
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }

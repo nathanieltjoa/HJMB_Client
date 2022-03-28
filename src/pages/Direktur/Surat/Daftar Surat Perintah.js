@@ -94,7 +94,7 @@ export default function DaftarSuratPerintahDirektur(props) {
 
     const goToDetail = (laporan) => {
         history.push({
-            pathname: '/surat/detail surat perintah',
+            pathname: '/direktur/surat/detail surat perintah',
             state: { laporan: laporan }
         });
     }

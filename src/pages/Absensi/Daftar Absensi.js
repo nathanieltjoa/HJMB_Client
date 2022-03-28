@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Card, Button, Container} from 'react-bootstrap';
+import { Row, Col, Form, Card, Button, Container} from 'react-bootstrap';
 import { gql, useLazyQuery, useQuery} from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 /*import Table from '@material-ui/core/Table';
@@ -20,15 +20,17 @@ const getAbsensi = gql`
         $limit: Int 
         $tglAwal: MyDate
         $tglAkhir: MyDate
+        $nama: String 
     ){
         getAbsensi(
             page: $page 
             limit: $limit
             tglAwal: $tglAwal
             tglAkhir: $tglAkhir
+            nama: $nama
         ){
             count rows{
-                namaKaryawan tanggal scanMasuk scanPulang terlambat jamBolos absen lembur jamKerja{
+                karyawan{nama} tanggal scanMasuk scanPulang terlambat jamBolos absen lembur jamKerja{
                     namaShift jamMasuk jamKeluar
                 }
             }
@@ -38,7 +40,8 @@ const getAbsensi = gql`
 
 export default function DaftarAbsensi(props) {
     const [pageNumber, setPageNumber] = useState(0);
-    const [limit, setLimit] = useState(5);
+    const [limit, setLimit] = useState(10);
+    const [nama, setNama] = useState("");
     const [selectedDateAwal, setSelectedDateAwal] = useState(null);
     const [selectedDateAkhir, setSelectedDateAkhir] = useState(null);
     const [getAbsensiKu, { loading, data }] = useLazyQuery(getAbsensi);
@@ -106,7 +109,7 @@ export default function DaftarAbsensi(props) {
                         {
                             data.getAbsensi.rows.map((laporan,index) =>(
                                 <tr key={index} >
-                                    <td data-label="Nama">{laporan.namaKaryawan}</td>
+                                    <td data-label="Nama">{laporan.karyawan?.nama}</td>
                                     <td data-label="Tanggal">{dayjs(laporan.tanggal).format('DD-MM-YYYY')}</td>
                                     <td data-label="Shift">{laporan.jamKerja.namaShift}</td>
                                     <td data-label="Jam Masuk">{laporan.jamKerja.jamMasuk}</td>
@@ -133,9 +136,21 @@ export default function DaftarAbsensi(props) {
                 limit: limit,
                 tglAwal: selectedDateAwal,
                 tglAkhir: selectedDateAkhir,
+                nama: nama,
             }
         })
     }, [pageNumber])
+    useEffect(() => {
+        getAbsensiKu({
+            variables: {
+                page: pageNumber,
+                limit: limit,
+                tglAwal: selectedDateAwal,
+                tglAkhir: selectedDateAkhir,
+                nama: nama,
+            }
+        })
+    }, [nama])
     return (
         <Container className="containerKu">
             <Row className="bg-white p-0 justify-content-center">
@@ -177,6 +192,20 @@ export default function DaftarAbsensi(props) {
                     })}>
                         Cari
                     </Button>
+                </Col>
+            </Row>
+            <Row style={{marginTop: 10, marginBottom: 10}}>
+                <Col className="col-md-4">
+                    <Form.Group>
+                        <Form.Label>Cari Berdasarkan Nama: </Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            name="nama"
+                            value= {nama}
+                            onChange={e => 
+                                setNama(e.target.value)}
+                        />
+                    </Form.Group>
                 </Col>
             </Row>
             <Row>

@@ -29,7 +29,7 @@ query getDetailPembayaranGaji(
 `;
 
 
-export default function DetailKontrak(props) {
+export default function DetailKontrakMaster(props) {
     let history = useHistory();
     const location = useLocation();
     const [dataLaporan, setDataLaporan] = useState([]);
