@@ -36,6 +36,7 @@ export default function DetailMixerPipa(props) {
     const [dataLaporan, setDataLaporan] = useState([]);
     const [visible, setVisible] = useState(false);
     const [detailLaporan, setDetailLaporan] = useState([]);
+    const [foto, setFoto] = useState([]);
     const { loading, data, refetch} = useQuery(getListDetailMixerPipa,{
         variables: {
             id: dataLaporan.id
@@ -49,7 +50,7 @@ export default function DetailMixerPipa(props) {
     }, [location])
 
     const openModal = (laporan) => {
-        console.log(laporan);
+        setFoto(laporan.fLaporan);
         setDetailLaporan(laporan);
         setVisible(true);
     }
@@ -238,9 +239,9 @@ export default function DetailMixerPipa(props) {
                         </Table>
                         <p className="subJudul">Dokumentasi: </p>
                         {
-                            detailLaporan?.fLaporan?.map((element,index) => {
-                                <CImage key={index} src={element.foto.replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
-                            })
+                            foto.map((element,index) => (
+                                <CImage key={index} src={element.foto.toString().replace("localhost:4000", URL)} alt="" id="img" className="img imageCenter" width="250" height="200"/>
+                            ))
                         }
                     </Modal.Body>
                 <Modal.Footer>
